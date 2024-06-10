@@ -316,7 +316,71 @@
             </div>
             </div>
           </div>
-                      -->
+     
+<!-- Formulario para seleccionar fecha y método de pago -->
+<div class="card mb-3">
+  <div class="card-header">
+    <i class="fas fa-search"></i>
+    Consulta de Ventas por Fecha y Método de Pago
+  </div>
+  <div class="card-body">
+    <form id="salesFilterForm" method="GET" action="consult_sales.php">
+      <div class="form-row">
+        <div class="form-group col-md-4">
+          <label for="inputDay">Día:</label>
+          <select class="form-control" id="inputDay" name="day">
+            <?php
+            for ($i = 1; $i <= 31; $i++) {
+              echo "<option value=\"$i\">$i</option>";
+            }
+            ?>
+          </select>
+        </div>
+        <div class="form-group col-md-4">
+          <label for="inputMonth">Mes:</label>
+          <select class="form-control" id="inputMonth" name="month">
+            <?php
+            $months = array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
+            foreach ($months as $key => $value) {
+              echo "<option value=\"" . ($key + 1) . "\">$value</option>";
+            }
+            ?>
+          </select>
+        </div>
+        <div class="form-group col-md-4">
+          <label for="inputYear">Año:</label>
+          <select class="form-control" id="inputYear" name="year">
+            <?php
+            $currentYear = date("Y");
+            for ($i = $currentYear; $i >= $currentYear - 10; $i--) {
+              echo "<option value=\"$i\">$i</option>";
+            }
+            ?>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="inputPaymentMethod">Método de Pago:</label>
+          <select class="form-control" id="inputPaymentMethod" name="payment_method">
+            <option value="contado">Contado</option>
+            <option value="credito">Crédito</option>
+          </select>
+        </div>
+        <div class="form-group col-md-6">
+          <label>&nbsp;</label>
+          <button type="submit" class="btn btn-primary btn-block">Consultar</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+   
+        
+        
+        
+      
         <!-- /.container-fluid -->
 
         <!-- Sticky Footer -->
