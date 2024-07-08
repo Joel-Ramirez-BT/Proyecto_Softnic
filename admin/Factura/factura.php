@@ -40,7 +40,7 @@ $row_cliente=mysqli_fetch_array($resultado_cliente);
 {
 $pdf->Ln(1);
 $pdf->SetFont('Arial','',8);
-$pdf->Cell(60,2,'Servicio: '.$row_cliente['servicio'],0,1,'C');
+$pdf->Cell(60,2,'Servicio: '. substr($row_cliente['servicio'],0,8),0,1,'C'); //cortamos el texto para que no aparezca el identificador
 $pdf->Ln(2);
 $pdf->Cell(60,3,'Factura numero: 00'.$row_id['orderID'],0,1,'C');
 $pdf->Ln(1);

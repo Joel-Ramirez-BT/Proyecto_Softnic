@@ -76,17 +76,21 @@ mysqli_query($conexion,$addOrderQuery);
 		$nombre = ($_POST['nombrec']);
 		$pago =($_POST['forma_pago']);
 		$direccion =($_POST['direccion']); 
-		$servicio =($_POST['servicio']); 
-		$costo =($_POST['costo']); 
+		$servicio =($_POST['servicio']);
+	 	$costo =($_POST['costo']); 
 		
 		$conexion= mysqli_connect('localhost','root','','fosdb');
 
-
+		//Nos aseguramos de agregar un identificador al id
+		if ($servicio == 'Delivery') {
+			$servicio = $servicio . $orderID;
+		}
+		
 		//global $sqlconnection;
 		$addOrderQuery = "INSERT INTO tbl_order (orderID ,status ,order_date, nombre,forma_pago,direccion, servicio, costo) VALUES ('{$orderID}' ,'esperando' ,CURDATE(),'$nombre','$pago', '$direccion', '$servicio','$costo' )";
 
        mysqli_query($conexion,$addOrderQuery);
-
-	}
+		}
+	
 
 ?>

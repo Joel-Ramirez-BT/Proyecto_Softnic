@@ -19,7 +19,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Finanzas | Casa de Watta</title>
+    <title>Estadisticas | Casa de Watta</title>
 
     <!-- Bootstrap core CSS-->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -54,25 +54,10 @@
 
   <body id="page-top">
 
-    <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
-
-      <a class="navbar-brand mr-1" href="index.php">Restaurante | Casa de Watta</a>
-
-      <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
-        <i class="fas fa-bars"></i>
-      </button>
-
-      <!-- Navbar -->
-      <ul class="navbar-nav ml-auto ml-md-0">
-        <li class="nav-item dropdown no-arrow">
-          <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-user-circle fa-fw"></i>
-          </a>
-        </li>
-      </ul>
-
-    </nav>
-
+  <?php 
+  //Incluir la barra superior de navegacion
+  include_once('../include/navbar.php');?>
+  
     <div id="wrapper">
 
       <!------------------ Sidebar ------------------->
@@ -81,59 +66,6 @@
           <a class="nav-link" href="index.php">
             <i class="fas fa-fw fa-tachometer-alt" style="color: #2dfb31;"></i>
             <span>Panel de Control</span>
-          </a>
-        </li>
-
-        
-        <li class="nav-item">
-          <a class="nav-link" href="menu.php">
-            <i class="fas fa-fw fa-utensils" style="color: #2dfb31;"></i>
-            <span>Menú</span></a>
-
-
-
-         <li class="nav-item">
-          <a class="nav-link" href="order.php">
-            <i class="fas fa-duotone fa-table"style="color: #2dfb31;"></i>
-            <span>Ordenar</span>
-          </a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="facturar.php">
-          <i class="fas fa-regular fa-print" style="color: #2dfb31;"></i>
-            <span>Facturar</span></a>
-        </li>
-
-            
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="sales.php">
-            <i class="fas fa-fw fa-chart-area"></i>
-            <span>Finanzas</span></a>
-        </li>
-
-
-      
-<li class="nav-item">
-          <a class="nav-link" href="tables.php">
-            <i class="fas fa-duotone fa-table" style="color: #2dfb31;"></i>
-            <span>Mesas</span>
-          </a>
-        </li>
-
-        
-<li class="nav-item">
-          <a class="nav-link" href="customer.php">
-            <i class="fas fa-fw fa-user-circle" style="color: #2dfb31;"></i>
-            <span>Clientes</span>
-          </a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="configuration.php">
-          <i class="fas fa fa-wrench" aria-hidden="true" style="color: #2dfb31;"></i>
-            <span>Configuraciones</span>
           </a>
         </li>
 
@@ -155,11 +87,11 @@
             <li class="breadcrumb-item">
               <a href="index.php">Panel de Control</a>
             </li>
-            <li class="breadcrumb-item active">Finanzas</li>
+            <li class="breadcrumb-item active">Estadisticas</li>
           </ol>
 
           <!-- Page Content -->
-          <h1><i class="fas fa-fw fa-chart-area"></i> Administración de Finanzas</h1>
+          <h1><i class="fas fa-fw fa-chart-area"></i> Estadisticas</h1>
           <hr>
           <p>Todos los datos de venta se encuentran aquí.</p>
 
@@ -206,33 +138,33 @@
        
 
     <form id="consultaForm">
-        <label for="tabla">Seleccionar Tabla:</label>
-        <select class="form-control form-control-mb" name="tabla" required>
-            <option value="tbl_order">Ordenes</option>
-            <!-- Agregar más opciones según tus tablas -->
-        </select>
-
-
-        <label for="campo">Seleccionar Campo:</label>
+        <label for="campo">Seleccionar datos a mostrar:</label>
 <select class="form-control form-control-mb" name="campo" required>
     <option value="orderID AS '#', status AS 'ESTADO', total AS 'TOTAL', order_date AS 'FECHA', nombre AS 'CLIENTE', forma_pago AS 'FORMA DE PAGO', direccion AS 'DIRECCION', servicio AS 'SERVICIO', costo AS 'COSTO'">TODO</option>
     <option value="nombre AS 'NOMBRE CLIENTE', total AS 'VENTAS'">NOMBRE CLIENTE Y VENTAS</option>
     <option value="SUM(total) AS 'Total de ventas'">TOTAL DE VENTAS</option>
+    <option value="(SELECT servicio FROM tbl_order WHERE servicio like '%Delivery%' LIMIT 1) AS 'SERVICIO', 
+    costo AS 'COSTO'">Delivery realizado</option>
     <!-- Otras opciones de campos según la tabla seleccionada -->
 </select>
+<br>
+<div class="form-group">
+                                    <div class="row">
+                                        <label class="col-sm-3 control-label">Fecha Inicio</label>
+                                        <div class="col-sm-9">
+                                            <input type="date" class="form-control" id="startdate" name="startdate" placeholder="Fecha Inicio" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label class="col-sm-3 control-label">Fecha Fin</label>
+                                        <div class="col-sm-9">
+                                            <input type="date" class="form-control" id="enddate" name="enddate" placeholder="Fecha Fin" />
+                                        </div>
+                                    </div>
+                                </div>
 
-
-
-        <label for="condicion">Agregar Condición:</label>
-        <select class="form-control form-control-mb" name="condicion" required>
-        <option value="1=1;">Ninguna</option>
-        <option value="forma_pago='Contado'">SI pago es de contado</option>
-        <option value="forma_pago='Contado' AND order_date = CURDATE(); ">SI pago es contado de hoy</option>
-        <option value="forma_pago='Credito'">SI pago es al credito</option>
-        <option value="forma_pago='Credito' AND order_date = CURDATE();">Credito de hoy</option>
-            <!-- Opciones de campos según la tabla seleccionada -->
-        </select>
-        <br>
         <input type="button" class="btn btn-success btn-sm " value="Ejecutar Consulta" onclick="realizarConsulta()">
         
     </form>
@@ -276,14 +208,7 @@
         <!-- /.container-fluid -->
 
         <!-- Sticky Footer -->
-        <footer class="sticky-footer">
-          <div class="container my-auto">
-            <div class="copyright text-center my-auto">
-              <span>Copyright © Sistema de Restaurante Brazos Tecnologias</span>
-            </div>
-          </div>
-        </footer>
-
+       <?php  include_once('../include/footer.php');?>
       </div>
       <!-- /.content-wrapper -->
 

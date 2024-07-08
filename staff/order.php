@@ -232,9 +232,17 @@ if ($_SESSION['user_level'] == "admin"){
 								} 
 								?>
 
-								<td><button style="margin-bottom:4px;white-space: normal;" class="btn btn-danger" onclick="displayItem(<?php echo $menuRow['menuID']?>)"><?php echo $menuRow['menuName']?></button>
+<td>
+    <button style="" class="btn btn-success" onclick="displayItem(<?php echo $menuRow['menuID']?>)">
+        <img src="../image/<?php echo $menuRow['menuName'];?>.jpg" alt="" style="width:60px; height:60px; margin-right:1px;">
+        <?php echo $menuRow['menuName']?>
+    </button>
+</td>
 
-                </td>
+
+								<!--<td><button style="margin-bottom:4px;white-space: normal;" class="btn btn-danger" onclick="displayItem(<?php echo $menuRow['menuID']?>)"><?php echo $menuRow['menuName']?></button>
+
+                </td>-->
 							<?php
 
 							$counter++;
