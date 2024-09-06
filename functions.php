@@ -189,12 +189,9 @@
 				echo "A ocurrido un error cerca de la linea 89";
 				echo $sqlconnection->error;
 
-
-
   }
 
   }
 
-	
 
 ?>

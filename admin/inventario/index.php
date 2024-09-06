@@ -109,7 +109,7 @@ while ($row1 = mysqli_fetch_array($resultado)) {
 </select>
 <br>
 
-        <input type="button" class="btn btn-success btn-sm " value="Ejecutar Consulta" onclick="realizarConsulta()">
+        <input type="button" class="btn btn-success btn-sm " value="Procesar" onclick="Mostrarinventario()" >
         
     </form>
 
@@ -118,7 +118,7 @@ while ($row1 = mysqli_fetch_array($resultado)) {
     </div>
     
     <script>
-        function realizarConsulta() {
+        function Mostrarinventario() {
             var form = document.getElementById("consultaForm");
             var formData = new FormData(form);
 

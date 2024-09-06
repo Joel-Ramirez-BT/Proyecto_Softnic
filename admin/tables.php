@@ -133,8 +133,7 @@ include_once('../include/sidebar.php'); // incluye el menu desplegable
               <th>#id</th>
               <th>N° Mesa</th>
               <th>Capacidad</th>
-              <th>Editar</th>
-              <th>Eliminar</th>
+              <th>Opciones</th>
             </tr>
           </thead>
           <tbody id="tblBodyCurrentOrder">
@@ -149,8 +148,12 @@ include_once('../include/sidebar.php'); // incluye el menu desplegable
               echo "<td class='text-center'>" . $row['id'] . "</td>
               <td >" . $row['nombre_table'] . "</td>";
               echo"<td rowspan='' class='text-center'>". $row['capacidad'] . "</td>";
-              echo "<td rowspan='' class='text-center'><a href='editables.php?id=" . $row['id'] . "' class='btn btn-success'>Editar</a></td>";
-              echo "<td rowspan='' class='text-center'><a href='deletetable.php?id=" . $row['id'] . "' class='btn btn-danger'>Eliminar</a></td>";
+              echo "<td rowspan='' class='text-center'>
+              <a href='editables.php?id=" . $row['id'] . "' class='btn btn-warning'>
+              <i class='fas fa-fw fa-edit'></i>
+              </a>
+              <a href='deletetable.php?id=" . $row['id'] . "' class='btn btn-danger'><i class='fas fa-fw fa-trash'></i></a>
+              </td>";
               echo "</tr>";
             }
             ?>

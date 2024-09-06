@@ -35,11 +35,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 foreach ($fila as $valor) {
                     echo "<td class='text-center'>{$valor}</td>";
                 }
-                echo "<td rowspan='' class='text-center'><a href='#' class='btn btn-success'>Añadir</a>
-                <a href='#' class='btn btn-warning'>Editar</a>
-                <a href='#' class='btn btn-danger'>Eliminar</a>
-                </td>";
-                echo "</tr>";
+                echo "<td rowspan='' class='text-center'>
+                <a href='#' class='btn btn-success'><i class='fas fa-regular fa-plus' style=''></i></a>
+                <a href='#' class='btn btn-warning'><i class='fas fa-regular fa-edit' style=''></i></a>
+                <a href='#' class='btn btn-danger'><i class='fas fa-regular fa-trash' style=''></i></a>";
+      echo "</tr>";
             }
             echo "</table>";
         } else {

@@ -36,16 +36,7 @@
     <link href="../css/stylesmac.css" rel="stylesheet">
 
   </head>
-  <style>
-  /* Estilo para el contenedor principal */
-  #wrapper {
-   /* Evita que el contenido se divida en varias líneas */
-    overflow-x: auto; /* Habilita el scroll horizontal */
-   
-  }
-  
-  /* Estilo para los elementos del menú de navegación */
-  </style>
+ 
 
   <body id="page-top">
 

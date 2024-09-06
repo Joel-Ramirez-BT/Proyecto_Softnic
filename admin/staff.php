@@ -195,7 +195,7 @@
                                 </form>
                               </td>
 
-                            	<td class="text-center"><a href="deletestaff.php?staffID=<?php echo $staff['staffID']; ?>" class="btn btn-sm btn-danger">Eliminar</a></td>
+                            	<td class="text-center"><a href="deletestaff.php?staffID=<?php echo $staff['staffID']; ?>" class="btn btn-sm btn-danger"><i class="fas fa-fw fa-trash"></i></a></td>
                         	</tr>
 
                           <?php 

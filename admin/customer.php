@@ -134,11 +134,9 @@ include_once('../include/sidebar.php');
             <tr>
               <th>#id</th>
               <th>Nombre</th>
-              <th>Direccion</th>
+              <th>Dirección</th>
               <th>Telefono</th>
-              <th>F_Creacion</th>
-              <th>Editar</th>
-              <th>Eliminar</th>
+              <th>Opciones</th>
             </tr>
           </thead>
           <tbody id="tblBodyCurrentOrder">
@@ -158,9 +156,11 @@ $conn = new mysqli($servername, $username, $password, $dbname);
               <td >" . $row['nombre'] . "</td>";
               echo"<td rowspan='' class='text-center'>". $row['direccion'] . "</td>";
               echo"<td rowspan='' class='text-center'>". $row['telefono'] . "</td>";
-              echo"<td rowspan='' class='text-center'>". $row['fecha_creacion'] . "</td>";
-              echo "<td rowspan='' class='text-center'><a href='editcustomer.php?id=" . $row['id'] . "' class='btn btn-success'>Editar</a></td>";
-              echo "<td rowspan='' class='text-center'><a href='deletecustomer.php?id=" . $row['id'] . "' class='btn btn-danger'>Eliminar</a></td>";
+              echo "<td rowspan='' class='text-center'>
+              <a href='editcustomer.php?id=" . $row['id'] . "' class='btn btn-warning'><i class='fas fa-fw fa-edit'></i></a>
+              <a href='deletecustomer.php?id=" . $row['id'] . "' class='btn btn-danger'><i class='fas fa-fw fa-trash'></i></a>
+              </td>";
+              
               echo "</tr>";
             }
             ?>

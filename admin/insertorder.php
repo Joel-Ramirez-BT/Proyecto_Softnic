@@ -10,7 +10,6 @@
 			 // Es buena práctica usar exit() después de header() para detener la ejecución del script.
 		}
 		
-
 	if (isset($_POST['sentorder'])) {
 		
 		if (isset($_POST['itemID']) && isset($_POST['itemqty'])) {
@@ -57,29 +56,21 @@
 
 	function insertOrderDetailQuery($orderID,$itemID,$quantity) {
 
-		//global $sqlconnection;
-
-$servername = "localhost";
-$username = "root";
-$password = "";
-$database = "fosdb";
+		global $sqlconnection;
 
 // Crear conexión y enviar la consulta de la orden
-$conexion = mysqli_connect($servername, $username, $password, $database);
 $addOrderQuery = "INSERT INTO tbl_orderdetail (orderID ,itemID ,quantity) VALUES ('{$orderID}', '{$itemID}' , '{$quantity}')";
-mysqli_query($conexion,$addOrderQuery);
+mysqli_query($sqlconnection,$addOrderQuery);
 
 	}
 
 	function insertOrderQuery($orderID,$nombre,$direccion,$servicio,$costo) {
-
+		global $sqlconnection;
 		$nombre = ($_POST['nombrec']);
 		$pago =($_POST['forma_pago']);
 		$direccion =($_POST['direccion']); 
 		$servicio =($_POST['servicio']);
 	 	$costo =($_POST['costo']); 
-		
-		$conexion= mysqli_connect('localhost','root','','fosdb');
 
 		//Nos aseguramos de agregar un identificador al id
 		if ($servicio == 'Delivery') {
@@ -89,7 +80,7 @@ mysqli_query($conexion,$addOrderQuery);
 		//global $sqlconnection;
 		$addOrderQuery = "INSERT INTO tbl_order (orderID ,status ,order_date, nombre,forma_pago,direccion, servicio, costo) VALUES ('{$orderID}' ,'esperando' ,CURDATE(),'$nombre','$pago', '$direccion', '$servicio','$costo' )";
 
-       mysqli_query($conexion,$addOrderQuery);
+       mysqli_query($sqlconnection,$addOrderQuery);
 		}
 	
 

@@ -73,7 +73,7 @@ include_once('../include/sidebar.php');
             <div class="card-header">
               <i class="fas fa-chart-area"></i>
               Lista de Menús
-              <button class="btn btn-success btn-sm float-right" data-toggle="modal" data-target="#addMenuModal">Agregar Categoría</button>
+              <button class="btn btn-success btn-sm float-right" data-toggle="modal" data-target="#addMenuModal"><i class='fas fa-regular fa-plus' style=''></i></button>
 
           </div>
             <div class="card-body">
@@ -94,9 +94,9 @@ include_once('../include/sidebar.php');
 
 					              <i class="fas fa-chart-area"></i>
 					              <?php echo $menuRow["menuName"]; ?>
-  					              <button class="btn btn-danger btn-sm float-right" data-toggle="modal" data-target="#deleteModal" data-category="<?php echo $menuRow["menuName"];?>" data-menuid="<?php echo $menuRow["menuID"];?>">Eliminar</button>
+  					              <button class="btn btn-danger btn-sm float-right" data-toggle="modal" data-target="#deleteModal" data-category="<?php echo $menuRow["menuName"];?>" data-menuid="<?php echo $menuRow["menuID"];?>"><i class='fas fa-regular fa-trash' style=''></i></button>
 
-  					              <button class="btn btn-info btn-sm float-right" data-toggle="modal" data-target="#addItemModal" data-category="<?php echo $menuRow["menuName"];?>" data-menuid="<?php echo $menuRow["menuID"];?>">Agregar</button>
+  					              <button class="btn btn-success btn-sm float-right" data-toggle="modal" data-target="#addItemModal" data-category="<?php echo $menuRow["menuName"];?>" data-menuid="<?php echo $menuRow["menuID"];?>"><i class='fas fa-regular fa-plus' style=''></i></button>
 
 					          	</div>
 					            <div class="card-body">
@@ -201,18 +201,24 @@ include_once('../include/sidebar.php');
 	          <span aria-hidden="true">&times;</span>
 	        </button>
 	      </div>
-	      <div class="modal-body">
-	        <form id="addmenuform" method="POST">
-	        	<div class="form-group">
-		            <label class="col-form-label">Categoría:</label>
-		            <input type="text" required="required" class="form-control" name="menuname" placeholder="Puedes poner algo como postres, bebidas, etc...." >
-		        </div>
-	        </form>
-	      </div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-	        <button type="submit" form="addmenuform" class="btn btn-success" name="addmenu">Agregar</button>
-	      </div>
+		  <div class="modal-body">
+    <form id="addmenuform" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+            <label class="col-form-label">Categoría:</label>
+            <input type="text" required="required" class="form-control" name="menuname" placeholder="Puedes poner algo como postres, bebidas, etc....">
+        </div>
+
+        <div class="form-group">
+            <label class="col-form-label">Cargar Imagen</label>
+            <input type="file" class="form-control" name="menu_imagen" accept="image/*">
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+    <button type="submit" form="addmenuform" class="btn btn-success" name="addmenu">Agregar</button>
+</div>
+
 	    </div>
 	  </div>
 	</div>

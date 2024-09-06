@@ -28,7 +28,10 @@ include("../functions.php");
 						echo "<tr>";
 					}
 
-					echo "<td><button style='margin-bottom:4px;white-space: normal;' class='btn btn-success' onclick = 'setQty({$menuItemRow['itemID']})'>{$menuItemRow['menuItemName']}</button></td>";
+					echo "<td>
+					<button style='margin-bottom:4px;white-space: normal;' class='btn btn-success' onclick = 'setQty({$menuItemRow['itemID']})'>{$menuItemRow['menuItemName']}
+					</button>
+					</td>";
 
 					$counter++;
 				}
