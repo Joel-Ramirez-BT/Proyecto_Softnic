@@ -76,6 +76,11 @@ mysqli_query($sqlconnection,$addOrderQuery);
 		if ($servicio == 'Delivery') {
 			$servicio = $servicio . $orderID;
 		}
+//Nos aseguramos que se asigne un valor en costo
+		if (empty($costo)) {
+			$costo = 0;
+		}
+		
 		
 		//global $sqlconnection;
 		$addOrderQuery = "INSERT INTO tbl_order (orderID ,status ,order_date, nombre,forma_pago,direccion, servicio, costo) VALUES ('{$orderID}' ,'esperando' ,CURDATE(),'$nombre','$pago', '$direccion', '$servicio','$costo' )";
