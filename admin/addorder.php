@@ -7,17 +7,13 @@
 	if($_SESSION['user_level'] != "staff")
 		header("Location: login.php");
 
-	
-
 	if (isset($_POST['sentorder'])) {
-
 		if (isset($_POST['itemID']) && isset($_POST['itemqty'])) {
 
 			$arrItemID = $_POST['itemID'];
 			$arrItemQty = $_POST['itemqty'];
             
              
-
 			
 			//comprobar que el par de la matriz tenga el mismo número de elemento
 			if (count($arrItemID) == count($arrItemQty)) {				
@@ -28,10 +24,12 @@
 
 				//$currentOrderID = getLastID("orderID","tbl_order") + 1;
 
+				//llamada a la funcion de insertar la orden
 				//insertOrderQuery($currentOrderID);
 
 				for ($i=0; $i < $arrlength; $i++) { 
 					insertOrderDetailQuery($currentOrderID,$arrItemID[$i] ,$arrItemQty[$i], $nombre,$direccion,$servicio,$costo);
+					update_inventario($arrItemID[$i], $arrItemQty[$i]);
 				}
 
 				updateTotal($currentOrderID);
@@ -48,14 +46,6 @@
 	}
 
 	function insertOrderDetailQuery($orderID,$itemID,$quantity) {
-
-
-         $nombre = ($_POST['nombrec']);
-  	     $direccion =($_POST['direccion']); 
-		   $servicio =($_POST['servicio']); 
-		   $costo =($_POST['costo']); 
-		   
-
 
 		global $sqlconnection;
 		$addOrderQuery = "INSERT INTO tbl_orderdetail (orderID ,itemID ,quantity) VALUES ('{$orderID}', '{$itemID}' , '{$quantity}')";

@@ -53,12 +53,6 @@
 
 	function insertOrderDetailQuery($orderID,$itemID,$quantity) {
 
-
-         
-		   
-
-
-
 		global $sqlconnection;
 		$addOrderQuery = "INSERT INTO tbl_orderdetail (orderID ,itemID ,quantity) VALUES ('{$orderID}', '{$itemID}' , '{$quantity}')";
 
@@ -85,9 +79,6 @@
 		$servicio =($_POST['servicio']); 
 		$costo =($_POST['costo']); 
 		
-		$conexion= mysqli_connect('localhost','root','','fosdb');
-
-
 		global $sqlconnection;
 		$addOrderQuery = "INSERT INTO tbl_order (orderID ,status ,order_date, nombre,forma_pago,direccion, servicio, costo) VALUES ('{$orderID}' ,'esperando' ,CURDATE(),'$nombre','$pago', '$direccion', '$servicio','$costo' )";
 

@@ -18,9 +18,13 @@ require("../config.php");
             $id= getLastID('id','tbl_table') + 1; //obtener ultimo id
             $nombreMesa = $_POST["nombre_table"];
             $capacidad_mesa = $_POST["capacidad"];
-            
+         
+            //Manega el dato en caso que el usuario no ingrese la capacidad
+            if(empty($capacidad_mesa))
+            {
+             $capacidad_mesa = "0";
 
-
+            }
 
             // Consulta SQL para insertar la mesa en la base de datos
             $sql = "INSERT INTO tbl_table (id,nombre_table,capacidad) VALUES ('$id','$nombreMesa','$capacidad_mesa')";

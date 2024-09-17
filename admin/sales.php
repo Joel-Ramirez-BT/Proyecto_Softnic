@@ -185,7 +185,7 @@
                 }
             };
 
-            xhr.open("POST", "procesar_consulta.php", true);
+            xhr.open("POST", "Estadistica_Controller.php", true);
             xhr.send(formData);
         }
     </script>

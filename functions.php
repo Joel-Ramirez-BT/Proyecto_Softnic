@@ -1,8 +1,6 @@
 <?php
-
-	//established the connection between databse
+	//Establecer conexion con la BBDD
 	require("dbconnection.php");
-
 	session_start();
 	
 	//insert user defined function here
@@ -192,6 +190,27 @@
   }
 
   }
+
+  function update_inventario($itemID, $quantity) {
+    global $sqlconnection;
+
+    // Verificar que los valores no sean NULL o no válidos
+    if ($itemID == NULL || $quantity == NULL) {
+        echo "Error: itemID o quantity no pueden ser nulos.";
+        return;
+    }
+    // Construir la consulta SQL
+    $query = "UPDATE tbl_menuitem SET cantidad_disponible = cantidad_disponible - $quantity WHERE itemID = $itemID";
+
+    // Ejecutar la consulta
+    if ($sqlconnection->query($query) === TRUE) {
+        echo "Se ha actualizado el inventario correctamente.";
+    } else {
+        // Si ocurre un error, mostrar el mensaje detallado
+        echo "Ha ocurrido un error al actualizar el inventario: " . $sqlconnection->error;
+    }
+}
+
 
 
 ?>

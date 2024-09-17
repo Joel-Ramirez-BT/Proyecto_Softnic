@@ -6,10 +6,7 @@ include("../functions.php");
 
   if($_SESSION['user_level'] != "admin")
     header("Location: login.php");
-
-  // echo $_SESSION['uid'];
-  //echo $_SESSION['username'];
-  //echo $_SESSION['user_level'];
+    
 ?>
 
 <!DOCTYPE html>

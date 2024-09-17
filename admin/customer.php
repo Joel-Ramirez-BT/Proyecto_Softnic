@@ -141,12 +141,9 @@ include_once('../include/sidebar.php');
           </thead>
           <tbody id="tblBodyCurrentOrder">
             <?php
-
 require("../config.php");
-  
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-            //$conexion = mysqli_connect('localhost', 'root', '', 'fosdb');
             $consulta = "SELECT * FROM tbl_customer";
             $resultado = mysqli_query($conn, $consulta);
 

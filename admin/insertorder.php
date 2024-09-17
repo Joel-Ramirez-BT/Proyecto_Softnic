@@ -39,9 +39,13 @@
 			            
                     //llamada a la funcion insertorderdetail
 					insertOrderDetailQuery($currentOrderID,$arrItemID[$i] ,$arrItemQty[$i]);
+                    update_inventario($arrItemID[$i], $arrItemQty[$i]);
+                    
+
 				}
 
 				updateTotal($currentOrderID); //funcion actualizar el total
+			
 
 				//Al completar la orden situar en: 
 				header("Location: facturar.php");
@@ -66,12 +70,7 @@ mysqli_query($sqlconnection,$addOrderQuery);
 
 	function insertOrderQuery($orderID,$nombre,$direccion,$servicio,$costo) {
 		global $sqlconnection;
-		$nombre = ($_POST['nombrec']);
-		$pago =($_POST['forma_pago']);
-		$direccion =($_POST['direccion']); 
-		$servicio =($_POST['servicio']);
-	 	$costo =($_POST['costo']); 
-
+		
 		//Nos aseguramos de agregar un identificador al id
 		if ($servicio == 'Delivery') {
 			$servicio = $servicio . $orderID;
@@ -89,4 +88,5 @@ mysqli_query($sqlconnection,$addOrderQuery);
 		}
 	
 
+		
 ?>

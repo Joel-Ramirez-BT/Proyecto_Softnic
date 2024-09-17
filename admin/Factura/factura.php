@@ -23,14 +23,18 @@ $pdf = new FPDF('P','mm',array(80, 150));
 
 $pdf->AddPage();
 // CABECERA
-$pdf->SetFont('Helvetica','',12);
-$pdf->Cell(60,4,'Casa D Watta',0,1,'C');
-$pdf->SetFont('Helvetica','',8);
-$pdf->Cell(60,4,'Donde fue la texaco Guadalupe 1c 1/2 abajo',0,1,'C');
-$pdf->Cell(60,4,'RUC: 281-190284-0002M',0,1,'C');
-$pdf->Cell(60,4,'Telf: 8577-2990 / 8611-3188',0,1,'C');
+$pdf->Image('../../image/watta3.png', 25, -1, 30); // Ajusta la posición X e Y según necesites
 
- 
+// Añadir espacio después de la imagen
+$pdf->Ln(15); // Aumenta el valor si es necesario para crear más espacio
+
+// CABECERA
+$pdf->SetFont('Helvetica','',12);
+//$pdf->Cell(60,4,'Casa D Watta',0,1,'C'); // Si ya tienes el logo, no necesitas este texto
+$pdf->SetFont('Helvetica','',8);
+$pdf->Cell(0,4,'Donde fue la texaco Guadalupe 1c 1/2 abajo',0,1,'C');
+$pdf->Cell(0,4,'RUC: 281-190284-0002M',0,1,'C');
+$pdf->Cell(0,4,'Telf: 8577-2990 / 8611-3188',0,1,'C'); 
  //Consulta para los datos del cliente
 $consulta_cliente = "SELECT nombre,forma_pago, direccion, servicio from tbl_order where orderID='{$_GET["id"]}'";
 $resultado_cliente = mysqli_query($conexion,$consulta_cliente);

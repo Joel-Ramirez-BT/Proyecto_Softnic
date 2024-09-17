@@ -139,66 +139,49 @@ echo '
           <p> órdenes en esta página.</p>
 
           <div class="row">
-            <div class="col-lg-6">
-              <div class="card mb-3">
-                <div class="card-header">
-                  <i class="fas fa-utensils"></i>
-                  Agrgando Ordenes</div>
-                <div class="card-body">
-                  <table class="table table-responsive table-bordered text-center" width="100%" cellspacing="0">
-                  	<tr>
-                  	<?php 
-						$menuQuery = "SELECT * FROM tbl_menu";
+          <div class="col-lg-6">
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <i class="fas fa-utensils"></i> Tomar Órdenes
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-responsive table-bordered text-center" width="100%" cellspacing="0">
+                            <tr>
+                                <?php
+                                $menuQuery = "SELECT * FROM tbl_menu";
+                                $stmt = $sqlconnection->prepare($menuQuery);
+                                $stmt->execute();
+                                $result = $stmt->get_result();
+                                $counter = 0;
 
-						if ($menuResult = $sqlconnection->query($menuQuery)) {
-							$counter = 0;
-							while($menuRow = $menuResult->fetch_array(MYSQLI_ASSOC)) { 
-								if ($counter >=3) {
-									echo "</tr>";
-									$counter = 0;
-								}
+                                while ($menuRow = $result->fetch_assoc()) {
+                                    if ($counter % 3 == 0) {
+                                        echo "</tr><tr>";
+                                    }
+                                    echo "<td>
+        <button class='_favorit' style='margin-bottom:4px; white-space: normal; background-color: #ffffff; color: #000;' onclick='displayItem(" . $menuRow['menuID'] . ")'>
+            " . $menuRow['menuName'] . "
+            <img src='../image/" . $menuRow['menu_imagen'] . "' alt='" . $menuRow['menu_imagen'] . "' style='width:100%; height:auto;'>
+        </button>
+      </td>";
 
-								if($counter == 0) {
-									echo "<tr>";
-								} 
-								?>
+                                    $counter++;
+                                }
+                                $stmt->close();
+                                ?>
+                            </tr>
+                        </table>
+                        <table id="tblItem" class="table table-responsive table-bordered" width="100%" cellspacing="0"></table>
 
-								<td><button style="margin-bottom:4px;white-space: normal;" class="btn btn-danger" onclick="displayItem(<?php echo $menuRow['menuID']?>)"><?php echo $menuRow['menuName']?></button>
-
-                </td>
-							<?php
-
-							$counter++;
-							}
-						}
-					?>
-<!-- 
-
-          <?php
-        $usuario  = "root";
-        $password = "";
-        $servidor = "localhost";
-        $basededatos = "fosdb";
-        $con = mysqli_connect($servidor, $usuario, $password) or die("No se ha podido conectar al Servidor");
-        $db = mysqli_select_db($con, $basededatos) or die("Upps! Error en conectar a la Base de Datos");
-        
-        $sqlClientes         = ("SELECT * FROM  tbl_clientes ORDER BY id DESC LIMIT 10");
-        $dataClientesSelect  = mysqli_query($con, $sqlClientes);
-      ?>
---->
-					</tr>
-                  </table>
-                  <table id="tblItem" class="table table-responsive table-bordered" width="100%" cellspacing="0"></table>
-
-                <div id="qtypanel" hidden="">
-        					Cantidad : <input id="qty" required="required" type="number" min="1" max="50" name="qty" value="1" />
-        					<button class="btn btn-info" onclick = "insertItem()">Listo</button>
-        					<br><br>
-				</div>
-
+                        <div id="qtypanel" hidden="">
+                            Cantidad: <input id="qty" required="required" type="number" min="1" max="50" name="qty" value="1" />
+                            <button class="btn btn-info" onclick="insertItem()">Listo</button>
+                            <br><br>
+                        </div>
+                    </div>
                 </div>
-              </div>
             </div>
+
 
             <div class="col-lg-6">
               <div class="card mb-3">
