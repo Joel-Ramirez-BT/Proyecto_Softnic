@@ -38,7 +38,7 @@
 			}
 
 			else {
-				echo "<tr><td>No hay item en este menu</td></tr>";
+				echo "<tr><td>No hay item en este menú</td></tr>";
 			}
 			
 		}

@@ -44,6 +44,7 @@
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="./inventario/index.php">Inventario</a>
                     <a class="dropdown-item" href="sales.php">Estadisticas</a>
+                    <a class="dropdown-item" href="Statement.php">Cuentas pendientes</a>
                 </div> 
             </li>
 

@@ -33,7 +33,7 @@
 				$currentOrderID = getLastID("orderID","tbl_order") + 1;
            
 				//llamada a la funcion insertar order
-				insertOrderQuery($currentOrderID,$nombre,$direccion,$servicio,$costo);
+				insertOrderQuery($currentOrderID,$nombre,$direccion,$pago,$servicio,$costo);
 
 				for ($i=0; $i < $arrlength; $i++) { 
 			            
@@ -68,7 +68,7 @@ mysqli_query($sqlconnection,$addOrderQuery);
 
 	}
 
-	function insertOrderQuery($orderID,$nombre,$direccion,$servicio,$costo) {
+	function insertOrderQuery($orderID,$nombre,$direccion,$pago,$servicio,$costo) {
 		global $sqlconnection;
 		
 		//Nos aseguramos de agregar un identificador al id
