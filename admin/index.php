@@ -185,22 +185,7 @@ include_once('../include/sidebar.php');
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin.min.js"></script>
     <script sc="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-
-    $( document ).ready(function() {
-        refreshTableOrder();
-    });
-
-    function refreshTableOrder() {
-      $( "#tblBodyCurrentOrder" ).load( "displayorder.php?cmd=display" );
-    }
-
-    //refresh order current list every 3 secs
-    setInterval(function(){ refreshTableOrder(); }, 3000);
-
-  </script>
-
-
+    
   </body>
 
 </html>
