@@ -214,17 +214,17 @@
             
             // Ejecutar la consulta
             if ($sqlconnection->query($query) === TRUE) {
-                echo "<script>alert('Se ha actualizado el inventario correctamente.');</script>";
+                echo "Se ha actualizado el inventario correctamente";
             } else {
                 // Si ocurre un error, mostrar el mensaje detallado
-                echo "<script>alert('Ha ocurrido un error al actualizar el inventario: " . $sqlconnection->error . "');</script>";
+                echo "Ha ocurrido un error al actualizar el inventario";
             }
         } else {
-            // Mostrar un alert cuando el producto es insuficiente
-            echo "<script>windows.location.href='order.php';</script>";
+            
+            echo "producto insuficiente";
         }
     } else {
-        echo "<script>alert('Error: No se encontró el artículo con el ID proporcionado.');</script>";
+        echo "Error: No se encontró el artículo con el ID proporcionado";
     }
 }
 
