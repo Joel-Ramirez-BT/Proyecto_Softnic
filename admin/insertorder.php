@@ -85,6 +85,7 @@ mysqli_query($sqlconnection,$addOrderQuery);
 		$addOrderQuery = "INSERT INTO tbl_order (orderID ,status ,order_date, nombre,forma_pago,direccion, servicio, costo) VALUES ('{$orderID}' ,'esperando' ,CURDATE(),'$nombre','$pago', '$direccion', '$servicio','$costo' )";
 
        mysqli_query($sqlconnection,$addOrderQuery);
+	   
 		}
 	
 

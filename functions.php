@@ -139,37 +139,30 @@
 
 	function updateTotal($orderID) {
 		global $sqlconnection;
-
+	
+		// Construir la consulta SQL
 		$query = "
 			UPDATE tbl_order o
 			INNER JOIN (
-			    SELECT SUM(OD.quantity*mi.price) AS total
-			        FROM tbl_order O
-			        LEFT JOIN tbl_orderdetail OD
-			        ON O.orderID = OD.orderID
-			        LEFT JOIN tbl_menuitem MI
-			        ON OD.itemID = MI.itemID
-			        LEFT JOIN tbl_menu M
-			        ON MI.menuID = M.menuID
-			        
-			        WHERE o.orderID = ".$orderID."
-			) x
+				SELECT SUM(OD.quantity * MI.price) AS total
+				FROM tbl_order O1
+				LEFT JOIN tbl_orderdetail OD ON O1.orderID = OD.orderID
+				LEFT JOIN tbl_menuitem MI ON OD.itemID = MI.itemID
+				WHERE O1.orderID = $orderID
+			) x ON o.orderID = $orderID
 			SET o.total = x.total
-			WHERE o.orderID = ".$orderID."
+			WHERE o.orderID = $orderID
 		";
-
+	
+		// Ejecutar la consulta
 		if ($sqlconnection->query($query) === TRUE) {
-				echo "updated.";
-			} 
-
-		else {
-				//handle
-				echo "someting wong";
-				echo $sqlconnection->error;
-
+			echo "Actualizado correctamente.";
+		} else {
+			// Manejar error
+			echo "Ha ocurrido un error: " . $sqlconnection->error;
 		}
-
 	}
+	
 
   function addstaff($username,$pwd,$role){
 
