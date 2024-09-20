@@ -184,7 +184,7 @@ include_once('../include/sidebar.php');
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin.min.js"></script>
 
-    <script type="text/javascript">
+    <script>
 
     $( document ).ready(function() {
         refreshTableOrder();
