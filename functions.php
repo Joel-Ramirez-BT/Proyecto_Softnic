@@ -191,26 +191,42 @@
 
   }
 
-  function update_inventario($itemID, $quantity) {
+  function update_inventario($itemID, $quantity) {     
     global $sqlconnection;
 
     // Verificar que los valores no sean NULL o no válidos
     if ($itemID == NULL || $quantity == NULL) {
-        echo "Error: itemID o quantity no pueden ser nulos.";
+        echo "<script>alert('Error: itemID o quantity no pueden ser nulos.');</script>";
         return;
     }
-    // Construir la consulta SQL
-    $query = "UPDATE tbl_menuitem SET cantidad_disponible = cantidad_disponible - $quantity WHERE itemID = $itemID";
 
-    // Ejecutar la consulta
-    if ($sqlconnection->query($query) === TRUE) {
-        echo "Se ha actualizado el inventario correctamente.";
+    // Verificar si la cantidad disponible es mayor o igual a la cantidad solicitada
+    $checkQuery = "SELECT cantidad_disponible FROM tbl_menuitem WHERE itemID = $itemID";
+    $result = $sqlconnection->query($checkQuery);
+
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $cantidad_disponible = $row['cantidad_disponible'];
+
+        if ($cantidad_disponible > $quantity) {
+            // Construir la consulta SQL para actualizar el inventario
+            $query = "UPDATE tbl_menuitem SET cantidad_disponible = cantidad_disponible - $quantity WHERE itemID = $itemID";
+            
+            // Ejecutar la consulta
+            if ($sqlconnection->query($query) === TRUE) {
+                echo "<script>alert('Se ha actualizado el inventario correctamente.');</script>";
+            } else {
+                // Si ocurre un error, mostrar el mensaje detallado
+                echo "<script>alert('Ha ocurrido un error al actualizar el inventario: " . $sqlconnection->error . "');</script>";
+            }
+        } else {
+            // Mostrar un alert cuando el producto es insuficiente
+            echo "<script>windows.location.href='order.php';</script>";
+        }
     } else {
-        // Si ocurre un error, mostrar el mensaje detallado
-        echo "Ha ocurrido un error al actualizar el inventario: " . $sqlconnection->error;
+        echo "<script>alert('Error: No se encontró el artículo con el ID proporcionado.');</script>";
     }
 }
-
 
 
 ?>
