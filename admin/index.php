@@ -46,7 +46,7 @@ include("../functions.php");
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
      <!-- Incluyendo jQuery desde CDN -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  
   </head>
 
   <body id="page-top">
@@ -104,7 +104,7 @@ include_once('../include/sidebar.php');
             <div class="col-lg-4">
               <div class="card mb-3">
                 <div class="card-header">
-                  <i class="fas fa-chart-bar""></i>
+                  <i class="fas fa-chart-bar"></i>
                   Disponibilidad del Personal</div>
                 <div class="card-body">
                   <table  class="table table-responsive table-bordered" width="100%" cellspacing="0">
@@ -184,7 +184,7 @@ include_once('../include/sidebar.php');
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin.min.js"></script>
-
+    <script sc="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
 
     $( document ).ready(function() {
