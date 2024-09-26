@@ -12,7 +12,7 @@
     }
 
     .card-header {
-      background-color: #007bff;
+      background-color: #00188f;
       color: #fff;
       border-bottom: 0;
     }
@@ -29,7 +29,7 @@
     }
 
     .table th {
-      background-color: #007bff;
+      background-color: #00188f;
       color: #fff;
       font-weight: bold;
     }
@@ -42,7 +42,7 @@
 
     .sidebar {
       
-      background-color: #2c3e50; /* Cambiar al color que desees */
+      background-color: #00188f; /* Cambiar al color que desees */
       color: #fff;
      
     }
@@ -68,7 +68,8 @@
         color: #fff; /* Blanco para el texto */
     }
     .dropdown-item:hover {
-        background-color: #555; /* Color de fondo al pasar el mouse, opcional */
+        background-color: #009E49
+        ; /* Color de fondo al pasar el mouse, opcional */
     }
 </style>
 

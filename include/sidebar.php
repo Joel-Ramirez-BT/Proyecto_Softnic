@@ -66,7 +66,7 @@
 <!--Estilos del menu de expansion en configuraciones -->
         <style>
         .dropdown-menu {
-            background-color: #2c3e50; /* Negro */
+            background-color: #00188f; /* Negro */
             color: #fff; /* Blanco para el texto */
         }
         .dropdown-item:hover {

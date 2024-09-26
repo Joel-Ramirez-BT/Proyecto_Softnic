@@ -54,7 +54,6 @@ include("../functions.php");
   <?php     
 include_once('../include/navbar.php');
 ?>
- 
 
     <div id="wrapper">
 
@@ -114,7 +113,7 @@ include_once('../include/sidebar.php');
                     </tr>
 
                     <?php 
-                      $displayStaffQuery = "SELECT username,status FROM tbl_staff";
+                      $displayStaffQuery = "SELECT username, status FROM tbl_staff";
 
                           if ($result = $sqlconnection->query($displayStaffQuery)) {
                             while($staff = $result->fetch_array(MYSQLI_ASSOC)) {
@@ -185,8 +184,8 @@ include_once('../include/sidebar.php');
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin.min.js"></script>
     <script sc="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
     <script>
-
     $( document ).ready(function() {
         refreshTableOrder();
     });
@@ -197,7 +196,6 @@ include_once('../include/sidebar.php');
 
     //refresh order current list every 3 secs
     setInterval(function(){ refreshTableOrder(); }, 3000);
-
   </script>
 
 
