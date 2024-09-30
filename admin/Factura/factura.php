@@ -23,7 +23,7 @@ $pdf = new FPDF('P','mm',array(80, 150));
 
 $pdf->AddPage();
 // CABECERA
-$pdf->Image('../../image/watta3.png', 25, -1, 30); // Ajusta la posición X e Y según necesites
+$pdf->Image('../../image/logo.png', 25, -1, 30); // Ajusta la posición X e Y según necesites
 
 // Añadir espacio después de la imagen
 $pdf->Ln(15); // Aumenta el valor si es necesario para crear más espacio

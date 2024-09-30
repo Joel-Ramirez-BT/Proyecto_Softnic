@@ -1,7 +1,7 @@
 <?php
 	require("config.php");
 
-	// Create connection
+	// Crear conexion a la BBDD
 	$sqlconnection = new mysqli($servername, $username, $password,$dbname);
 	$connection = mysqli_connect($servername, $username, $password,$dbname);
 
