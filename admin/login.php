@@ -99,11 +99,11 @@
 
 <style>
   body{
-  background: url(../image/casa.jpg);
+  background: url(../image/casa2.jpg);
 
 }
 .card{
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgb(255, 255, 255);
   border-radius: 5px;
 
 }
