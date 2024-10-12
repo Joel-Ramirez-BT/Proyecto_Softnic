@@ -37,7 +37,7 @@
     <div class="container">
       <div class="card card-login mx-auto mt-5">
         <center><div class="card-header">Usuario de Administrador</div></center>
-        <center><img  src="../image/logo.png" width="100px" 
+        <center><img  src="../image/watta2.jpg" width="100px" 
         style="position: relative;"></center>
         <div class="card-body">
           <form id="loginform">

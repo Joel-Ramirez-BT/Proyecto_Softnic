@@ -94,10 +94,8 @@ include("../../functions.php");
         <label for="campo">Seleccione la categoria:</label>
 <select class="form-control form-control-mb" name="campo" required>
 <?php
-
-$conexion = $sqlconnection;
 $addOrderQuery = "SELECT * FROM tbl_menu;";
-$resultado= mysqli_query($conexion,$addOrderQuery);
+$resultado= mysqli_query($sqlconnection,$addOrderQuery);
 
 while ($row1 = mysqli_fetch_array($resultado)) {
       $id_menu = $row1['menuID'];

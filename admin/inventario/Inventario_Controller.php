@@ -1,12 +1,11 @@
 <?php
 include ('../../dbconnection.php'); // Incluye el archivo de conexión
+include("./addmodal.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $campo = $_POST["campo"];
     
-    // Validar y escapar los datos para prevenir inyecciones SQL (ejemplo básico)
-    //$condicion = mysqli_real_escape_string($conn, $condicion);
-
+    
     // Construir la consulta SQL
     $consulta = "SELECT itemID as 'ID', menuItemName as 'Menu', cantidad_disponible as 'Cantidad Disponible'
     FROM tbl_menuitem $campo;";
@@ -19,6 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($resultado->num_rows > 0) {
             echo "<br><h2>Resultados:</h2>";
             echo "<table border ='1'  class='table table-responsive table-bordered text-center'>";
+            
             // Mostrar encabezados
             echo "<tr>";
             $encabezados = $resultado->fetch_fields();
@@ -35,10 +35,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 foreach ($fila as $valor) {
                     echo "<td class='text-center'>{$valor}</td>";
                 }
-                echo "<td rowspan='' class='text-center'>
-                <a href='#' class='btn btn-success'><i class='fas fa-regular fa-plus' style=''></i></a>
-                <a href='#' class='btn btn-warning'><i class='fas fa-regular fa-edit' style=''></i></a>
-                <a href='#' class='btn btn-danger'><i class='fas fa-regular fa-trash' style=''></i></a>";
+
+                   // Botones de acción
+            $itemID = $fila['ID']; // Tomar el ID del elemento
+            echo "<td class='text-center'>
+                 <button class='btn btn-success' data-toggle='modal' data-target='#addModal' data-id='{$itemID}'><i class='fas fa-plus'></i></button>
+                 <button class='btn btn-warning' data-toggle='modal' data-target='#editModal' data-id='{$itemID}'><i class='fas fa-edit'></i></button>
+                </td>";
       echo "</tr>";
             }
             echo "</table>";
