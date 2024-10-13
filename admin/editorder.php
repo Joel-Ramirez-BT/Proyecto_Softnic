@@ -53,78 +53,9 @@ include("../functions.php");
     <div id="wrapper">
 
       <!------------------ Sidebar ------------------->
-      <ul class="sidebar navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="../admin/index.php">
-            <i class="fas fa-fw fa-tachometer-alt"style="color: #2dfb31;"></i>
-            <span>Panel de Control</span>
-          </a>
-        </li>
-
-
-        
-        <li class="nav-item">
-          <a class="nav-link" href="../admin/menu.php">
-            <i class="fas fa-fw fa-utensils"style="color: #2dfb31;"></i>
-            <span>Menú</span></a>
-        </li>
-        
-        <?php
-
-echo '
-<li class="nav-item">
-<a class="nav-link" href="../staff/order.php">
-  <i class="fas fa-duotone fa-table"></i>
-  <span>Ordenar</span>
-</a>
-</li>
-';
-        ?>
-
-
-<li class="nav-item">
-          <a class="nav-link" href="../admin/facturar.php">
-          <i class="fas fa-regular fa-print" style="color: #2dfb31;"></i>
-            <span>Facturar</span></a>
-        </li>
-
-
-  <li class="nav-item">
-          <a class="nav-link" href="../admin/sales.php">
-            <i class="fas fa-fw fa-chart-area"style="color: #2dfb31;"></i>
-            <span>Finanzas</span></a>
-        </li>
-
-
-        <li class="nav-item">
-          <a class="nav-link" href="../admin/tables.php">
-            <i class="fas fa-duotone fa-table" style="color: #2dfb31;"></i>
-            <span>Mesas</span>
-          </a>
-        </li>
-
-        
-        <li class="nav-item">
-          <a class="nav-link" href="customer.php">
-            <i class="fas fa-fw fa-user-circle" style="color: #2dfb31;"></i>
-            <span>Clientes</span>
-          </a>
-        </li>
-
-
-        <li class="nav-item">
-          <a class="nav-link" href="#" data-toggle="modal" data-target="#logoutModal">
-            <i class="fas fa-fw fa-power-off"style="color: #FF0000;"></i>
-            <span>Cerrar Sesión</span>
-          </a>
-        </li>
-
-      </ul>
-
-      <div id="content-wrapper">
-
-        <div class="container-fluid">
-
+    <?php
+  include_once("./../include/sidebar.php");
+?>
           <!-- Breadcrumbs-->
           <ol class="breadcrumb">
             <li class="breadcrumb-item">

@@ -35,11 +35,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 foreach ($fila as $valor) {
                     echo "<td class='text-center'>{$valor}</td>";
                 }
-
                    // Botones de acción
             $itemID = $fila['ID']; // Tomar el ID del elemento
             echo "<td class='text-center'>
-                 <button class='btn btn-success' data-toggle='modal' data-target='#addModal' data-id='{$itemID}'><i class='fas fa-plus'></i></button>
+                 <button class='btn btn-success' data-toggle='modal' data-target='#addModal' data-id='123'><i class='fas fa-plus'></i>
                  <button class='btn btn-warning' data-toggle='modal' data-target='#editModal' data-id='{$itemID}'><i class='fas fa-edit'></i></button>
                 </td>";
       echo "</tr>";

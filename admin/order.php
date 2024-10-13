@@ -125,7 +125,7 @@ if (!isset($_SESSION['uid']) || !isset($_SESSION['username']) || !isset($_SESSIO
                                 <input type="text" name="direccion" placeholder="Dirección" id="direccion" class="form-control" />
                             </div>
 
-
+                        
                             <script>
  $(document).ready(function() {
    $('#nombrec').on('input', function() {
@@ -173,6 +173,11 @@ if (!isset($_SESSION['uid']) || !isset($_SESSION['username']) || !isset($_SESSIO
 
                             <div class="form-group d-none" id="costoGroup">
                                 <input type="number" name="costo" id="costo" placeholder="Costo de envío (C$)" class="form-control" min="0" max="100">
+                            </div>
+
+                            
+                            <div class="form-group" id="notasGroup">
+                                <input type="text" name="notas" id="notas" placeholder="Nota: (Opcional)" class="form-control" min="0" max="100">
                             </div>
 
                             <table id="tblOrderList" class="table table-responsive table-bordered" width="100%" cellspacing="0">

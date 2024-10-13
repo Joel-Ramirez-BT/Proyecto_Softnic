@@ -115,31 +115,9 @@ while ($row1 = mysqli_fetch_array($resultado)) {
         <!-- Aquí se mostrarán los resultados -->
     </div>
     
-    <script>
-        function Mostrarinventario() {
-            var form = document.getElementById("consultaForm");
-            var formData = new FormData(form);
 
-            var xhr = new XMLHttpRequest();
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState == 4 && xhr.status == 200) {
-                    document.getElementById("resultados").innerHTML = xhr.responseText;
-                }
-            };
-
-            xhr.open("POST", "Inventario_Controller.php", true);
-            xhr.send(formData);
-        }
-    </script>
                     </tbody>
               </table>
-
-
-<!--SEGUNDA TABLA / ESTADISTICAS DE VENTA -->
-
-
-
-
 
 
 
@@ -181,6 +159,39 @@ while ($row1 = mysqli_fetch_array($resultado)) {
         </div>
       </div>
     </div>
+
+
+  <!-- Función javascrpit mostrar inventario-->
+<script>  
+function Mostrarinventario() {
+    var form = document.getElementById("consultaForm");
+    var formData = new FormData(form);
+
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            document.getElementById("resultados").innerHTML = xhr.responseText;
+        }
+    };
+
+    xhr.open("POST", "Inventario_Controller.php", true);
+    xhr.send(formData);
+}
+ </script>
+
+<script>
+// Cuando el modal se va a mostrar, capturar data-id del botón que lo activó
+$('#addModal').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget); // El botón que abrió el modal
+    var id = button.data('id'); // Extraer el valor de data-id
+
+    // Actualizar el contenido del modal con el id extraído
+    var modal = $(this);
+    modal.find('.modal-body #modalItemId').text(id); // Mostrar el id en el modal
+    modal.find('.modal-body #hiddenItemId').val(id); // Asignar el id a un input oculto
+});
+</script>
+
 
     <!-- Bootstrap core JavaScript-->
     <script src="../vendor/jquery/jquery.min.js"></script>

@@ -84,6 +84,8 @@
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="staff.php">Empleados</a>
                     <a class="dropdown-item" href="configuration.php">Contraseña</a>
+                    <a class="dropdown-item" href="../generadorqr/">Generador QR</a>
+                    <a class="dropdown-item" href="colors.php">Colores</a>
                 </div>
             </li>
         </ul>
