@@ -58,7 +58,7 @@
                 </div>
             <input type="submit" class="btn btn-info btn-block" form="loginform" name="btnlogin" value="Ingresar" />
           </form>
-		   <a href="../index.php" class="btn btn-danger btn-block">Volver al Inicio</a>
+		   <a href="../staff/" class="btn btn-danger btn-block">Entrar como empleado(@)</a>
         </div>
       </div>
     </div>

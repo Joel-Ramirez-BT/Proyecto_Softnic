@@ -81,7 +81,7 @@
             echo '
             <li class="nav-item">
               <a class="nav-link" href="order.php">
-                <i class="fas fa-fw fa-book"></i>
+                <i class="fas fa-fw fa-book" style=" color: #2dfb31;></i>
                 <span>Order</span></a>
             </li>
           ';
@@ -91,7 +91,7 @@
             echo '
             <li class="nav-item">
               <a class="nav-link" href="kitchen.php">
-                <i class="fas fa-fw fa-utensils"></i>
+                <i class="fas fa-fw fa-utensils"  style="color: #2dfb31;"></i>
                 <span>Cocina</span></a>
             </li>
             ';

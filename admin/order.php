@@ -197,6 +197,9 @@ if (!isset($_SESSION['uid']) || !isset($_SESSION['username']) || !isset($_SESSIO
         </div>
     </div>
 
+<?php
+include("../include/logout_modal.php");
+?>
     <!-- Scripts -->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

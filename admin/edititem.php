@@ -13,7 +13,7 @@
 		if (!empty($_POST['itemName']) && !empty($_POST['itemPrice']) ) {
 
 			$menuID = $sqlconnection->real_escape_string($_POST['menuID']);
-			$itemID = $sqlconnection->real_escape_string($_POST['itemI  D']);
+			$itemID = $sqlconnection->real_escape_string($_POST['itemID']);
 			$itemName = $sqlconnection->real_escape_string($_POST['itemName']);
 			$itemPrice = $sqlconnection->real_escape_string($_POST['itemPrice']);
 
