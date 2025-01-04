@@ -162,7 +162,7 @@ include_once('../include/sidebar.php');
             </div>
             <div class="col-md-8">
               <div class="card-body">
-                <p class="text-black">CATEGORIAS </p>
+                <p class="text-black">CATEGORIASs </p>
                 <p class="card-text"> <?php echo $totalcategory; ?>
                 </p>
               </div>

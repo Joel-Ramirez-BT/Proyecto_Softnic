@@ -277,7 +277,7 @@ function getCounts() {
 	$row = $result->fetch_array(MYSQLI_ASSOC);
 	$counts['category'] = $row['totalcategory'];
 } else {
-	echo "Error al contar categoria: " . $sqlconnection->error;
+	echo "Error al contar catgoria: " . $sqlconnection->error;
 	return null;
 }
   // Ejecutar la consulta para contar STAFF
@@ -285,7 +285,7 @@ function getCounts() {
 	$row = $result->fetch_array(MYSQLI_ASSOC);
 	$counts['staff'] = $row['totalstaff'];
 } else {
-	echo "Error al contar staff: " . $sqlconnection->error;
+	echo "Error al contar staf: " . $sqlconnection->error;
 	return null;
 }
 

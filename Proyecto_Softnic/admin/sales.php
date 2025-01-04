@@ -122,7 +122,7 @@
             </div>
             <div class="col-md-8">
               <div class="card-body">
-                <p class="text-danger">Esta semana</p>
+                <p class="text-danger">Esta semanaa</p>
                 <p class="card-text">C$ <?php echo getSalesGrandTotal("WEEK"); ?></p>
               </div>
             </div>
