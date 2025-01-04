@@ -65,35 +65,14 @@
   include_once('../include/navbar.php');?>
 
     <div id="wrapper">
-
       <!------------------ Sidebar ------------------->
-      <ul class="sidebar navbar-nav">
+       <ul class="sidebar navbar-nav">
         <li class="nav-item">
           <a class="nav-link" href="index.php">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Panel de Control</span>
           </a>
         </li>
-
-        <!--
-        <li class="nav-item">
-          <a class="nav-link" href="menu.php">
-            <i class="fas fa-fw fa-utensils"></i>
-            <span>Menú</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="sales.php">
-            <i class="fas fa-fw fa-chart-area"></i>
-            <span>Finanzas</span></a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="staff.php">
-            <i class="fas fa-fw fa-user-circle"></i>
-            <span>Empleados</span>
-          </a>
-        </li>
--->
         <li class="nav-item">
           <a class="nav-link" href="#" data-toggle="modal" data-target="#logoutModal">
             <i class="fas fa-fw fa-power-off"></i>
@@ -103,7 +82,7 @@
 
       </ul>
 
-      <div id="content-wrapper">
+     <div id="content-wrapper">
 
         <div class="container-fluid">
 

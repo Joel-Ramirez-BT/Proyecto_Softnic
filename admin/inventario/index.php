@@ -55,7 +55,11 @@ include("../../functions.php");
             <span>Panel de Control</span>
           </a>
         </li>
-
+        <li class="nav-item">
+          <a class="nav-link" href="#">
+            <i class="fas fa-fw fa-chart-area"style="color: #2dfb31;"></i>
+            <span>Agregar Producto</span></a>
+        </li>
         
         <li class="nav-item">
           <a class="nav-link" href="" data-toggle="modal" data-target="#logoutModal">
@@ -160,6 +164,92 @@ while ($row1 = mysqli_fetch_array($resultado)) {
       </div>
     </div>
 
+    <!-- Modal para Agregar -->
+    <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addModalLabel">Agregar Nuevo Producto</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="addForm" method="POST">
+                    <!-- Categoría -->
+                    <div class="mb-3">
+                        <label for="menuID" class="form-label">Categoría</label>
+                        <select class="form-control" id="menuID" name="menuID" required>
+                            <?php
+                                // Obtén las categorías desde la base de datos
+                                $consultaCategorias = "SELECT * FROM tbl_menuitem where itemID = 76";
+                                $result = $sqlconnection->query($consultaCategorias);
+                                while ($row = $result->fetch_assoc()) {
+                                    echo "<option value='{$row['itemID']}'>{$row['menuItemName']}</option>";
+                                }
+                            ?>
+                        </select>
+                    </div>
+                    
+                    <!-- Nombre del Producto -->
+                    <div class="mb-3">
+                        <label for="menuItemName" class="form-label">Nombre del Producto</label>
+                        <input type="text" class="form-control" id="menuItemName" name="menuItemName" required>
+                    </div>
+                    
+                    <!-- Cantidad Disponible -->
+                    <div class="mb-3">
+                        <label for="cantidad_disponible" class="form-label">Cantidad Disponible</label>
+                        <input type="number" class="form-control" id="cantidad_disponible" name="cantidad_disponible" required>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal para Editar -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Editar Producto</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editForm" method="POST">
+                    <input type="hidden" id="editItemID" name="itemID"> <!-- Campo oculto para el ID del producto -->
+
+                    <div class="mb-3">
+                        <label for="editMenuItemName" class="form-label">Nombre del Producto</label>
+                        <input type="text" class="form-control" id="editMenuItemName" name="menuItemName" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editCantidadDisponible" class="form-label">Cantidad Disponible</label>
+                        <input type="number" class="form-control" id="editCantidadDisponible" name="cantidad_disponible" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editMenuID" class="form-label">Categoría</label>
+                        <select class="form-control" id="editMenuID" name="menuID" required>
+                            <?php
+                                // Obtén las categorías desde la base de datos
+                                $consultaCategorias = "SELECT * FROM tbl_menu";
+                                $result = $sqlconnection->query($consultaCategorias);
+                                while ($row = $result->fetch_assoc()) {
+                                    echo "<option value='{$row['menuID']}'>{$row['menuName']}</option>";
+                                }
+                            ?>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
   <!-- Función javascrpit mostrar inventario-->
 <script>  
@@ -179,18 +269,108 @@ function Mostrarinventario() {
 }
  </script>
 
+modal para agregar
 <script>
-// Cuando el modal se va a mostrar, capturar data-id del botón que lo activó
-$('#addModal').on('show.bs.modal', function (event) {
-    var button = $(event.relatedTarget); // El botón que abrió el modal
-    var id = button.data('id'); // Extraer el valor de data-id
+    // Captura el evento cuando se hace clic en el botón de "Agregar"
+    $('#addModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget); // Botón que abrió el modal
+        var itemID = button.data('id'); // Obtiene el id del item desde el botón
+        
+        // Opcionalmente, puedes pasar el ID a un campo oculto en el formulario del modal si es necesario
+        // $('#itemID').val(itemID); // Si es que el formulario tiene un campo oculto llamado itemID
+    });
 
-    // Actualizar el contenido del modal con el id extraído
-    var modal = $(this);
-    modal.find('.modal-body #modalItemId').text(id); // Mostrar el id en el modal
-    modal.find('.modal-body #hiddenItemId').val(id); // Asignar el id a un input oculto
-});
+    // Acción de envío del formulario (agregar)
+    $('#addForm').on('submit', function(e) {
+        e.preventDefault(); // Prevenir el comportamiento por defecto del formulario (recarga de página)
+
+        var formData = $(this).serialize(); // Obtener los datos del formulario
+
+        $.ajax({
+            url: 'agregar_producto.php', // Archivo PHP que procesará la inserción
+            type: 'POST',
+            data: formData,
+            success: function(response) {
+                if (response.success) {
+                    // Cerrar el modal
+                    $('#addModal').modal('hide');
+                    
+                    // Aquí puedes actualizar la tabla sin recargar la página, usando JavaScript o AJAX para recargar los datos
+                    alert("Producto agregado con éxito.");
+                    location.reload(); // Recargar la página para mostrar el nuevo producto
+                } else {
+                    alert("Error al agregar el producto.");
+                }
+            },
+            error: function() {
+                alert("Error al enviar la solicitud.");
+            }
+        });
+    });
 </script>
+
+
+
+<!-- modal para editar -->
+<script>
+    // Captura el evento cuando se hace clic en el botón de "Editar"
+    $('#editModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget); // Botón que abrió el modal
+        var itemID = button.data('id'); // Obtiene el id del item desde el botón
+        
+        // Realiza la consulta AJAX para obtener los datos del producto
+        $.ajax({
+            url: 'obtener_producto.php', // El archivo PHP que obtiene los datos del producto
+            type: 'GET',
+            data: { itemID: itemID },
+            success: function(response) {
+                var producto = JSON.parse(response);
+                if (producto) {
+                    // Llena los campos del modal con los datos obtenidos
+                    $('#editItemID').val(producto.itemID);
+                    $('#editMenuItemName').val(producto.menuItemName);
+                    $('#editCantidadDisponible').val(producto.cantidad_disponible);
+                    $('#editMenuID').val(producto.menuID); // Esto selecciona la categoría correcta
+                } else {
+                    alert("Error al obtener los datos del producto.");
+                }
+            },
+            error: function() {
+                alert("Error en la solicitud.");
+            }
+        });
+    });
+
+    // Acción de envío del formulario de edición
+    $('#editForm').on('submit', function(e) {
+        e.preventDefault(); // Prevenir el comportamiento por defecto del formulario (recarga de página)
+
+        var formData = $(this).serialize(); // Obtener los datos del formulario
+
+        $.ajax({
+            url: 'editar_producto.php', // Archivo PHP que procesará la actualización
+            type: 'POST',
+            data: formData,
+            success: function(response) {
+                if (response.success) {
+                    // Cerrar el modal
+                    $('#editModal').modal('hide');
+                    
+                    // Actualiza la tabla o recarga la página
+                    alert("Producto actualizado con éxito.");
+                    location.reload(); // Recargar la página para ver los cambios
+                } else {
+                    alert("Error al editar el producto.");
+                }
+            },
+            error: function() {
+                alert("Error al enviar la solicitud.");
+            }
+        });
+    });
+</script>
+
+
 
 
     <!-- Bootstrap core JavaScript-->

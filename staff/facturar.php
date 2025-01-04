@@ -140,9 +140,8 @@
                       <th class='text-center'>Cantidad</th>
                       <th class='text-center'>Precio total</th>
                       <th class='text-center'>Fecha</th>
-                      <th class='text-center'>Imprimir</th>
-                      <th class='text-center'>Eliminar</th>
-                      <th class='text-center'>Añadir</th>
+                      <th class='text-center'>Opciones</th>
+                      
                     </thead>
                     
                     <tbody id="tblBodyCurrentOrder">
@@ -234,10 +233,11 @@
                                 
                                   $id = $orderRow['orderID'];
                                   
-                               echo "<td rowspan=".$rowspan." class='text-center'><a href='../admin/factura/factura.php?id=$id' class='btn btn-primary'>Imprimir</a></td>";
-                               echo "<td rowspan=".$rowspan." class='text-center'><a href='#' class='btn btn-danger'>Eliminar</a></td>";
-                               echo "<td rowspan=".$rowspan." class='text-center'><a href='editorder.php?id=$id' class='btn btn-success'>Añadir</a></td>";
-                              echo "</td>";
+                                  echo "<td rowspan=".$rowspan." class='text-center'><a href='../admin/factura.php?id=$id' class='btn btn-primary'><i class='fas fa-regular fa-print' style=''></i></a>
+                                  <a href='./deletefactura.php?id=$id' class='btn btn-danger'><i class='fas fa-regular fa-trash' style=''></i></a>
+                                  <a href='./editorder.php?id=$id' class='btn btn-success'><i class='fas fa-regular fa-plus' style=''></i></a>";
+                                 echo "</td>";
+                              
 
                             }
 

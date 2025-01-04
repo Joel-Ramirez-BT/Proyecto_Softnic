@@ -37,8 +37,8 @@
     <div class="container">
       <div class="card card-login mx-auto mt-5">
         <center><div class="card-header">Usuario de Administrador</div></center>
-        <center><img  src="../image/watta2.jpg" width="100px" 
-        style="position: relative;"></center>
+  </br>
+        <center><img  src="../image/logo.png" width="100px" style="position: relative;"></center>
         <div class="card-body">
           <form id="loginform">
             <div class="form-group">
@@ -58,7 +58,7 @@
                 </div>
             <input type="submit" class="btn btn-info btn-block" form="loginform" name="btnlogin" value="Ingresar" />
           </form>
-		   <a href="../staff/" class="btn btn-danger btn-block">Entrar como empleado(@)</a>
+		   <a href="../staff/" class="btn btn-danger btn-block">Entrar como empleado</a>
         </div>
       </div>
     </div>
@@ -99,7 +99,7 @@
 
 <style>
   body{
-  background: url(../image/casa2.jpg);
+  background: url(../image/back.jpg);
 
 }
 .card{

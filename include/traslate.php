@@ -3,13 +3,25 @@
 $contenido = ob_get_clean();
 
 // Array de traducciones
+
 $traducciones = [
-    'Sistema' => 'yapti',
-    'water' => 'li',
-    'food' => 'nani',
-    'love' => 'laiki',
-    // Añadir más traducciones
+    'Panel de administración' => 'Dahni kum duki',
+    'Vista General del Sistema' => 'Tanka yamka dahni',
+    'Lista de Pedidos Actuales' => 'Nakiskisa kum piawan',
+    'Número de Orden' => 'Nini takamna',
+    'Menú' => 'Waî',
+    'Cantidad' => 'Taksa',
+    'Estado' => 'Italniska',
+    'esperando' => 'baya',
+    'preparando' => 'yaptaya',
+    'cancelado' => 'salwaia',
+    'Disponibilidad del Personal' => 'Nini wihta kum yamka',
+    'Activo' => 'Awti',
+    'Inactivo' => 'Ullisa',
+    'Nombre de Ítem' => 'Yamni wina kum'
+    
 ];
+
 
 // Función para traducir el contenido
 function traducir($contenido, $traducciones) {

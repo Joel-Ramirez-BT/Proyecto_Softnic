@@ -10,6 +10,10 @@ include("../functions.php");
     
     
 ?>
+<?php
+// Iniciar el buffer de salida
+ob_start();
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -175,7 +179,9 @@ include_once('../include/sidebar.php');
         </div>
       </div>
     </div>
-
+   <?php 
+   //include("../include/traslate.php");
+   ?>
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
