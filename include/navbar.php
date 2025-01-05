@@ -1,6 +1,29 @@
-<nav class="navbar navbar-expand navbar-dark bg-dark static-top">
+<?php
+include("../dbconnection.php");
 
-<a class="navbar-brand mr-1" href="index.php">Restaurante | Softnic</a>
+// Verificar la conexión
+if ($sqlconnection->connect_error) {
+  die("Conexión fallida: " . $sqlconnection->connect_error);
+}
+
+// Consulta para obtener el nombre_pymes
+$consulta_pymes = "SELECT nombre_pymes FROM tbl_configuracion";
+$result = $sqlconnection->query($consulta_pymes);
+
+// Verificar si hay resultados
+if ($result->num_rows > 0) {
+  // Obtener y mostrar el resultado
+  $resultado_pymes = $result->fetch_assoc();
+      
+}
+
+
+?>
+
+<nav class="navbar navbar-expand navbar-dark bg-dark static-top">
+<a class="navbar-brand mr-1" href="index.php">
+    <?php echo isset($resultado_pymes['nombre_pymes']) ? 'Restaurante | '.$resultado_pymes['nombre_pymes'] : 'Nombre no disponible'; ?>
+</a>
 
 <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
   <i class="fas fa-bars"></i>
