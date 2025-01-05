@@ -13,12 +13,11 @@ include("../functions.php");
     $totalClientes = isset($counts['clientes']) ? $counts['clientes'] : 0;
     $totalproduct = isset($counts['product']) ? $counts['product'] : 0;
     $totalcategory = isset($counts['category']) ? $counts['category'] : 0;
-    $totalstaff = isset($counts['staff']) ? $counts['staff'] : 0;  
-    
-?>
-<?php
+    $totalstaff = isset($counts['staff']) ? $counts['staff'] : 0;    
+
 // Iniciar el buffer de salida
-ob_start();
+   ob_start();
+
 ?>
 
 <!DOCTYPE html>
@@ -83,6 +82,7 @@ include_once('../include/sidebar.php');
             <li class="breadcrumb-item active">Vista General</li>
           </ol>
           <div class="row">
+
       <!-- Primer card -->
       <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
         <div class="card">
@@ -162,7 +162,7 @@ include_once('../include/sidebar.php');
             </div>
             <div class="col-md-8">
               <div class="card-body">
-                <p class="text-black">CATEGORIASs </p>
+                <p class="text-black">CATEGORIAS </p>
                 <p class="card-text"> <?php echo $totalcategory; ?>
                 </p>
               </div>
