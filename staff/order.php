@@ -4,10 +4,8 @@
 
   if((!isset($_SESSION['uid']) && !isset($_SESSION['username']) && isset($_SESSION['user_level'])) ) 
     header("Location: login.php");
-
-    if($_SESSION['user_level'] != "admin")
+    if($_SESSION['user_level'] != "staff")
     header("Location: login.php");
-
 
 ?>
 
@@ -35,8 +33,11 @@
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin.css" rel="stylesheet">
+    
+    <link href="../css/stylesmac.css" rel="stylesheet">
 
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <!--Archivo online de javascript para manipular el doom-->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script> 
 
 
 
@@ -45,7 +46,7 @@
   <body id="page-top">
 
     <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
-      <a class="navbar-brand mr-1" href="index.php">Restaurante | Casa de Watta</a>
+      <a class="navbar-brand mr-1" href="index.php">Restaurante | Softnic</a>
 
       <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
         <i class="fas fa-bars"></i>
@@ -66,13 +67,34 @@
 
       <!------------------ Sidebar ------------------->
       <ul class="sidebar navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="../admin/index.php">
-            <i class="fas fa-fw fa-tachometer-alt"style="color: #2dfb31;"></i>
+      <?php
+if ($_SESSION['user_level'] == "admin") {
+    echo '
+    <li class="nav-item">
+        <a class="nav-link" href="../admin/index.php">
+            <i class="fas fa-fw fa-tachometer-alt" style="color: #2dfb31;"></i>
             <span>Panel de Control</span>
-          </a>
-        </li>
+        </a>
+    </li>
+    ';
+} elseif ($_SESSION['user_level'] != "admin") {
+    echo ' 
+    <li class="nav-item">
+        <a class="nav-link" href="./index.php">
+            <i class="fas fa-fw fa-tachometer-alt" style="color: #2dfb31;"></i>
+            <span>Panel de Control</span>
+        </a>
+    </li>
+    ';
+}
+?>
 
+
+
+
+<?php
+        if ($_SESSION['user_level'] == "admin"){
+ echo'
 
         
         <li class="nav-item">
@@ -80,49 +102,76 @@
             <i class="fas fa-fw fa-utensils"style="color: #2dfb31;"></i>
             <span>Menú</span></a>
         </li>
-        
-        <?php
+     ';}
+     
+     ?>
+   <?php
 
 echo '
-<li class="nav-item">
-<a class="nav-link" href="../staff/order.php">
-  <i class="fas fa-duotone fa-table"></i>
-  <span>Ordenar</span>
-</a>
-</li>
+            <li class="nav-item">
+              <a class="nav-link" href="order.php">
+                <i class="fas fa-fw fa-book"></i>
+                <span>Orden</span></a>
+            </li>
 ';
-        ?>
+      
 
+
+if ($_SESSION['user_level'] == "staff"){
+echo'
+
+<li class="nav-item">
+          <a class="nav-link" href="./facturar.php">
+          <i class="fas fa-regular fa-print" style="color: #2dfb31;"></i>
+            <span>Facturar</span></a>
+        </li>
+';}
+
+
+
+if ($_SESSION['user_level'] == "admin"){
+echo'
 
 <li class="nav-item">
           <a class="nav-link" href="../admin/facturar.php">
           <i class="fas fa-regular fa-print" style="color: #2dfb31;"></i>
             <span>Facturar</span></a>
         </li>
+';}
 
 
-  <li class="nav-item">
+ if ($_SESSION['user_level'] == "admin"){
+ echo'
+ <li class="nav-item">
           <a class="nav-link" href="../admin/sales.php">
             <i class="fas fa-fw fa-chart-area"style="color: #2dfb31;"></i>
             <span>Finanzas</span></a>
         </li>
+';}
 
-
+if ($_SESSION['user_level'] == "admin"){
+  echo'
         <li class="nav-item">
           <a class="nav-link" href="../admin/tables.php">
             <i class="fas fa-duotone fa-table" style="color: #2dfb31;"></i>
             <span>Mesas</span>
           </a>
         </li>
+';}
 
-
+if ($_SESSION['user_level'] == "admin"){
+  echo' 
         <li class="nav-item">
           <a class="nav-link" href="../admin/customer.php">
             <i class="fas fa-fw fa-user-circle" style="color: #2dfb31;"></i>
             <span>Clientes</span>
           </a>
         </li>
+';}
 
+        if ($_SESSION['user_level'] == "admin"){
+          echo'
+         
 
         <li class="nav-item">
           <a class="nav-link" href="../admin/configuration.php">
@@ -130,7 +179,8 @@ echo '
             <span>Configuraciones</span>
           </a>
         </li>
-
+';}
+?>
         <li class="nav-item">
           <a class="nav-link" href="#" data-toggle="modal" data-target="#logoutModal">
             <i class="fas fa-fw fa-power-off"style="color: #FF0000;"></i>
@@ -154,312 +204,215 @@ echo '
 
           <!-- Page Content -->
           <h1>Administración de Órdenes</h1>
-          <hr>
-          <p>Administración de nuevas órdenes en esta página.</p>
+        <hr>
+        <p>Administración de nuevas órdenes en esta página.</p>
 
-          <div class="row">
+        <div class="row">
+            <!-- Sección de Menús -->
             <div class="col-lg-6">
-              <div class="card mb-3">
-                <div class="card-header">
-                  <i class="fas fa-utensils"></i>
-                  Tomar Ordenes</div>
-                <div class="card-body">
-                  <table class="table table-responsive table-bordered text-center" width="100%" cellspacing="0">
-                  	<tr>
-                  	<?php 
-						$menuQuery = "SELECT * FROM tbl_menu";
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <i class="fas fa-utensils"></i> Tomar Órdenes
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-responsive table-bordered text-center" width="100%" cellspacing="0">
+                            <tr>
+                                <?php
+                                $menuQuery = "SELECT * FROM tbl_menu";
+                                $stmt = $sqlconnection->prepare($menuQuery);
+                                $stmt->execute();
+                                $result = $stmt->get_result();
+                                $counter = 0;
 
-						if ($menuResult = $sqlconnection->query($menuQuery)) {
-							$counter = 0;
-							while($menuRow = $menuResult->fetch_array(MYSQLI_ASSOC)) { 
-								if ($counter >=3) {
-									echo "</tr>";
-									$counter = 0;
-								}
+                                while ($menuRow = $result->fetch_assoc()) {
+                                    if ($counter % 3 == 0) {
+                                        echo "</tr><tr>";
+                                    }
+                                    echo "<td>
+        <button class='_favorit' style='margin-bottom:4px; white-space: normal; background-color: #ffffff; color: #000;' onclick='displayItem(" . $menuRow['menuID'] . ")'>
+            " . $menuRow['menuName'] . "
+            <img src='../image/" . $menuRow['menu_imagen'] . "' alt='" . $menuRow['menu_imagen'] . "' style='width:100%; height:auto;'>
+        </button>
+      </td>";
 
-								if($counter == 0) {
-									echo "<tr>";
-								} 
-								?>
+                                    $counter++;
+                                }
+                                $stmt->close();
+                                ?>
+                            </tr>
+                        </table>
+                        <table id="tblItem" class="table table-responsive table-bordered" width="100%" cellspacing="0"></table>
 
-								<td><button style="margin-bottom:4px;white-space: normal;" class="btn btn-danger" onclick="displayItem(<?php echo $menuRow['menuID']?>)"><?php echo $menuRow['menuName']?></button>
-
-                </td>
-							<?php
-
-							$counter++;
-							}
-						}
-					?>
-<!-- 
-
-          <?php
-        $usuario  = "root";
-        $password = "";
-        $servidor = "localhost";
-        $basededatos = "fosdb";
-        $con = mysqli_connect($servidor, $usuario, $password) or die("No se ha podido conectar al Servidor");
-        $db = mysqli_select_db($con, $basededatos) or die("Upps! Error en conectar a la Base de Datos");
-        
-        $sqlClientes         = ("SELECT * FROM  tbl_clientes ORDER BY id DESC LIMIT 10");
-        $dataClientesSelect  = mysqli_query($con, $sqlClientes);
-      ?>
---->
-					</tr>
-                  </table>
-                  <table id="tblItem" class="table table-responsive table-bordered" width="100%" cellspacing="0"></table>
-
-                <div id="qtypanel" hidden="">
-        					Cantidad : <input id="qty" required="required" type="number" min="1" max="50" name="qty" value="1" />
-        					<button class="btn btn-info" onclick = "insertItem()">Listo</button>
-        					<br><br>
-				</div>
-
+                        <div id="qtypanel" hidden="">
+                            Cantidad: <input id="qty" required="required" type="number" min="1" max="50" name="qty" value="1" />
+                            <button class="btn btn-info" onclick="insertItem()">Listo</button>
+                            <br><br>
+                        </div>
+                    </div>
                 </div>
-              </div>
             </div>
 
-
-            
+            <!-- Sección de Órdenes -->
             <div class="col-lg-6">
-              <div class="card mb-3">
-                <div class="card-header">
-                  <i class="fas fa-chart-bar"></i>
-                  Lista de Órdenes</div>
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <i class="fas fa-chart-bar"></i> 
+                        Datos de orden
+                    </div>
+                    <div class="card-body">
+                        <form action="insertorder.php" method="POST">
+                            <div class="form-group">
+                                <input type="text" name="nombrec" placeholder="Ingrese nombre del cliente" id="nombrec" class="form-control" list="clientes" />
+                                <datalist id="clientes">
+                                    <?php
+                                    $consulta1 = "SELECT nombre, direccion FROM tbl_customer";
+                                    $stmt = $sqlconnection->prepare($consulta1);
+                                    $stmt->execute();
+                                    $result = $stmt->get_result();
 
-                <div class="card-body">
-                  
-        
-                    <form action="insertorder.php" method="POST">
-              <div class="card-body">
-              <div>
+                                    while ($row1 = $result->fetch_assoc()) {
+                                        echo "<option value='" . $row1['nombre'] . "' data-direccion='" . $row1['direccion'] . "'>" . $row1['nombre'] . "</option>";
+                                    }
+                                    $stmt->close();
+                                    ?>
+                                </datalist>
+                            </div>
 
-              
-              <label class="form-group"></label>
-<input type="text" name="nombrec" placeholder="Ingrese nombre del cliente" id="nombrec" class="form-control form-control-mb" list="clientes"/>
-<datalist id="clientes">
-   <?php
-   $conexion1 = mysqli_connect('localhost', 'root', '', 'fosdb');
-   $consulta1 = "SELECT nombre, direccion FROM tbl_customer";
-   $resultado1 = mysqli_query($conexion1, $consulta1);
 
-   while ($row1 = mysqli_fetch_array($resultado1)) {
-      $nombre_cliente = $row1['nombre'];
-      $direccion_cliente = $row1['direccion'];
-      echo "<option value='$nombre_cliente' data-direccion='$direccion_cliente'>$nombre_cliente</option>";
-   }
-   mysqli_close($conexion1);
-   ?>
-</datalist>
+                            <div class="form-group">
+                                <input type="text" name="direccion" placeholder="Dirección" id="direccion" class="form-control" />
+                            </div>
 
-<div>
-   <label class="form-group"></label>
-   <input type="text" name="direccion" placeholder="Dirección" id="direccion" class="form-control" >
-</div>
 
-<script>
-   $(document).ready(function() {
-      // Manejar el evento de cambio en el campo de entrada del nombre del cliente
-      $('#nombrec').on('input', function() {
-         // Obtener la dirección asociada al cliente seleccionado
-         var selectedCliente = $(this).val();
-         var selectedOption = $('#clientes option[value="' + selectedCliente + '"]');
-         var direccionCliente = selectedOption.data('direccion');
+                            <script>
+$(function() {
+    $('#nombrec').on('input', function() {
+        var selectedCliente = $(this).val();
+        var direccionCliente = $('#clientes option').filter(function() {
+            return $(this).val() === selectedCliente;
+        }).data('direccion');
 
-         // Mostrar la dirección en el campo de dirección
-         $('#direccion').val(direccionCliente);
-      });
-   });
+        if (direccionCliente) {
+            $('#direccion').val(direccionCliente);
+        } else {
+            $('#direccion').val(''); // Limpiar si no coincide
+        }
+    });
+});
+
+
 </script>
 
-  </br>
-            <div class="input-group mb-3">
-            <label class="form-group"></label>
-            <select class="form-control form-control-mb" name="forma_pago" id="forma_pago" Required>
-            <option value=''>Forma de pago:</option>
-            <option value='Contado'>*De contado</option>"
-            <option value='Credito'>*Al Credito</option>"
-             </select>
-  <span class="input-group-text"> </span>
-  <label class="form-group"></label>
-  
-  <select class="form-control form-control-mb" name="servicio" id="servicio" onchange="mostrarCosto()" required>
-        <option value=''>Selecciona el tipo de servicio:</option>
-        <option value='Delivery'>Delivery</option>
-        <?php
-          $conexion = mysqli_connect('localhost', 'root', '', 'fosdb');
-          $consulta = "SELECT Nombre_table, capacidad FROM tbl_table";
-          $resultado = mysqli_query($conexion, $consulta);
 
-          while ($row = mysqli_fetch_array($resultado)) 
-          {  
-            // Suponiendo que $row contiene los datos de la mesa
-            $nombreMesa = $row['Nombre_table'];
-            $capacidadMesa = $row['capacidad'];
-            
-            // Generar la opción de selección en HTML
-            $opcion = "<option value='$nombreMesa'>$nombreMesa ($capacidadMesa Personas)</option>";
-            
-            // Imprimir la opción
-            echo $opcion; 
-          }
-        ?>
-      </select>
-    </div>
+                            <div class="form-group">
+                                <select class="form-control" name="forma_pago" id="forma_pago" required>
+                                    <option value=''>Forma de pago:</option>
+                                    <option value='Contado'>De contado</option>
+                                    <option value='Credito'>Al Crédito</option>
+                                </select>
+                            </div>
 
-    <script>
-    // Función para mostrar u ocultar el campo de costo según el tipo de servicio seleccionado
-    function mostrarCosto() {
-      var servicioSeleccionado = document.getElementById("servicio").value;
-      var costoGroup = document.getElementById("costo");
-      var costoGroup = document.getElementById("costoGroup");
-      // Si el tipo de servicio es "Delivery", muestra el campo de costo, de lo contrario, ocúltalo
-      if (servicioSeleccionado === "Delivery") {
-        costo.classList.remove("hidden");
-        costoGroup.classList.remove("hidden");
-        
-      } else {
-        costo.classList.add("hidden");
-        costoGroup.classList.add("hidden");
-      }
-    }
-  </script>
+                            <div class="form-group">
+                                <select class="form-control" name="servicio" id="servicio" onchange="mostrarCosto()" required>
+                                    <option value=''>Selecciona el tipo de servicio:</option>
+                                    <option value='Delivery'>Delivery</option>
+                                    <?php
+                                    $consulta2 = "SELECT nombre_table, capacidad FROM tbl_table";
+                                    $stmt = $sqlconnection->prepare($consulta2);
+                                    $stmt->execute();
+                                    $result = $stmt->get_result();
 
-<style>
+                                    while ($row = $result->fetch_assoc()) {
+                                        echo "<option value='" . $row['nombre_table'] . "'>" . $row['nombre_table'] . "</option>";
+                                    }
+                                    $stmt->close();
+                                    ?>
+                                </select>
+                            </div>
 
-.hidden {
-    display: none;
-}
+                            <div class="form-group d-none" id="costoGroup">
+                                <input type="number" name="costo" id="costo" placeholder="Costo de envío (C$)" class="form-control" min="0" max="100">
+                            </div>
 
-</style>
+                            <table id="tblOrderList" class="table table-responsive table-bordered" width="100%" cellspacing="0">
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Precio</th>
+                                    <th>Cantidad</th>
+                                    <th>Total (C$)</th>
+                                </tr>
+                            </table>
 
-<div class="form-group" id="costoGroup">
-      <input type="number" name="costo" id="costo" placeholder="Costo de envío (C$)" class="form-control hidden" min='0' max='100'>
-    </div>
-
-
-           </div>
-
-						<table id="tblOrderList" class="table table-responsive table-bordered" width="100%" cellspacing="0">
-         
-            
-            <tr>
-								<th>Nombre</th>
-								<th>Precio</th>
-								<th>Cantidad</th>
-								<th>Total (C$)</th>
-							</tr>
-						</table>
-						<input class="btn btn-success" type="submit" name="sentorder" id="sentorder" value="Ordenar">
-					</form>
+                            <input class="btn btn-success" type="submit" name="sentorder" id="sentorder" value="Ordenar">
+                        </form>
+                    </div>
                 </div>
-              </div>
             </div>
-          </div>
-
         </div>
-        <!-- /.container-fluid -->
-
-        <!-- Sticky Footer 
-        <footer class="sticky-footer">
-          <div class="container my-auto">
-            <div class="copyright text-center my-auto">
-              <span>Copyright © Sistema de Restaurante Brazos Tecnologias</span>
-            </div>
-          </div>
-        </footer>
--->
-      </div>
-      <!-- /.content-wrapper -->
-
-    </div>
-    <!-- /#wrapper -->
-
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-      <i class="fas fa-angle-up"></i>
-    </a>
-
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">¿Realmente deseas cerrar sesión?</h5>
-            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">×</span>
-            </button>
-          </div>
-          <div class="modal-body">Seleccione "Cerrar sesión" a continuación si está listo para finalizar su sesión actual.</div>
-          <div class="modal-footer">
-            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-            <a class="btn btn-primary" href="logout.php">Cerrar Sesión</a>
-          </div>
-        </div>
-      </div>
     </div>
 
-    <!-- Bootstrap core JavaScript-->
+    <!-- Scripts -->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Core plugin JavaScript-->
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
-    <!-- Custom scripts for all pages-->
     <script src="js/sb-admin.min.js"></script>
 
-    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
-	<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+    <script>
+        var currentItemID = null;
 
-	<script>
-		var currentItemID = null;
+        function displayItem(id) {
+            $.ajax({
+                url: "displayitem.php",
+                type: 'POST',
+                data: {
+                    btnMenuID: id
+                },
+                success: function(output) {
+                    $("#tblItem").html(output);
+                }
+            });
+        }
 
-		function displayItem (id) {
-			$.ajax({
-				url : "displayitem.php",
-					type : 'POST',
-					data : { btnMenuID : id },
+        function insertItem() {
+            var id = currentItemID;
+            var quantity = $("#qty").val();
+            $.ajax({
+                url: "displayitem.php",
+                type: 'POST',
+                data: {
+                    btnMenuItemID: id,
+                    qty: quantity
+                },
+                success: function(output) {
+                    $("#tblOrderList").append(output);
+                    $("#qtypanel").prop('hidden', true);
+                }
+            });
+            $("#qty").val(1);
+        }
 
-					success : function(output) {
-						$("#tblItem").html(output);
-					}
-				});
-		}
+        function setQty(id) {
+            currentItemID = id;
+            $("#qtypanel").prop('hidden', false);
+        }
 
-		function insertItem () {
-			var id = currentItemID;
-			var quantity = $("#qty").val();
-			$.ajax({
-				url : "displayitem.php",
-					type : 'POST',
-					data : { 
-						btnMenuItemID : id,
-						qty : quantity 
-					},
+        function mostrarCosto() {
+    var servicioSeleccionado = document.getElementById("servicio").value;
+    var costoGroup = document.getElementById("costoGroup");
 
-					success : function(output) {
-						$("#tblOrderList").append(output);
-						$("#qtypanel").prop('hidden',true);
-					}
-				});
+    if (servicioSeleccionado === "Delivery") {
+        costoGroup.classList.remove("d-none");
+    } else {
+        costoGroup.classList.add("d-none");
+    }
+}
 
-			$("#qty").val(1);
-		}
 
-		function setQty (id) {
-			currentItemID = id;
-			$("#qtypanel").prop('hidden',false);
-		}
-
-		$(document).on('click','.deleteBtn', function(event){
-		        event.preventDefault();
-		        $(this).closest('tr').remove();
-		        return false;
-		    });
-
-	</script>
-
-  </body>
-
+        $(document).on('click', '.deleteBtn', function(event) {
+            event.preventDefault();
+            $(this).closest('tr').remove();
+            return false;
+        });
+    </script>
+</body>
 </html>

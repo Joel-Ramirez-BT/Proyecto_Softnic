@@ -19,7 +19,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Finanzas | Casa de Watta</title>
+    <title>Finanzas | Softnic</title>
 
     <!-- Bootstrap core CSS-->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -33,101 +33,23 @@
     <!-- Custom styles for this template-->
     <link href="css/sb-admin.css" rel="stylesheet">
 
+    <link href="../css/stylesmac.css" rel="stylesheet">
+
   </head>
+ 
 
   <body id="page-top">
 
-    <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
-
-      <a class="navbar-brand mr-1" href="index.php">Restaurante | Casa de Watta</a>
-
-      <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
-        <i class="fas fa-bars"></i>
-      </button>
-
-      <!-- Navbar -->
-      <ul class="navbar-nav ml-auto ml-md-0">
-        <li class="nav-item dropdown no-arrow">
-          <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-user-circle fa-fw"style="color: #2dfb31;"></i>
-          </a>
-        </li>
-      </ul>
-
-    </nav>
+  <?php     
+include_once('../include/navbar.php');
+?>
 
     <div id="wrapper">
 
       <!------------------ Sidebar ------------------->
-      <ul class="sidebar navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="index.php">
-            <i class="fas fa-fw fa-tachometer-alt"style="color: #2dfb31;"></i>
-            <span>Panel de Control</span>
-          </a>
-        </li>
-
-        
-        <li class="nav-item">
-          <a class="nav-link" href="menu.php">
-            <i class="fas fa-fw fa-utensils"style="color: #2dfb31;"></i>
-            <span>Menú</span></a>
-        </li>
-
-    <li class="nav-item">
-          <a class="nav-link" href="../staff/order.php">
-            <i class="fas fa-duotone fa-table"style="color: #2dfb31;"></i>
-            <span>Ordenar</span>
-          </a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="facturar.php">
-          <i class="fas fa-regular fa-print" ></i>
-            <span>Facturar</span></a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="sales.php">
-            <i class="fas fa-fw fa-chart-area"style="color: #2dfb31;"></i>
-            <span>Finanzas</span></a>
-        </li>
-
-        
-<li class="nav-item">
-          <a class="nav-link" href="tables.php">
-            <i class="fas fa-duotone fa-table" style="color: #2dfb31;"></i>
-            <span>Mesas</span>
-          </a>
-        </li>
-
-        
-<li class="nav-item">
-          <a class="nav-link" href="customer.php">
-            <i class="fas fa-fw fa-user-circle" style="color: #2dfb31;"></i>
-            <span>Clientes</span>
-          </a>
-        </li>
-
-<li class="nav-item">
-          <a class="nav-link" href="configuration.php">
-          <i class="fas fa fa-wrench" aria-hidden="true" style="color: #2dfb31;"></i>
-            <span>Configuraciones</span>
-          </a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="#" data-toggle="modal" data-target="#logoutModal">
-            <i class="fas fa-fw fa-power-off"style="color: #FF0000;"></i>
-            <span>Cerrar Sesión</span>
-          </a>
-        </li>
-
-      </ul>
-
-      <div id="content-wrapper">
-
-        <div class="container-fluid">
+      <?php     
+include_once('../include/sidebar.php');
+?>
 
           <!-- Breadcrumbs-->
           <ol class="breadcrumb">
@@ -155,9 +77,8 @@
                       <th class='text-center'>Cantidad</th>
                       <th class='text-center'>Precio total</th>
                       <th class='text-center'>Fecha</th>
-                      <th class='text-center'>Imprimir</th>
-                      <th class='text-center'>Eliminar</th>
-                      <th class='text-center'>Añadir</th>
+                      <th class='text-center'>Opciones</th>
+                    
                     </thead>
                     
                     <tbody id="tblBodyCurrentOrder">
@@ -206,7 +127,7 @@
 
                             echo "
                               <td>".$orderRow['menuName']."</td>
-                              <td>".$orderRow['menuItemName']."</td>
+                              <td class='text-center'>".$orderRow['menuItemName']."</td>
                               <td class='text-center'>".$orderRow['quantity']."</td>
                             ";
 
@@ -248,9 +169,9 @@
 
                                 $id=$orderRow['orderID'];
 
-                               echo "<td rowspan=".$rowspan." class='text-center'><a href='./factura/factura.php?id=$id' class='btn btn-primary'>Imprimir</a></td>";
-                               echo "<td rowspan=".$rowspan." class='text-center'><a href='./deletefactura.php?id=$id' class='btn btn-danger'>Eliminar</a></td>";
-                               echo "<td rowspan=".$rowspan." class='text-center'><a href='./editorder.php?id=$id' class='btn btn-success'>Añadir</a></td>";
+                               echo "<td rowspan=".$rowspan." class='text-center'><a href='./factura/factura.php?id=$id' class='btn btn-primary'><i class='fas fa-regular fa-print' style=''></i></a>
+                               <a href='./deletefactura.php?id=$id' class='btn btn-danger'><i class='fas fa-regular fa-trash' style=''></i></a>
+                               <a href='./editorder.php?id=$id' class='btn btn-success'><i class='fas fa-regular fa-plus' style=''></i></a>";
                               echo "</td>";
 
                             }
@@ -271,13 +192,7 @@
         <!-- /.container-fluid -->
 
         <!-- Sticky Footer -->
-        <footer class="sticky-footer">
-          <div class="container my-auto">
-            <div class="copyright text-center my-auto">
-              <span>Copyright © Sistema de Restaurante Brazos Tecnologias</span>
-            </div>
-          </div>
-        </footer>
+        <?php  include_once('../include/footer.php');?>
 
       </div>
       <!-- /.content-wrapper -->

@@ -50,59 +50,29 @@
     <!-- Custom styles for this template-->
     <link href="css/sb-admin.css" rel="stylesheet">
 
+        <!-- Estilos de mac-->
+        <link href="../css/stylesmac.css" rel="stylesheet">
+
+
   </head>
 
   <body id="page-top">
 
-    <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
-
-      <a class="navbar-brand mr-1" href="index.php">Restaurante | Casa de Watta</a>
-
-      <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
-        <i class="fas fa-bars"></i>
-      </button>
-
-      <!-- Navbar -->
-      <ul class="navbar-nav ml-auto ml-md-0">
-        <li class="nav-item dropdown no-arrow">
-          <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-user-circle fa-fw"></i>
-          </a>
-        </li>
-      </ul>
-
-    </nav>
+   
+  
+  <?php 
+  //Incluir la barra superior de navegacion
+  include_once('../include/navbar.php');?>
 
     <div id="wrapper">
-
       <!------------------ Sidebar ------------------->
-      <ul class="sidebar navbar-nav">
+       <ul class="sidebar navbar-nav">
         <li class="nav-item">
           <a class="nav-link" href="index.php">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Panel de Control</span>
           </a>
         </li>
-
-        
-        <li class="nav-item">
-          <a class="nav-link" href="menu.php">
-            <i class="fas fa-fw fa-utensils"></i>
-            <span>Menú</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="sales.php">
-            <i class="fas fa-fw fa-chart-area"></i>
-            <span>Finanzas</span></a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="staff.php">
-            <i class="fas fa-fw fa-user-circle"></i>
-            <span>Empleados</span>
-          </a>
-        </li>
-
         <li class="nav-item">
           <a class="nav-link" href="#" data-toggle="modal" data-target="#logoutModal">
             <i class="fas fa-fw fa-power-off"></i>
@@ -112,7 +82,7 @@
 
       </ul>
 
-      <div id="content-wrapper">
+     <div id="content-wrapper">
 
         <div class="container-fluid">
 
@@ -125,16 +95,16 @@
           </ol>
 
           <!-- Page Content -->
-          <h1>Administración de Empleados</h1>
+          <h1>Configuracion  de Empleados</h1>
           <hr>
-          <p>Administración de Empleados Disponibles.</p>
+          <p>Empleados Disponibles.</p>
 
           <div class="row">
-            <div class="col-lg-8">
+            <div class="col-lg-6">
               <div class="card mb-3">
                 <div class="card-header">
                   <i class="fas fa-user-circle"></i>
-                  Lista Actual de Clientes</div>
+                  Lista Actual de empleados</div>
                 <div class="card-body">
                   <table id="dataTable" class="table table-responsive table-bordered" width="100%" cellspacing="0">
                     <tr>
@@ -152,7 +122,7 @@
                         if ($result = $sqlconnection->query($displayStaffQuery)) {
 
                           if ($result->num_rows == 0) {
-                            echo "<td colspan='4'>There are currently no staff.</td>";
+                            echo "<td colspan='4'>No tiene empleados disponibles</td>";
                           }
 
                           $staffno = 1;
@@ -204,7 +174,7 @@
                                 </form>
                               </td>
 
-                            	<td class="text-center"><a href="deletestaff.php?staffID=<?php echo $staff['staffID']; ?>" class="btn btn-sm btn-danger">Eliminar</a></td>
+                            	<td class="text-center"><a href="deletestaff.php?staffID=<?php echo $staff['staffID']; ?>" class="btn btn-sm btn-danger"><i class="fas fa-fw fa-trash"></i></a></td>
                         	</tr>
 
                           <?php 
@@ -220,61 +190,48 @@
 
                   </table>
                 </div>
-                <div class="card-footer small text-muted"><i>Contraseña predeterminada para nuevo usuario : 1234abcd..</i></div>
+                <div class="card-footer small text-muted"><i>Contraseña predeterminada para nuevo usuario : 1234</i></div>
               </div>
             </div>
             
 
-            <div class="col-lg-4">
-              <div class="card mb-3">
-                <div class="card-header">
-                  <i class="fas fa-chart-bar"></i>
-                  Agregar Nuevo Empleado</div>
-                  <div class="card-body">
-                  <form action="addstaff.php" method="POST" class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
-                    <div class="input-group">
-                      <select name="staffrole" class="form-control form-control-lg">
-                      <?php
-
-                      $roleQuery = "SELECT role FROM tbl_role";
-
-                      if ($res = $sqlconnection->query($roleQuery)) {
-                        
-                        if ($res->num_rows == 0) {
-                          echo "no role";
-                        }
-
-                        while ($role = $res->fetch_array(MYSQLI_ASSOC)) {
-                            echo "<option value='".$role['role']."'>".ucfirst($role['role'])."</option>";
-                        }
-                      }
-
-                      ?>
-                      </select>
-                      <input type="text" required="required" name="staffname" class="form-control" placeholder="Nuevo Empleado" aria-label="Add" aria-describedby="basic-addon2">
-                      <div class="input-group-append">
-                        <button type="submit" name="addstaff" class="btn btn-primary">
-                          <i class="fas fa-plus"></i>
-                        </button> 
-                      </div>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
+            <div class="col-lg-6">
+    <div class="card mb-3">
+      <div class="card-header">
+      <i class="fa fa-plus" aria-hidden="true"></i>
+        Agregar Empleado
+      </div>
+      <div class="card-body">
+        <form action="addstaff.php" method="POST" >
+          <div class="form-group"> 
+            <label for="staff_name">Nombre de empleado</label>
+            <input type="text" name="staffname" id="staffname" class="form-control" placeholder="Ingrese empleado" required>
           </div>
+          <div class="form-group">
+              <label for="role">Cargo</label>
+              <select class="form-control form-control-mb" name="staffrole" id="staffrole" Required>
+              <option>Seleccione un cargo:</option>
+              <option value="Mesero">Mesero</option>
+              <option value="chef">Cocinero</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="password">Contraseña</label>
+              <input type="password" name="staffpwd" id="staffpwd" class="form-control" placeholder="Ingrese la contraseña"  required>
+            </div>
+          
+          <div class="text-center">
+            <input class="btn btn-success" type="submit" name="addstaff" id="addstaff" value="Agregar">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 
-        </div>
         <!-- /.container-fluid -->
 
         <!-- Sticky Footer -->
-        <footer class="sticky-footer">
-          <div class="container my-auto">
-            <div class="copyright text-center my-auto">
-              <span>Copyright © Sistema de Restaurante Brazos Tecnologías</span>
-            </div>
-          </div>
-        </footer>
+        <?php  include_once('../include/footer.php');?>
 
       </div>
       <!-- /.content-wrapper -->

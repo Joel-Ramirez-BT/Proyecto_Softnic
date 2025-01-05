@@ -52,6 +52,10 @@
     <!-- Custom styles for this template-->
     <link href="css/sb-admin.css" rel="stylesheet">
 
+        <!-- Estilos de mac-->
+        <link href="../css/stylesmac.css" rel="stylesheet">
+
+
 
     <script>
 		function Eliminar() {
@@ -64,99 +68,19 @@
 
   <body id="page-top">
 
-    <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
-
-      <a class="navbar-brand mr-1" href="index.php">Restaurante | Casa de Watta</a>
-
-      <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
-        <i class="fas fa-bars"></i>
-      </button>
-
-      <!-- Navbar -->
-      <ul class="navbar-nav ml-auto ml-md-0">
-        <li class="nav-item dropdown no-arrow">
-          <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-user-circle fa-fw"></i>
-          </a>
-        </li>
-      </ul>
-
-    </nav>
+   
+  
+  <?php 
+  //Incluir la barra superior de navegacion
+  include_once('../include/navbar.php');?>
 
     <div id="wrapper">
 
       <!------------------ Sidebar ------------------->
-      <ul class="sidebar navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="index.php">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Panel de Control</span>
-          </a>
-        </li>
-
-        
-        <li class="nav-item">
-          <a class="nav-link" href="menu.php">
-            <i class="fas fa-fw fa-utensils"style="color: #2dfb31;"></i>
-            <span>Menú</span></a>
-        </li>
-
-         <li class="nav-item">
-          <a class="nav-link" href="../staff/order.php">
-            <i class="fas fa-duotone fa-table"style="color: #2dfb31;"></i>
-            <span>Ordenar</span>
-          </a>
-        </li>
-
-
-        <li class="nav-item">
-          <a class="nav-link" href="facturar.php">
-          <i class="fas fa-regular fa-print" style="color: #2dfb31;"></i>
-            <span>Facturar</span></a>
-        </li>
-
-        
-        <li class="nav-item">
-          <a class="nav-link" href="sales.php">
-            <i class="fas fa-fw fa-chart-area"style="color: #2dfb31;"></i>
-            <span>Finanzas</span></a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="tables.php" style="color: #2dfb31;">
-            <i class="fas fa-duotone fa-table"></i>
-            <span>Mesas</span>
-          </a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="customer.php">
-            <i class="fas fa-fw fa-user-circle" ></i>
-            <span>Clientes</span>
-          </a>
-        </li>
-
-        
-        <li class="nav-item">
-          <a class="nav-link" href="configuration.php">
-          <i class="fas fa fa-wrench" aria-hidden="true" style="color: #2dfb31;"></i>
-            <span>Configuraciones</span>
-          </a>
-        </li>
-                
-        <li class="nav-item">
-          <a class="nav-link" href="#" data-toggle="modal" data-target="#logoutModal">
-            <i class="fas fa-fw fa-power-off" style="color: #FF0000;"></i>
-            <span>Cerrar Sesión</span>
-          </a>
-        </li>
-        </ul>
-
-
-      <div id="content-wrapper">
-        <div class="container-fluid">
-
-          <!-- Breadcrumbs-->
+      <?php     
+include_once('../include/sidebar.php');
+?>
+      <!-- Breadcrumbs-->
           <ol class="breadcrumb">
             <li class="breadcrumb-item">
               <a href="index.html">Panel de Control</a>
@@ -210,21 +134,16 @@
             <tr>
               <th>#id</th>
               <th>Nombre</th>
-              <th>Direccion</th>
+              <th>Dirección</th>
               <th>Telefono</th>
-              <th>F_Creacion</th>
-              <th>Editar</th>
-              <th>Eliminar</th>
+              <th>Opciones</th>
             </tr>
           </thead>
           <tbody id="tblBodyCurrentOrder">
             <?php
-
 require("../config.php");
-  
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-            //$conexion = mysqli_connect('localhost', 'root', '', 'fosdb');
             $consulta = "SELECT * FROM tbl_customer";
             $resultado = mysqli_query($conn, $consulta);
 
@@ -234,9 +153,11 @@ $conn = new mysqli($servername, $username, $password, $dbname);
               <td >" . $row['nombre'] . "</td>";
               echo"<td rowspan='' class='text-center'>". $row['direccion'] . "</td>";
               echo"<td rowspan='' class='text-center'>". $row['telefono'] . "</td>";
-              echo"<td rowspan='' class='text-center'>". $row['fecha_creacion'] . "</td>";
-              echo "<td rowspan='' class='text-center'><a href='editcustomer.php?id=" . $row['id'] . "' class='btn btn-success'>Editar</a></td>";
-              echo "<td rowspan='' class='text-center'><a href='deletecustomer.php?id=" . $row['id'] . "' class='btn btn-danger'>Eliminar</a></td>";
+              echo "<td rowspan='' class='text-center'>
+              <a href='editcustomer.php?id=" . $row['id'] . "' class='btn btn-warning'><i class='fas fa-fw fa-edit'></i></a>
+              <a href='deletecustomer.php?id=" . $row['id'] . "' class='btn btn-danger'><i class='fas fa-fw fa-trash'></i></a>
+              </td>";
+              
               echo "</tr>";
             }
             ?>
@@ -250,13 +171,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 
 
         <!-- Sticky Footer -->
-        <footer class="sticky-footer">
-          <div class="container my-auto">
-            <div class="copyright text-center my-auto">
-              <span>Copyright © Sistema de Restaurante Brazos Tecnologías</span>
-            </div>
-          </div>
-        </footer>
+        <?php  include_once('../include/footer.php');?>
 
       </div>
       <!-- /.content-wrapper -->

@@ -1,10 +1,7 @@
 <?php // Configurar la conexión a la base de datos
-$host = "localhost";
-$user = "root";
-$password = "";
-$dbname = "fosdb";
+include("../config.php");
 
-$mysqli = new mysqli($host, $user, $password, $dbname);
+$mysqli = new mysqli($servername, $username, $password, $dbname);
 // Verificar la conexión
 if ($mysqli->connect_error) {
     die("Conexión fallida: " . $mysqli->connect_error);

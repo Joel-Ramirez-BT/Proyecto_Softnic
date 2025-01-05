@@ -1,21 +1,15 @@
 <?php
 	include("../functions.php");
-/*
+
 	if((!isset($_SESSION['uid']) && !isset($_SESSION['username']) && isset($_SESSION['user_level'])) ) 
 		header("Location: login.php");
 
-	if($_SESSION['user_level'] != "staff")
+	if($_SESSION['user_level'] != "staff" )
 		header("Location: login.php");
-
-		*/
 
 		
-		if((!isset($_SESSION['uid']) && !isset($_SESSION['username']) && isset($_SESSION['user_level'])) ) 
-		header("Location: login.php");
-	
-		if($_SESSION['user_level'] != "admin")
-		header("Location: login.php");
-	
+
+		
 
 	if (isset($_POST['btnMenuID'])) {
 
@@ -44,7 +38,7 @@
 			}
 
 			else {
-				echo "<tr><td>No hay item en este menu</td></tr>";
+				echo "<tr><td>No hay item en este menú</td></tr>";
 			}
 			
 		}

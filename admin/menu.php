@@ -36,103 +36,25 @@
     <!-- Custom styles for this template-->
     <link href="css/sb-admin.css" rel="stylesheet">
 
+	    <!-- Estilos de mac-->
+		<link href="../css/stylesmac.css" rel="stylesheet">
+
+
   </head>
-
   <body id="page-top">
-
-    <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
-
-      <a class="navbar-brand mr-1" href="index.php">Restaurante | Casa de Watta</a>
-
-      <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
-        <i class="fas fa-bars"></i>
-      </button>
-
-      <!-- Navbar -->
-      <ul class="navbar-nav ml-auto ml-md-0">
-        <li class="nav-item dropdown no-arrow">
-          <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-user-circle fa-fw"style="color: #2dfb31;"></i>
-          </a>
-        </li>
-      </ul>
-
-    </nav>
+	
+  
+  
+  <?php 
+  //Incluir la barra superior de navegacion
+  include_once('../include/navbar.php');?>
 
     <div id="wrapper">
 
       <!------------------ Sidebar ------------------->
-      <ul class="sidebar navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="index.php">
-            <i class="fas fa-fw fa-tachometer-alt"style="color: #2dfb31;"></i>
-            <span>Panel de Control</span>
-          </a>
-        </li>
-
-        
-        <li class="nav-item">
-          <a class="nav-link" href="menu.php">
-            <i class="fas fa-fw fa-utensils"></i>
-            <span>Menú</span></a>
-
-<li class="nav-item">
-          <a class="nav-link" href="../staff/order.php">
-            <i class="fas fa-duotone fa-table"style="color: #2dfb31;"></i>
-            <span>Ordenar</span>
-          </a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="facturar.php">
-          <i class="fas fa-regular fa-print" style="color: #2dfb31;"></i>
-            <span>Facturar</span></a>
-        </li>
-
-            
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="sales.php">
-            <i class="fas fa-fw fa-chart-area"style="color: #2dfb31;"></i>
-            <span>Finanzas</span></a>
-        </li>
-
-		
-<li class="nav-item">
-          <a class="nav-link" href="tables.php">
-            <i class="fas fa-duotone fa-table" style="color: #2dfb31;"></i>
-            <span>Mesas</span>
-          </a>
-        </li>
-
-		
-<li class="nav-item">
-          <a class="nav-link" href="customer.php">
-            <i class="fas fa-fw fa-user-circle" style="color: #2dfb31;"></i>
-            <span>Clientes</span>
-          </a>
-        </li>
-       
-        
-<li class="nav-item">
-          <a class="nav-link" href="configuration.php">
-          <i class="fas fa fa-wrench" aria-hidden="true" style="color: #2dfb31;"></i>
-            <span>Configuraciones</span>
-          </a>
-        </li>
-		
-        <li class="nav-item">
-          <a class="nav-link" href="#" data-toggle="modal" data-target="#logoutModal">
-            <i class="fas fa-fw fa-power-off"style="color: #FF0000;"></i>
-            <span>Cerrar Sesión</span>
-          </a>
-        </li>
-
-      </ul>
-
-      <div id="content-wrapper">
-
-        <div class="container-fluid">
+	  <?php     
+include_once('../include/sidebar.php');
+?>
 
           <!-- Breadcrumbs-->
           <ol class="breadcrumb">
@@ -151,7 +73,7 @@
             <div class="card-header">
               <i class="fas fa-chart-area"></i>
               Lista de Menús
-              <button class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#addMenuModal">Agregar Categoría</button>
+              <button class="btn btn-success btn-sm float-right" data-toggle="modal" data-target="#addMenuModal"><i class='fas fa-regular fa-plus' style=''></i></button>
 
           </div>
             <div class="card-body">
@@ -172,9 +94,9 @@
 
 					              <i class="fas fa-chart-area"></i>
 					              <?php echo $menuRow["menuName"]; ?>
-  					              <button class="btn btn-danger btn-sm float-right" data-toggle="modal" data-target="#deleteModal" data-category="<?php echo $menuRow["menuName"];?>" data-menuid="<?php echo $menuRow["menuID"];?>">Eliminar</button>
+  					              <button class="btn btn-danger btn-sm float-right" data-toggle="modal" data-target="#deleteModal" data-category="<?php echo $menuRow["menuName"];?>" data-menuid="<?php echo $menuRow["menuID"];?>"><i class='fas fa-regular fa-trash' style=''></i></button>
 
-  					              <button class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#addItemModal" data-category="<?php echo $menuRow["menuName"];?>" data-menuid="<?php echo $menuRow["menuID"];?>">Agregar</button>
+  					              <button class="btn btn-success btn-sm float-right" data-toggle="modal" data-target="#addItemModal" data-category="<?php echo $menuRow["menuName"];?>" data-menuid="<?php echo $menuRow["menuID"];?>"><i class='fas fa-regular fa-plus' style=''></i></button>
 
 					          	</div>
 					            <div class="card-body">
@@ -237,13 +159,7 @@
         <!-- /.container-fluid -->
 
         <!-- Sticky Footer -->
-        <footer class="sticky-footer">
-          <div class="container my-auto">
-            <div class="copyright text-center my-auto">
-              <span>Copyright © Sistema de Restaurante Brazos Tecnologias</span>
-            </div>
-          </div>
-        </footer>
+		<?php  include_once('../include/footer.php');?>
 
       </div>
       <!-- /.content-wrapper -->
@@ -285,18 +201,24 @@
 	          <span aria-hidden="true">&times;</span>
 	        </button>
 	      </div>
-	      <div class="modal-body">
-	        <form id="addmenuform" method="POST">
-	        	<div class="form-group">
-		            <label class="col-form-label">Categoría:</label>
-		            <input type="text" required="required" class="form-control" name="menuname" placeholder="Puedes poner algo como postres, bebidas, etc...." >
-		        </div>
-	        </form>
-	      </div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-	        <button type="submit" form="addmenuform" class="btn btn-success" name="addmenu">Agregar</button>
-	      </div>
+		  <div class="modal-body">
+    <form id="addmenuform" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+            <label class="col-form-label">Categoría:</label>
+            <input type="text" required="required" class="form-control" name="menuname" placeholder="Puedes poner algo como postres, bebidas, etc....">
+        </div>
+
+        <div class="form-group">
+            <label class="col-form-label">Cargar Imagen</label>
+            <input type="file" class="form-control" name="menu_imagen" accept="image/*">
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+    <button type="submit" form="addmenuform" class="btn btn-success" name="addmenu">Agregar</button>
+</div>
+
 	    </div>
 	  </div>
 	</div>

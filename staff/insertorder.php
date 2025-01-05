@@ -1,15 +1,18 @@
 <?php
 	include("../functions.php");
 
-	if((!isset($_SESSION['uid']) && !isset($_SESSION['username']) && isset($_SESSION['user_level'])) ) 
+	if((!isset($_SESSION['uid']) && !isset($_SESSION['username']) && !isset($_SESSION['user_level'])) ) 
 		header("Location: login.php");
 
-	if($_SESSION['user_level'] != "staff")
-		header("Location: login.php");
-
-	
+		if ($_SESSION['user_level'] != "staff")
+		 {
+			header("Location: login.php");
+			exit(); // Es buena práctica usar exit() después de header() para detener la ejecución del script.
+		}
+		
 
 	if (isset($_POST['sentorder'])) {
+		
 
 		if (isset($_POST['itemID']) && isset($_POST['itemqty'])) {
 
@@ -38,7 +41,7 @@
 				updateTotal($currentOrderID);
 
 				//Al completar la orden situar en: 
-				header("Location: ../admin/facturar.php");
+				header("Location: facturar.php");
 				exit();
 			}
 
@@ -49,12 +52,6 @@
 	}
 
 	function insertOrderDetailQuery($orderID,$itemID,$quantity) {
-
-
-         
-		   
-  	     $conexion= mysqli_connect('localhost','root','','fosdb');
-
 
 		global $sqlconnection;
 		$addOrderQuery = "INSERT INTO tbl_orderdetail (orderID ,itemID ,quantity) VALUES ('{$orderID}', '{$itemID}' , '{$quantity}')";
@@ -82,9 +79,6 @@
 		$servicio =($_POST['servicio']); 
 		$costo =($_POST['costo']); 
 		
-		$conexion= mysqli_connect('localhost','root','','fosdb');
-
-
 		global $sqlconnection;
 		$addOrderQuery = "INSERT INTO tbl_order (orderID ,status ,order_date, nombre,forma_pago,direccion, servicio, costo) VALUES ('{$orderID}' ,'esperando' ,CURDATE(),'$nombre','$pago', '$direccion', '$servicio','$costo' )";
 

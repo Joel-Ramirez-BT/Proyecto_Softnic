@@ -12,15 +12,17 @@ if ($conn->connect_error) {
 // Obtener los datos del formulario
 $id = $_POST['id'];
 $username = $_POST['username'];
-$password= $_POST['password'];
+$password = $_POST['password'];
 
-// Ejecutar la consulta de actualización
-$sql = "UPDATE tbl_admin SET username='$username', password='$password' WHERE id = 0";
+// Encriptar la contraseña usando password_hash()
+$hashed_password = password_hash($password, PASSWORD_BCRYPT);
+
+// Ejecutar la consulta de actualización con la contraseña encriptada
+$sql = "UPDATE tbl_admin SET username='$username', password='$hashed_password' WHERE id = 0";
 
 if ($conn->query($sql) === TRUE) 
 {
- 
-    $mensaje = "Se cerrara la session";
+    $mensaje = "Se cerrará la sesión";
 
     // Generar el código JavaScript que mostrará el alert
     $script = "<script type='text/javascript'>alert('$mensaje');</script>";
@@ -29,7 +31,6 @@ if ($conn->query($sql) === TRUE)
     echo $script;
 
     header("Location: logout.php");
-    
     
 } else {
     echo "Error al actualizar el registro: " . $conn->error;

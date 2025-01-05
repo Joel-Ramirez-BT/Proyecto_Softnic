@@ -9,22 +9,23 @@
 
 	if (isset($_POST['addstaff'])) {
 		if (!empty($_POST['staffname']) && !empty($_POST['staffrole'])) {
-			$staffUsername = $sqlconnection->real_escape_string($_POST['staffname']);
+			$staffname = $sqlconnection->real_escape_string($_POST['staffname']);
+			$staffpwd = $sqlconnection->real_escape_string($_POST['staffpwd']);
 			$staffRole = $sqlconnection->real_escape_string($_POST['staffrole']);
+            
 
-
-			$addStaffQuery = "INSERT INTO tbl_staff (username ,password ,status ,role) VALUES ('{$staffUsername}' ,'1234abcd..' ,'Offline' ,'{$staffRole}') ";
+			$addStaffQuery = "INSERT INTO tbl_staff (username,password ,status ,role) VALUES ('{$staffname}' ,'{$staffpwd}' ,'Offline' ,'{$staffRole}') ";
 
 			if ($sqlconnection->query($addStaffQuery) === TRUE) {
-					echo "added.";
+					echo "se añadio correctamente";
 					header("Location: staff.php"); 
-					exit();
+					
 
 				} 
 
 				else {
 					//handle
-					echo "Algo salió mal";
+					echo "A ocurrido un error";
 					echo $sqlconnection->error;
 				}
 		}

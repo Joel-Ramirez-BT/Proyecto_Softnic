@@ -39,13 +39,14 @@
     <!-- Custom styles for this template-->
     <link href="css/sb-admin.css" rel="stylesheet">
 
+    <link href="../css/stylesmac.css" rel="stylesheet">
   </head>
 
   <body id="page-top">
 
     <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-      <a class="navbar-brand mr-1" href="index.php">Restaurante | Casa de Watta</a>
+      <a class="navbar-brand mr-1" href="index.php">Restaurante | Softnic</a>
 
       <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
         <i class="fas fa-bars"></i>
@@ -80,7 +81,7 @@
             echo '
             <li class="nav-item">
               <a class="nav-link" href="order.php">
-                <i class="fas fa-fw fa-book"></i>
+                <i class="fas fa-fw fa-book" style=" color: #2dfb31;></i>
                 <span>Order</span></a>
             </li>
           ';
@@ -90,7 +91,7 @@
             echo '
             <li class="nav-item">
               <a class="nav-link" href="kitchen.php">
-                <i class="fas fa-fw fa-utensils"></i>
+                <i class="fas fa-fw fa-utensils"  style="color: #2dfb31;"></i>
                 <span>Cocina</span></a>
             </li>
             ';
@@ -98,13 +99,7 @@
 
         ?>
 
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="sales.php">
-            <i class="fas fa-fw fa-chart-area"></i>
-            <span>Finanzas</span></a>
-        </li>
-
+      
 
         <li class="nav-item">
           <a class="nav-link" href="#" data-toggle="modal" data-target="#logoutModal">

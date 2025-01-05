@@ -7,9 +7,18 @@ include("../functions.php");
   if($_SESSION['user_level'] != "admin")
     header("Location: login.php");
 
-  // echo $_SESSION['uid'];
-  //echo $_SESSION['username'];
-  //echo $_SESSION['user_level'];
+    $counts = getCounts();
+    $totalOrdenes = isset($counts['ordenes']) ? $counts['ordenes'] : 0;
+    $totalMesas = isset($counts['mesas']) ? $counts['mesas'] : 0;
+    $totalClientes = isset($counts['clientes']) ? $counts['clientes'] : 0;
+    $totalproduct = isset($counts['product']) ? $counts['product'] : 0;
+    $totalcategory = isset($counts['category']) ? $counts['category'] : 0;
+    $totalstaff = isset($counts['staff']) ? $counts['staff'] : 0;  
+    
+?>
+<?php
+// Iniciar el buffer de salida
+ob_start();
 ?>
 
 <!DOCTYPE html>
@@ -23,7 +32,7 @@ include("../functions.php");
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Panel de Control - Casa de Watta</title>
+    <title>Panel de Control - Softnic</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 
@@ -42,105 +51,29 @@ include("../functions.php");
     <!-- Custom styles for this template-->
     <link href="css/sb-admin.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+        <!-- Estilos de mac-->
+        <link href="../css/stylesmac.css" rel="stylesheet">
 
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+     <!-- Incluyendo jQuery desde CDN -->
+  
   </head>
 
   <body id="page-top">
 
-    <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
-
-      <a class="navbar-brand mr-1" href="index.php">Restaurante | Casa de Watta</a>
-
-      <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
-        <i class="fas fa-bars"></i>
-      </button>
-
-      <!-- Navbar -->
-      <ul class="navbar-nav ml-auto ml-md-0">
-        <li class="nav-item dropdown no-arrow">
-          <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-user-circle fa-fw"style="color: #2dfb31;"></i>
-          </a>
-        </li>
-      </ul>
-
-    </nav>
+  <?php     
+include_once('../include/navbar.php');
+?>
 
     <div id="wrapper">
 
       <!------------------ Sidebar ------------------->
-      <ul class="sidebar navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="index.php">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Panel de Control</span>
-          </a>
-        </li>
-
-        
-        <li class="nav-item">
-          <a class="nav-link" href="menu.php">
-            <i class="fas fa-fw fa-utensils"style="color: #2dfb31;"></i>
-            <span>Menú</span></a>
-        </li>
-
-         <li class="nav-item">
-          <a class="nav-link" href="../staff/order.php">
-            <i class="fas fa-duotone fa-table"style="color: #2dfb31;"></i>
-            <span>Ordenar</span>
-          </a>
-        </li>
-
-
-        <li class="nav-item">
-          <a class="nav-link" href="facturar.php">
-          <i class="fas fa-regular fa-print" style="color: #2dfb31;"></i>
-            <span>Facturar</span></a>
-        </li>
-
-        
-        <li class="nav-item">
-          <a class="nav-link" href="sales.php">
-            <i class="fas fa-fw fa-chart-area"style="color: #2dfb31;"></i>
-            <span>Finanzas</span></a>
-        </li>
-
-<li class="nav-item">
-          <a class="nav-link" href="tables.php">
-            <i class="fas fa-duotone fa-table" style="color: #2dfb31;"></i>
-            <span>Mesas</span>
-          </a>
-        </li>
-
-<li class="nav-item">
-          <a class="nav-link" href="customer.php">
-            <i class="fas fa-fw fa-user-circle" style="color: #2dfb31;"></i>
-            <span>Clientes</span>
-          </a>
-        </li>
-
-        
-<li class="nav-item">
-          <a class="nav-link" href="configuration.php">
-          <i class="fas fa fa-wrench" style="color: #2dfb31;"></i>
-            <span>Configuraciones</span>
-          </a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="#" data-toggle="modal" data-target="#logoutModal">
-            <i class="fas fa-fw fa-power-off"style="color: #FF0000;"></i>
-            <span>Cerrar Sesión</span>
-          </a>
-        </li>
-
-      </ul>
-
-      <div id="content-wrapper">
-
-        <div class="container-fluid">
+<?php     
+include_once('../include/sidebar.php');
+?>
 
           <!-- Breadcrumbs-->
           <ol class="breadcrumb">
@@ -149,7 +82,111 @@ include("../functions.php");
             </li>
             <li class="breadcrumb-item active">Vista General</li>
           </ol>
+          <div class="row">
+      <!-- Primer card -->
+      <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+        <div class="card">
+          <div class="row no-gutters">
+            <div class="col-md-4">
+            <i class="fa-solid fa-list" style="color: #f5ec00;  font-size: 90px;"></i>
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <p class="text-black">ORDENES</p>
+                <p class="card-text"> <?php echo $totalOrdenes; ?></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Segundo card -->
+      <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+        <div class="card">
+          <div class="row no-gutters">
+            <div class="col-md-4">
+            <i class="fa-solid fa-table-list" style="color: #ff8647; font-size: 90px; "></i>
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <p class="text-black">MESAS</p>
+                <p class="card-text"> <?php echo $totalMesas; ?>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Tercer card -->
+      <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+        <div class="card">
+          <div class="row no-gutters">
+            <div class="col-md-4">
+            <i class="fa-solid fa-user" style="color: #63E6BE; font-size: 90px;"></i>
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <p class="text-black">CLIENTES</p>
+                <p class="card-text"> <?php echo $totalClientes; ?>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
+      <div class="row">
+      <!-- Primer card -->
+      <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+        <div class="card">
+          <div class="row no-gutters">
+            <div class="col-md-4">
+            <i class="fa-solid fa-list-check" style="color: #232323; font-size: 90px;"></i>
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <p class="text-black">PRODUCTOS</p>
+                <p class="card-text"> <?php echo $totalproduct; ?></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Segundo card -->
+      <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+        <div class="card">
+          <div class="row no-gutters">
+            <div class="col-md-4">
+            <i class="fa-solid fa-clipboard-list" style="color: #7a7a7a; font-size: 90px;"></i>
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <p class="text-black">CATEGORIASs </p>
+                <p class="card-text"> <?php echo $totalcategory; ?>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Tercer card -->
+      <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+        <div class="card">
+          <div class="row no-gutters">
+            <div class="col-md-4">
+            <i class="fa-solid fa-people-arrows" style="color: #e32400;font-size: 70px;"></i>
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <p class="text-black">EMPLEADOS</p>
+                <p class="card-text"> <?php echo $totalstaff; ?>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
           <!-- Page Content -->
           <h1>Panel de Administración</h1>
           <hr>
@@ -183,7 +220,7 @@ include("../functions.php");
             <div class="col-lg-4">
               <div class="card mb-3">
                 <div class="card-header">
-                  <i class="fas fa-chart-bar""></i>
+                  <i class="fas fa-chart-bar"></i>
                   Disponibilidad del Personal</div>
                 <div class="card-body">
                   <table  class="table table-responsive table-bordered" width="100%" cellspacing="0">
@@ -193,7 +230,7 @@ include("../functions.php");
                     </tr>
 
                     <?php 
-                      $displayStaffQuery = "SELECT username,status FROM tbl_staff";
+                      $displayStaffQuery = "SELECT username, status FROM tbl_staff";
 
                           if ($result = $sqlconnection->query($displayStaffQuery)) {
                             while($staff = $result->fetch_array(MYSQLI_ASSOC)) {
@@ -222,13 +259,7 @@ include("../functions.php");
         <!-- /.container-fluid -->
 
         <!-- Sticky Footer -->
-        <footer class="sticky-footer">
-          <div class="container my-auto">
-            <div class="copyright text-center my-auto">
-              <span>Copyright © Sistema de Restaurante Brazos tecnologias</span>
-            </div>
-          </div>
-        </footer>
+      <?php  include_once('../include/footer.php');?>
 
       </div>
       <!-- /.content-wrapper -->
@@ -259,7 +290,9 @@ include("../functions.php");
         </div>
       </div>
     </div>
-
+   <?php 
+   //include("../include/traslate.php");
+   ?>
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -269,9 +302,9 @@ include("../functions.php");
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin.min.js"></script>
-
-    <script type="text/javascript">
-
+    <script sc="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <script>
     $( document ).ready(function() {
         refreshTableOrder();
     });
@@ -282,7 +315,6 @@ include("../functions.php");
 
     //refresh order current list every 3 secs
     setInterval(function(){ refreshTableOrder(); }, 3000);
-
   </script>
 
 

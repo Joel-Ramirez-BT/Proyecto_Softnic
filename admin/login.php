@@ -14,7 +14,6 @@
 <html lang="en">
 
   <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -38,8 +37,8 @@
     <div class="container">
       <div class="card card-login mx-auto mt-5">
         <center><div class="card-header">Usuario de Administrador</div></center>
-        <center><img  src="../image/watta2.jpg" width="100px" 
-        style="position: relative;"></center>
+  </br>
+        <center><img  src="../image/logo.png" width="100px" style="position: relative;"></center>
         <div class="card-body">
           <form id="loginform">
             <div class="form-group">
@@ -59,7 +58,7 @@
                 </div>
             <input type="submit" class="btn btn-info btn-block" form="loginform" name="btnlogin" value="Ingresar" />
           </form>
-		   <a href="../index.php" class="btn btn-danger btn-block">Volver al Inicio</a>
+		   <a href="../staff/" class="btn btn-danger btn-block">Entrar como empleado</a>
         </div>
       </div>
     </div>
@@ -100,11 +99,11 @@
 
 <style>
   body{
-  background: url(../image/casa.jpg);
+  background: url(../image/back.jpg);
 
 }
 .card{
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgb(255, 255, 255);
   border-radius: 5px;
 
 }

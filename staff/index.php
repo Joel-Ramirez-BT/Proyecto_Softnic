@@ -7,13 +7,7 @@
   if($_SESSION['user_level'] != "staff")
     header("Location: login.php");
 
-  /*
-  echo $_SESSION['uid'];
-  echo $_SESSION['username'];
-  echo $_SESSION['user_level'];
-  */
-
-  function getStatus () {
+    function getStatus () {
       global $sqlconnection;
       $checkOnlineQuery = "SELECT status FROM tbl_staff WHERE staffID = {$_SESSION['uid']}";
 
@@ -30,6 +24,7 @@
       }
   }
 
+
 ?>
 
 <!DOCTYPE html>
@@ -43,7 +38,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Panel de Control - Casa de Watta Empleados</title>
+    <title>Panel de Control - Softnic Empleados</title>
 
     <!-- Bootstrap core CSS-->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -57,13 +52,15 @@
     <!-- Custom styles for this template-->
     <link href="css/sb-admin.css" rel="stylesheet">
 
+    <link href="../css/stylesmac.css" rel="stylesheet">
+
   </head>
 
   <body id="page-top">
 
     <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-      <a class="navbar-brand mr-1" href="index.php">Restaurante | Casa de Watta</a>
+      <a class="navbar-brand mr-1" href="index.php">Restaurante | Softnic</a>
 
       <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
         <i class="fas fa-bars"></i>
@@ -82,8 +79,7 @@
 
     <div id="wrapper">
 
-      <!------------------ Sidebar ------------------->
-      <ul class="sidebar navbar-nav">
+    <ul class="sidebar navbar-nav">
         <li class="nav-item">
           <a class="nav-link" href="index.php">
             <i class="fas fa-fw fa-tachometer-alt"></i>
@@ -98,56 +94,44 @@
             echo '
             <li class="nav-item">
               <a class="nav-link" href="order.php">
-                <i class="fas fa-fw fa-book"></i>
+                <i class="fas fa-fw fa-book" style="color: #2dfb31;"></i>
                 <span>Orden</span></a>
             </li>
           ';
           }
 
+
           if ($_SESSION['user_role'] == "chef") {
             echo '
             <li class="nav-item">
               <a class="nav-link" href="kitchen.php">
-                <i class="fas fa-fw fa-utensils"></i>
+                <i class="fas fa-fw fa-utensils" color: #2dfb31;"></i>
                 <span>Cocina</span></a>
             </li>
             ';
           }
 
+
+          if ($_SESSION['user_role'] == "Mesero") {
+            echo '
+            <li class="nav-item">
+            <a class="nav-link" href="facturar.php">
+            <i class="fas fa-regular fa-print" style="color: #2dfb31;"></i>
+                <span>Facturar</span></a>
+            </li>
+          ';
+          }
+
         ?>
 
-
-<li class="nav-item">
-          <a class="nav-link" href="facturar.php">
-          <i class="fas fa-regular fa-print" style="color: #2dfb31;"></i>
-            <span>Facturar</span></a>
-        </li>
-
-
-</li>
-        <li class="nav-item">
-          <a class="nav-link" href="../admin/sales.php">
-            <i class="fas fa-fw fa-chart-area"></i>
-            <span>Finanzas</span></a>
-        </li>
-
-        
-<li class="nav-item">
-          <a class="nav-link" href="tables.php">
-            <i class="fas fa-duotone fa-table"></i>
-            <span>Mesas</span>
-          </a>
-        </li>
-
+      
 
         <li class="nav-item">
           <a class="nav-link" href="#" data-toggle="modal" data-target="#logoutModal">
-            <i class="fas fa-fw fa-power-off"style="color: #FF0000;"></i>
+            <i class="fas fa-fw fa-power-off"  style="color:#ff0000;"></i>
             <span>Cerrar Sesión</span>
           </a>
         </li>
-
-
 
       </ul>
 
@@ -232,10 +216,10 @@
               <span aria-hidden="true">×</span>
             </button>
           </div>
-          <div class="modal-body">Select "Logout" si desea cerrar su sesion actual.</div>
+          <div class="modal-body">Seleccione "Cerrar" si desea cerrar su sesion actual.</div>
           <div class="modal-footer">
-            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-            <a class="btn btn-primary" href="logout.php">Logout</a>
+            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+            <a class="btn btn-primary" href="logout.php">Cerrar</a>
           </div>
         </div>
       </div>
@@ -253,6 +237,7 @@
 
     <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
   <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+  
   <script type="text/javascript">
 
     $( document ).ready(function() {
@@ -265,7 +250,6 @@
 
     //refresh order current list every 3 secs
     setInterval(function(){ refreshTableOrder(); }, 3000);
-
   </script>
 
   </body>

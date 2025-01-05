@@ -2,10 +2,10 @@
 	include("../functions.php");
 
         if((isset($_SESSION['uid']) && isset($_SESSION['username']) && isset($_SESSION['user_level'])) )  {
-            if($_SESSION['user_level'] == "admin")
+            if($_SESSION['user_level'] == "staff" )
              {
                 session_destroy();
-                 header("Location: ../admin/login.php");
+                 header("Location: ../index.php");
             }
             else
                 header("Location: login.php");

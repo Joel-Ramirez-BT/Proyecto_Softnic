@@ -21,14 +21,15 @@
 			LEFT JOIN tbl_menuitem MI
 			ON OD.itemID = MI.itemID
 			LEFT JOIN tbl_menu M
-			ON MI.menuID = M.menuID 
+			ON MI.menuID = M.menuID order by o.orderID DESC;
+			
 		";
 
 	if ($orderResult = $sqlconnection->query($displayOrderQuery)) {
 			
 		$currentspan = 0;
 
-		//si no existe una orden
+		//if no order
 		if ($orderResult->num_rows == 0) {
 
 			echo "<tr><td class='text-center' colspan='7' >No hay órdenes solicitadas por el momento :) </td></tr>";
@@ -59,19 +60,19 @@
 
 					$color = "badge badge-warning";
 					switch ($orderRow['status']) {
-						case 'waiting':
+						case 'esperando':
 							$color = "badge badge-warning";
 							break;
 						
-						case 'preparing':
+						case 'preparando':
 							$color = "badge badge-primary";
 							break;
 
-						case 'ready':
+						case 'listo':
 							$color = "badge badge-success";
 							break;
 							
-						case 'finish':
+						case 'completed':
 							$color = "badge badge-success";
 							break;
 					}
