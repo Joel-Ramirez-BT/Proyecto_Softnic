@@ -35,7 +35,10 @@
 
 
     <link href="../css/stylesmac.css" rel="stylesheet">
+<<<<<<< HEAD
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+=======
+>>>>>>> joel
 
     <script>
 		function confirmarEliminacion() {
@@ -94,6 +97,7 @@
           <!-- Page Content -->
           <h1><i class="fas fa-fw fa-chart-area"></i> Estadisticas</h1>
           <hr>
+<<<<<<< HEAD
           <div class="container mt-5">
     <div class="row">
       <!-- Primer card -->
@@ -165,6 +169,41 @@
     </div>
   </div>
 
+=======
+          <p>Todos los datos de venta se encuentran aquí.</p>
+
+          <div class="card mb-3">
+            <div class="card-header">
+            <button class="btn btn-danger btn-sm float-right" data-toggle="modal" data-target="#deleteModal" data-category="" data-menuid="" onclick="confirmarEliminacion()">
+            Limpiar
+          </button>
+              <i class="fas fa-chart-area"></i>
+              Estadística de Ventas
+            </div>
+            <div class="card-body">
+              <table class="table  table-bordered" width="100%" cellspacing="0">
+                <tbody>
+                  <tr>
+                    <td>Hoy</td>
+                    <td>C$ <?php echo getSalesGrandTotal("DAY"); ?></td>
+                  </tr>
+                  <tr>
+                    <td>Esta Semana</td>
+                    <td>C$ <?php echo getSalesGrandTotal("WEEK"); ?></td>
+                  </tr>
+                  <tr>
+                    <td>Este Mes</td>
+                    <td>C$ <?php echo getSalesGrandTotal("MONTH"); ?></td>
+                  </tr>
+                  <tr class="table-success">
+                    <td><b>Todo el Tiempo</b></td>
+                    <td><b>C$ <?php echo getSalesGrandTotal("ALLTIME"); ?></b></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+>>>>>>> joel
 
           <div class="card mb">
             <div class="card-header">

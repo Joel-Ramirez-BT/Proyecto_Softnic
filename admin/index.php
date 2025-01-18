@@ -7,6 +7,7 @@ include("../functions.php");
   if($_SESSION['user_level'] != "admin")
     header("Location: login.php");
 
+<<<<<<< HEAD
     $counts = getCounts();
     $totalOrdenes = isset($counts['ordenes']) ? $counts['ordenes'] : 0;
     $totalMesas = isset($counts['mesas']) ? $counts['mesas'] : 0;
@@ -14,6 +15,9 @@ include("../functions.php");
     $totalproduct = isset($counts['product']) ? $counts['product'] : 0;
     $totalcategory = isset($counts['category']) ? $counts['category'] : 0;
     $totalstaff = isset($counts['staff']) ? $counts['staff'] : 0;  
+=======
+    
+>>>>>>> joel
     
 ?>
 <?php
@@ -54,7 +58,10 @@ ob_start();
         <!-- Estilos de mac-->
         <link href="../css/stylesmac.css" rel="stylesheet">
 
+<<<<<<< HEAD
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+=======
+>>>>>>> joel
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
@@ -82,6 +89,7 @@ include_once('../include/sidebar.php');
             </li>
             <li class="breadcrumb-item active">Vista General</li>
           </ol>
+<<<<<<< HEAD
           <div class="row">
       <!-- Primer card -->
       <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
@@ -187,6 +195,9 @@ include_once('../include/sidebar.php');
           </div>
         </div>
       </div>
+=======
+
+>>>>>>> joel
           <!-- Page Content -->
           <h1>Panel de Administración</h1>
           <hr>

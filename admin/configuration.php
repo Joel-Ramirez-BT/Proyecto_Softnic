@@ -205,6 +205,27 @@
 	</script>
 
 <!-- Siguiente caja de configuraciones -->
+<<<<<<< HEAD
+=======
+<div class="container mb-3" style="width: 50%;">
+        <form action="actualizar_restaurante.php" method="POST" class="p-4 border rounded-lg bg-light">
+            <div class="mb-3">
+                <label for="nombre" class="form-label">Nuevo Nombre del Restaurante:</label>
+                <input type="text" id="nombre" name="nombre" placeholder="Introduce aqui el nombre de tu restaurante" class="form-control" maxlength="15" required>
+
+            </div>
+            <input type="hidden" name="id_restaurante" value="1"> <!-- Cambia el valor según el ID del restaurante -->
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Actualizar</button>
+            </div>
+        </form>
+    </div>
+
+
+
+
+
+>>>>>>> joel
 
         <!-- Sticky Footer -->
         <?php  include_once('../include/footer.php');?>
