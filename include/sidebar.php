@@ -83,7 +83,7 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="staff.php">Empleados</a>
-                    <a class="dropdown-item" href="configuration.php">Contraseña</a>
+                    <a class="dropdown-item" href="configuration.php">Más</a>
                   <a class="dropdown-item" href="desing.php">Diseño</a>  
                   <a class="dropdown-item" href=".#">Idiomas</a>
                     
