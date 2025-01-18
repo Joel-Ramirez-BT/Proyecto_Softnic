@@ -205,8 +205,6 @@
 	</script>
 
 <!-- Siguiente caja de configuraciones -->
-<<<<<<< HEAD
-=======
 <div class="container mb-3" style="width: 50%;">
         <form action="actualizar_restaurante.php" method="POST" class="p-4 border rounded-lg bg-light">
             <div class="mb-3">
@@ -225,7 +223,6 @@
 
 
 
->>>>>>> joel
 
         <!-- Sticky Footer -->
         <?php  include_once('../include/footer.php');?>

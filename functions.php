@@ -223,7 +223,6 @@
 			echo "Error: No se encontró el artículo con el ID proporcionado";
 		}
 	}
-<<<<<<< HEAD
 	
 	// Función para contar clientes, mesas y órdenes
 function getCounts() {
@@ -292,6 +291,4 @@ function getCounts() {
 
     return $counts;
 }
-=======
->>>>>>> joel
 ?>
