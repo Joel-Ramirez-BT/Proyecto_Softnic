@@ -86,6 +86,7 @@
                     <a class="dropdown-item" href="configuration.php">Más</a>
                   <a class="dropdown-item" href="desing.php">Diseño</a>  
                   <a class="dropdown-item" href=".#">Idiomas</a>
+				  <a class="dropdown-item" href="backup.php">Backup</a>  
                     
                 </div>
             </li>
