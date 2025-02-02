@@ -21,6 +21,19 @@
         </div>
     </div>
 
+    <div class="container text-center">
+        <div class="card shadow-lg p-4 border-0 rounded-3">
+            <h2 class="mb-4 text-primary">Restaurar Backup</h2>
+            <p class="text-muted">Selecciona un archivo SQL y presiona el botón para restaurar la base de datos.</p>
+            <form action="restore.php" method="post" enctype="multipart/form-data">
+                <input type="file" name="backup_file" class="form-control mb-3" accept=".sql" required>
+                <button type="submit" class="btn btn-success btn-lg">
+                    <i class="bi bi-upload"></i> Restaurar Backup
+                </button>
+            </form>
+        </div>
+    </div>
+
     <!-- Bootstrap Icons y Scripts -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
