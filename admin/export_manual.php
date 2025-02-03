@@ -19,12 +19,28 @@ foreach ($tables as $table) {
     // Obtener estructura de la tabla
     $result = $conn->query("SHOW CREATE TABLE $table");
     $row = $result->fetch_assoc();
-    $backup_sql .= "\n\n" . $row['IF NOT EXISTS Create Table'] . ";\n\n";
+    $backup_sql .= $row["Create Table"] . ";";
+    //$backup_sql .= "\n\n" . $row['CREATE TABLE'] . ";\n\n";
+}
+   
+// Obtener las tablas de la base de datos
+$tables = [];
+$result = $conn->query("SHOW TABLES");
+while ($row = $result->fetch_array()) {
+    $tables[] = $row[0];
+}
+
+$backup_sql = "";
+foreach ($tables as $table) {
+    // Obtener estructura de la tabla
+    $result = $conn->query("SHOW CREATE TABLE $table");
+    $row = $result->fetch_assoc();
+    $backup_sql .= "\n\n" . $row['Create Table'] . ";\n\n";
 
     // Obtener datos de la tabla
     $result = $conn->query("SELECT * FROM $table");
     while ($row = $result->fetch_assoc()) {
-        $backup_sql .= "REPLACE INTO $table VALUES(";
+        $backup_sql .= "INSERT INTO $table VALUES(";
         $values = [];
         foreach ($row as $value) {
             $values[] = "'" . $conn->real_escape_string($value) . "'";
@@ -33,14 +49,9 @@ foreach ($tables as $table) {
     }
     $backup_sql .= "\n\n";
 }
-$folder_path = "./../backups/"; 
 
-if (!file_exists($folder_path)) {
-    mkdir($folder_path, 0777, true); // Crea la carpeta con permisos adecuados
-}
-
+// Guardar en un archivo
 $file_name = "backup_" . date("Y-m-d_H-i-s") . ".sql";
-
 file_put_contents($file_name, $backup_sql);
 
 // Descargar el archivo
@@ -51,4 +62,5 @@ readfile($file_name);
 // Cerrar conexión
 $conn->close();
 exit;
+
 ?>

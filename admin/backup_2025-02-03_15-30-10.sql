@@ -9,7 +9,7 @@ REPLACE INTO tbl_admin VALUES('0', 'admin', '$2y$10$hVelxAY.hBIWgi52H2axde/pn/oH
 
 ;
 
-REPLACE INTO tbl_configuracion VALUES('1', 'restaurante', 'El DORADO');
+REPLACE INTO tbl_configuracion VALUES('1', 'farmacia', 'SOFTNIC');
 
 
 

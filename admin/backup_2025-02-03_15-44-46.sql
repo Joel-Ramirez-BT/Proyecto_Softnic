@@ -1,4 +1,4 @@
-Use fosdb;
+
 
 CREATE TABLE `tbl_admin` (
   `ID` int(2) NOT NULL,
@@ -19,7 +19,7 @@ CREATE TABLE `tbl_configuracion` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO tbl_configuracion VALUES('1', 'restaurante', 'Softnic');
+INSERT INTO tbl_configuracion VALUES('1', 'farmacia', 'SOFTNIC');
 
 
 
@@ -66,7 +66,7 @@ CREATE TABLE `tbl_menuitem` (
 INSERT INTO tbl_menuitem VALUES('76', '28', 'Pollo al vino', '20', '200.00', '');
 INSERT INTO tbl_menuitem VALUES('77', '29', 'Coca Cola 355 ml', '1', '40.00', '');
 INSERT INTO tbl_menuitem VALUES('78', '29', 'Jugo de naranga', '14', '20.00', '');
-INSERT INTO tbl_menuitem VALUES('80', '28', 'Pollo a la placha', '42', '130.00', '');
+INSERT INTO tbl_menuitem VALUES('80', '28', 'Pollo a la placha', '41', '130.00', '');
 INSERT INTO tbl_menuitem VALUES('81', '28', 'Deditos de pollo ', '8', '80.00', '');
 INSERT INTO tbl_menuitem VALUES('82', '28', 'Canelones ', '2', '150.00', '');
 INSERT INTO tbl_menuitem VALUES('83', '28', 'Pollo frito', '45', '80.00', '');
@@ -83,8 +83,6 @@ INSERT INTO tbl_menuitem VALUES('95', '31', 'Yogurt con granola ', '32', '100.00
 INSERT INTO tbl_menuitem VALUES('96', '31', 'Huevos revueltos ', '32', '75.00', '');
 INSERT INTO tbl_menuitem VALUES('97', '31', 'Panini de pollo', '55', '200.00', '');
 INSERT INTO tbl_menuitem VALUES('98', '31', 'Pancakes', '12', '175.00', '');
-INSERT INTO tbl_menuitem VALUES('99', '33', 'Frijoles', '', '30.00', '');
-INSERT INTO tbl_menuitem VALUES('100', '33', 'Azucar', '', '12.00', '');
 
 
 
@@ -115,10 +113,7 @@ CREATE TABLE `tbl_order` (
   PRIMARY KEY (`orderID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-INSERT INTO tbl_order VALUES('2', 'esperando', '130.00', '2024-11-19', 'Lismarling', 'Contado', 'Mina el limon', 'Delivery2', '50.00');
-INSERT INTO tbl_order VALUES('3', 'esperando', '80.00', '2024-12-15', 'David', 'Contado', 'Santa pancha', 'Delivery3', '10.00');
-INSERT INTO tbl_order VALUES('4', 'esperando', '24.00', '2025-01-03', 'Jaxira', 'Contado', '', 'Delivery4', '50.00');
-INSERT INTO tbl_order VALUES('5', 'esperando', '1000.00', '2025-01-22', '', 'Contado', '', 'Mesa 1', '0.00');
+INSERT INTO tbl_order VALUES('1', 'esperando', '130.00', '2025-02-02', '', 'Contado', '', 'Delivery1', '0.00');
 
 
 
@@ -131,12 +126,9 @@ CREATE TABLE `tbl_orderdetail` (
   PRIMARY KEY (`orderDetailID`),
   KEY `itemID` (`itemID`),
   KEY `orderID` (`orderID`)
-) ENGINE=InnoDB AUTO_INCREMENT=451 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=452 DEFAULT CHARSET=latin1;
 
-INSERT INTO tbl_orderdetail VALUES('2', '447', '80', '1');
-INSERT INTO tbl_orderdetail VALUES('3', '448', '77', '2');
-INSERT INTO tbl_orderdetail VALUES('4', '449', '100', '2');
-INSERT INTO tbl_orderdetail VALUES('5', '450', '76', '5');
+INSERT INTO tbl_orderdetail VALUES('1', '451', '80', '1');
 
 
 
