@@ -24,7 +24,7 @@ foreach ($tables as $table) {
     // Obtener datos de la tabla
     $result = $conn->query("SELECT * FROM $table");
     while ($row = $result->fetch_assoc()) {
-        $backup_sql .= "INSERT INTO $table VALUES(";
+        $backup_sql .= "REPLACE INTO $table VALUES(";
         $values = [];
         foreach ($row as $value) {
             $values[] = "'" . $conn->real_escape_string($value) . "'";
@@ -33,9 +33,14 @@ foreach ($tables as $table) {
     }
     $backup_sql .= "\n\n";
 }
+$folder_path = "./../backups/"; 
 
-// Guardar en un archivo
-$file_name = "backup_" . date("Y-m-d_H-i-s") . ".sql";
+if (!file_exists($folder_path)) {
+    mkdir($folder_path, 0777, true); // Crea la carpeta con permisos adecuados
+}
+
+$file_name = $folder_path . "backup_" . date("Y-m-d_H-i-s") . ".sql";
+
 file_put_contents($file_name, $backup_sql);
 
 // Descargar el archivo

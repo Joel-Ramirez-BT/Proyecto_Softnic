@@ -1,4 +1,4 @@
-
+Use fosdb;
 
 CREATE TABLE `tbl_admin` (
   `ID` int(2) NOT NULL,
