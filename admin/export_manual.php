@@ -19,7 +19,7 @@ foreach ($tables as $table) {
     // Obtener estructura de la tabla
     $result = $conn->query("SHOW CREATE TABLE $table");
     $row = $result->fetch_assoc();
-    $backup_sql .= "\n\n" . $row['Create Table'] . ";\n\n";
+    $backup_sql .= "\n\n" . $row['IF NOT EXISTS Create Table'] . ";\n\n";
 
     // Obtener datos de la tabla
     $result = $conn->query("SELECT * FROM $table");
@@ -39,7 +39,7 @@ if (!file_exists($folder_path)) {
     mkdir($folder_path, 0777, true); // Crea la carpeta con permisos adecuados
 }
 
-$file_name = $folder_path . "backup_" . date("Y-m-d_H-i-s") . ".sql";
+$file_name = "backup_" . date("Y-m-d_H-i-s") . ".sql";
 
 file_put_contents($file_name, $backup_sql);
 
