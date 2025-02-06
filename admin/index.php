@@ -1,24 +1,28 @@
 
 <?php 
 ob_start();
-
+if (!file_exists("../functions.php")) {
+  die("Error: No se encontró el archivo functions.php");
+}
 include("../functions.php");
 
-  if((!isset($_SESSION['uid']) && !isset($_SESSION['username']) && isset($_SESSION['user_level'])) ) 
-    header("Location: login.php");
 
-  if($_SESSION['user_level'] != "admin")
+session_start();
+if (!isset($_SESSION['uid']) || !isset($_SESSION['username']) || !isset($_SESSION['user_level'])) {
     header("Location: login.php");
+    exit();
+}
 
-    
-    
+if ($_SESSION['user_level'] != "admin") {
+    header("Location: login.php");
+    exit();
+}
+
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="es">
   <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
