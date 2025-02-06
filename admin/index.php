@@ -1,5 +1,7 @@
 
 <?php 
+ob_start();
+
 include("../functions.php");
 
   if((!isset($_SESSION['uid']) && !isset($_SESSION['username']) && isset($_SESSION['user_level'])) ) 
@@ -10,10 +12,6 @@ include("../functions.php");
 
     
     
-?>
-<?php
-// Iniciar el buffer de salida
-ob_start();
 ?>
 
 <!DOCTYPE html>
