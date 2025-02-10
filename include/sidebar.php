@@ -3,7 +3,7 @@
       <ul class="sidebar navbar-nav">
         <li class="nav-item">
           <a class="nav-link" href="index.php">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <i class="fas fa-fw fa-tachometer-alt" style="color:rgb(45, 237, 251);"></i>
             <span>Panel de Control</span>
           </a>
         </li>
@@ -11,8 +11,8 @@
         
         <li class="nav-item">
           <a class="nav-link" href="menu.php">
-            <i class="fas fa-fw fa-utensils"style="color: #2dfb31;"></i>
-            <span>Menú</span></a>
+          <i class="fas fa-tags" style="color: #2dfb31;"></i>
+            <span>Categorias</span></a>
         </li>
 
          <li class="nav-item">
@@ -29,13 +29,7 @@
             <span>Facturar</span></a>
         </li>
 
-      <!--  
-        <li class="nav-item">
-          <a class="nav-link" href="sales.php">
-            <i class="fas fa-fw fa-chart-area"style="color: #2dfb31;"></i>
-            <span>Finanzas</span></a>
-        </li>
--->
+    
         <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="sales.php" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-fw fa-chart-area" style="color: #2dfb31;"></i>
@@ -83,7 +77,7 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="staff.php">Empleados</a>
-                    <a class="dropdown-item" href="configuration.php">Más</a>
+                    <a class="dropdown-item" href="configuration.php">Personalización</a>
                   <a class="dropdown-item" href="desing.php">Diseño</a>  
                   <a class="dropdown-item" href=".#">Idiomas</a>
 				  <a class="dropdown-item" href="backup.php">Backup</a>  

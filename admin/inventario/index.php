@@ -268,8 +268,6 @@ function Mostrarinventario() {
     xhr.send(formData);
 }
  </script>
-
-modal para agregar
 <script>
     // Captura el evento cuando se hace clic en el botón de "Agregar"
     $('#addModal').on('show.bs.modal', function (event) {

@@ -3,7 +3,8 @@ include ('../../dbconnection.php'); // Incluye el archivo de conexión
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $campo = $_POST["campo"];
+    $campo = isset($_POST["campo"]) ? $_POST["campo"] : "";
+
 
     // Número de elementos por página
     $elementosPorPagina = 10;

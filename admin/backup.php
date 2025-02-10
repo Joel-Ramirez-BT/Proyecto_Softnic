@@ -1,3 +1,21 @@
+<?php
+if (!file_exists("../functions.php")) {
+    die("Error: No se encontró el archivo functions.php");
+  }
+  include("../functions.php");
+  
+  
+  if (!isset($_SESSION['uid']) || !isset($_SESSION['username']) || !isset($_SESSION['user_level'])) {
+      header("Location: login.php");
+      exit();
+  }
+  
+  if ($_SESSION['user_level'] != "admin") {
+      header("Location: login.php");
+      exit();
+  }
+
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -9,18 +27,22 @@
 
     <title>Panel de Control - Softnic</title>
 
+
     <!-- Bootstrap core CSS-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- jQuery (completo para compatibilidad)-->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <!-- Custom fonts for this template-->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
-    <!-- Bootstrap Icons-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <!-- Page level plugin CSS-->
+    <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
 
-    <!-- Estilos personalizados-->
+    <!-- Custom styles for this template-->
     <link href="css/sb-admin.css" rel="stylesheet">
-    <link href="../css/stylesmac.css" rel="stylesheet">
+
+        <!-- Estilos de mac-->
+        <link href="../css/stylesmac.css" rel="stylesheet">
+
 </head>
 
 <body>
@@ -30,11 +52,11 @@
     //include_once('../include/sidebar.php');
     ?>
      <div class="col-md-10 offset-md-2 mt-5 d-flex justify-content-end">
-      <div class="container text-right">
+      <div class="container text-center">
         <div class="card shadow-lg p-4 border-0 rounded-3">
-            <h2 class="mb-4 text-primary">Respaldo de Base de Datos</h2>
-            <p class="text-muted">Presiona el botón para generar un backup manual de tu base de datos.</p>
-            <form action="export_manual.php" method="post">
+            <h2 class="mb-4 text-primary text-center">Respaldo de Base de Datos</h2>
+            <p class="text-muted aling-center ">Se crearan 2 copias, 1 se guardara en la carpeta backups y la otra usted tendra que elejir su ubicación</p><br>
+            <form action="export_manual.php" method="post"><br>
                 <button type="submit" class="btn btn-primary btn-lg">
                     <i class="bi bi-download"></i> Generar Backup
                 </button>
@@ -44,7 +66,7 @@
 
     <div class="container text-center">
         <div class="card shadow-lg p-4 border-0 rounded-3">
-            <h2 class="mb-4 text-primary">Restaurar Backup</h2>
+            <h2 class="mb-3 text-primary">Restaurar Backup</h2>
             <p class="text-muted">Selecciona un archivo SQL y presiona el botón para restaurar la base de datos.</p>
             <form action="restore.php" method="post" enctype="multipart/form-data">
                 <input type="file" name="backup_file" class="form-control mb-3" accept=".sql" required>

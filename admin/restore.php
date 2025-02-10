@@ -1,11 +1,7 @@
 <?php
-$host = "localhost";
-$user = "root"; // Cambia según tu configuración
-$pass = "1234";     // Cambia según tu configuración
-$dbname = "fosdb";
-
+include('../config.php');
 // Conectar a la base de datos
-$conn = new mysqli($host, $user, $pass, $dbname);
+$conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Error de conexión: " . $conn->connect_error);
 }
@@ -34,7 +30,12 @@ if (isset($_FILES["backup_file"]) && $_FILES["backup_file"]["error"] == 0) {
     }
 
     if ($success) {
-        echo "<h3 style='color:green;'>Backup restaurado con éxito.</h3>";
+        echo "
+        <center>
+        <br>
+        <h1 style='color:green;'>Backup restaurado con éxito.</h1>
+        </center>
+        ";
     } else {
         echo "<h3 style='color:red;'>Hubo un error al restaurar el backup.</h3>";
     }
