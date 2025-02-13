@@ -49,7 +49,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="pay.php">
                     <i class="fas fa-fw fa-tachometer-alt" style="color: #2dfb31;"></i>
-                    <span>pagos</span>
+                    <span>Pagos</span>
                 </a>
             </li>
             <li class="nav-item">
@@ -59,38 +59,9 @@
                 </a>
             </li>
         </ul>
-        <div id="content-wrapper">
+    
+    <div id="content-wrapper">
     <div class="container-fluid">
-        <!-- Estado de Cuentas de Clientes -->
-        <div class="card mb-3">
-            <div class="card-header">
-                <i class="fas fa-user-circle"></i>
-                Estado de Cuentas de Clientes
-            </div>
-            <div class="card-body">
-                <!-- Formulario de filtros -->
-                <form method="GET" id="filtroForm">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <label for="cliente">Nombre del Cliente:</label>
-                            <input type="text" class="form-control" id="cliente" name="cliente" placeholder="Buscar por nombre">
-                        </div>
-                        <div class="col-md-4">
-                            <label for="estado">Estado:</label>
-                            <select class="form-control" id="estado" name="estado">
-                                <option value="">Todos</option>
-                                <option value="pendiente">pendiente</option>
-                                <option value="pagado">pagado</option>
-                                <option value="atrasado">atrasado</option>
-                            </select>
-                        </div>
-                        <div class="col-md-4 d-flex align-items-end">
-                            <button type="submit" class="btn btn-primary">Filtrar</button>
-                        </div>
-                    </div>
-                </form>
-                <br>
-
                 <table class="table table-bordered" width="100%" cellspacing="0">
                     <thead>
                         <tr>
@@ -98,54 +69,104 @@
                             <th>Nombre</th>
                             <th>Monto</th>
                             <th>Estado</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php
-                        // Obtener filtros
-                        $cliente = isset($_GET['cliente']) ? $_GET['cliente'] : '';
-                        $estado = isset($_GET['estado']) ? $_GET['estado'] : '';
+                    <?php
+// Recuperar los valores de los filtros desde el formulario GET
+$campo = isset($_GET['campo']) ? $_GET['campo'] : '';  // El campo a mostrar
+$startdate = isset($_GET['startdate']) ? $_GET['startdate'] : '';  // Fecha de inicio
+$enddate = isset($_GET['enddate']) ? $_GET['enddate'] : '';  // Fecha de fin
 
-                        // Consulta con filtros
-                        $query = "SELECT c.id, c.nombre AS cliente, cu.monto_deuda, cu.saldo_pendiente, cu.estado
-                                  FROM tbl_customer c
-                                  JOIN tbl_cuentas cu ON c.id = cu.customer_id
-                                  WHERE 1=1";  // Siempre será verdadero para no romper la consulta
+// Iniciar la consulta base
+$query = "SELECT o.orderID, o.status, o.total, o.order_date, 
+                 o.forma_pago, c.nombre 
+          FROM tbl_order o 
+          LEFT JOIN tbl_customer c ON o.OrderID = c.id";
 
-                        if ($cliente != '') {
-                            $query .= " AND c.nombre LIKE '%$cliente%'";  // Filtrar por nombre
-                        }
+// Filtrar por fechas si se especificaron
+if (!empty($startdate) && !empty($enddate)) {
+    $query .= " WHERE o.order_date BETWEEN '$startdate' AND '$enddate'";
+} elseif (!empty($startdate)) {
+    $query .= " WHERE o.order_date >= '$startdate'";
+} elseif (!empty($enddate)) {
+    $query .= " WHERE o.order_date <= '$enddate'";
+}
 
-                        if ($estado != '') {
-                            $query .= " AND cu.estado = '$estado'";  // Filtrar por estado
-                        }
+// Ejecutar la consulta
+$result = $sqlconnection->query($query);
 
-                        // Ejecutar la consulta
-                        $result = $sqlconnection->query($query);
+// Comprobar si se encontraron resultados
+if ($result && $result->num_rows > 0) {
+    while ($order = $result->fetch_assoc()) {
+        // Si el pago fue en efectivo, se muestra "Pago en efectivo"
+        $cliente_nombre = $order['forma_pago'] == 'efectivo' ? 'Pago en efectivo' : $order['nombre'];
 
-                        // Comprobar si se encuentran resultados
-                        if ($result && $result->num_rows > 0) {
-                            while ($row = $result->fetch_assoc()) {
-                                echo "<tr>";
-                                echo "<td>{$row['id']}</td>";
-                                echo "<td>{$row['cliente']}</td>";
-                                echo "<td>C$ {$row['saldo_pendiente']}</td>";
-                                echo "<td>{$row['estado']}</td>";
-                                echo "</tr>";
-                            }
-                        } else {
-                            echo "<tr><td colspan='4'>No se encontraron resultados.</td></tr>";
-                        }
-                        ?>
+        echo "<tr>";
+        echo "<td>{$order['orderID']}</td>";
+        echo "<td>{$cliente_nombre}</td>";
+        echo "<td>{$order['total']}</td>";
+        echo "<td>{$order['status']}</td>";
+        echo "<td>{$order['order_date']}</td>";
+        echo "</tr>";
+    }
+} else {
+    echo "<tr><td colspan='5'>No se encontraron resultados.</td></tr>";
+}
+?>
+
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 </div>
-                <!-- Tabla de Consultas y Reportes -->
-               
-            <!-- Sticky Footer -->
+
+<!-- Modal para realizar pago -->
+<div class="modal fade" id="pagoModal" tabindex="-1" role="dialog" aria-labelledby="pagoModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="pagoModalLabel">Realizar Pago</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="pagoForm" method="POST" action="realizar_pago.php">
+                    <input type="hidden" id="cliente_id" name="cliente_id">
+                    <input type="hidden" id="saldo_pendiente" name="saldo_pendiente">
+                    <div class="form-group">
+                        <label for="monto_pago">Monto a pagar:</label>
+                        <input type="number" class="form-control" id="monto_pago" name="monto_pago" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="fecha_pago">Fecha de Pago:</label>
+                        <input type="date" class="form-control" id="fecha_pago" name="fecha_pago" required>
+                    </div>
+                    <button type="submit" class="btn btn-success">Realizar Pago</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Código para llenar el modal con la información del cliente
+    $('#pagoModal').on('show.bs.modal', function(event) {
+        var button = $(event.relatedTarget);
+        var clienteId = button.data('id');
+        var clienteNombre = button.data('nombre');
+        var saldoPendiente = button.data('saldo');
+        
+        var modal = $(this);
+        modal.find('.modal-title').text('Pago para ' + clienteNombre);
+        modal.find('#cliente_id').val(clienteId);
+        modal.find('#saldo_pendiente').val(saldoPendiente);
+    });
+</script>
+    <!-- Sticky Footer -->
             <?php include_once('../include/footer.php'); ?>
         </div>
         <!-- /.content-wrapper -->
