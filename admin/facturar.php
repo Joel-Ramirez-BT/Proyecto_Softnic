@@ -72,7 +72,7 @@ include_once('../include/sidebar.php');
               <table id="tblCurrentOrder" class="table table-responsive table-bordered" width="100%" cellspacing="0">
                     <thead>
                       <th># Orden</th>
-
+                      <th>Menú</th>
                       <th>Nombre de Producto</th>
                       <th class='text-center'>Cantidad</th>
                       <th class='text-center'>Precio total</th>
@@ -84,14 +84,14 @@ include_once('../include/sidebar.php');
                     <tbody id="tblBodyCurrentOrder">
                       <?php 
                       $displayOrderQuery =  "
-                        SELECT o.orderID, o.nombre,m.Name, OD.itemID,MI.ItemName,OD.quantity,O.status,mi.price ,o.order_date
+                        SELECT o.orderID, o.nombre,m.menuName, OD.itemID,MI.menuItemName,OD.quantity,O.status,mi.price ,o.order_date
                         FROM tbl_order O
                         LEFT JOIN tbl_orderdetail OD
                         ON O.orderID = OD.orderID
-                        LEFT JOIN tbl_item MI
+                        LEFT JOIN tbl_menuitem MI
                         ON OD.itemID = MI.itemID
-                        LEFT JOIN tbl_ M
-                        ON MI.ID = M.ID ORDER BY orderID DESC
+                        LEFT JOIN tbl_menu M
+                        ON MI.menuID = M.menuID ORDER BY orderID DESC
                         ";
 
                       if ($orderResult = $sqlconnection->query($displayOrderQuery)) {
@@ -126,8 +126,8 @@ include_once('../include/sidebar.php');
                             }
 
                             echo "
-                              <td>".$orderRow['Name']."</td>
-                              <td class='text-center'>".$orderRow['ItemName']."</td>
+                              <td>".$orderRow['menuName']."</td>
+                              <td class='text-center'>".$orderRow['menuItemName']."</td>
                               <td class='text-center'>".$orderRow['quantity']."</td>
                             ";
 
