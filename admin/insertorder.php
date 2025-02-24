@@ -79,7 +79,8 @@ mysqli_query($sqlconnection,$addOrderQuery);
 		if (empty($costo)) {
 			$costo = 0;
 		}
-		
+		if($pago=='credito')
+		{}
 		
 		//global $sqlconnection;
 		$addOrderQuery = "INSERT INTO tbl_order (orderID ,status ,order_date, nombre,forma_pago,direccion, servicio, costo) VALUES ('{$orderID}' ,'esperando' ,CURDATE(),'$nombre','$pago', '$direccion', '$servicio','$costo' )";

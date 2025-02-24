@@ -84,14 +84,14 @@ include_once('../include/sidebar.php');
                     <tbody id="tblBodyCurrentOrder">
                       <?php 
                       $displayOrderQuery =  "
-                        SELECT o.orderID, o.nombre,m.menuName, OD.itemID,MI.menuItemName,OD.quantity,O.status,mi.price ,o.order_date
+                        SELECT o.orderID, o.nombre,m.Name, OD.itemID,MI.ItemName,OD.quantity,O.status,mi.price ,o.order_date
                         FROM tbl_order O
                         LEFT JOIN tbl_orderdetail OD
                         ON O.orderID = OD.orderID
-                        LEFT JOIN tbl_menuitem MI
+                        LEFT JOIN tbl_item MI
                         ON OD.itemID = MI.itemID
-                        LEFT JOIN tbl_menu M
-                        ON MI.menuID = M.menuID ORDER BY orderID DESC
+                        LEFT JOIN tbl_ M
+                        ON MI.ID = M.ID ORDER BY orderID DESC
                         ";
 
                       if ($orderResult = $sqlconnection->query($displayOrderQuery)) {
@@ -126,8 +126,8 @@ include_once('../include/sidebar.php');
                             }
 
                             echo "
-                              <td>".$orderRow['menuName']."</td>
-                              <td class='text-center'>".$orderRow['menuItemName']."</td>
+                              <td>".$orderRow['Name']."</td>
+                              <td class='text-center'>".$orderRow['ItemName']."</td>
                               <td class='text-center'>".$orderRow['quantity']."</td>
                             ";
 
