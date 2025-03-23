@@ -107,13 +107,13 @@ if (!isset($_SESSION['uid']) || !isset($_SESSION['username']) || !isset($_SESSIO
                                 <input type="text" name="nombrec" placeholder="Ingrese nombre del cliente" id="nombrec" class="form-control" list="clientes" />
                                 <datalist id="clientes">
                                     <?php
-                                    $consulta1 = "SELECT nombre, direccion FROM tbl_customer";
+                                    $consulta1 = "SELECT id, nombre, direccion FROM tbl_customer";
                                     $stmt = $sqlconnection->prepare($consulta1);
                                     $stmt->execute();
                                     $result = $stmt->get_result();
 
                                     while ($row1 = $result->fetch_assoc()) {
-                                        echo "<option value='" . $row1['nombre'] . "' data-direccion='" . $row1['direccion'] . "'>" . $row1['nombre'] . "</option>";
+                                        echo "<option value='" . $row1['id'] ." ". $row1['nombre']. "' data-direccion='" . $row1['direccion'] . "'>" . $row1['nombre'] . "</option>";
                                     }
                                     $stmt->close();
                                     ?>

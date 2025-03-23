@@ -56,7 +56,7 @@ include_once('../include/sidebar.php');
             <li class="breadcrumb-item">
               <a href="index.php">Panel de Control</a>
             </li>
-            <li class="breadcr umb-item active">Facturas</li>
+            <li class="breadcrumb-item active">Facturas</li>
           </ol>
 
           <!-- Page Content -->
