@@ -33,6 +33,7 @@ ob_start();
     <meta name="author" content="">
 
     <title>Panel de Control - Softnic</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js"></script>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 
@@ -83,110 +84,62 @@ include_once('../include/sidebar.php');
             <li class="breadcrumb-item active">Vista General</li>
           </ol>
           <div class="row">
-      <!-- Primer card -->
-      <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
-        <div class="card">
-          <div class="row no-gutters">
-            <div class="col-md-4">
-            <i class="fa-solid fa-list" style="color: #f5ec00;  font-size: 90px;"></i>
-            </div>
-            <div class="col-md-8">
-              <div class="card-body">
-                <p class="text-black">ORDENES</p>
-                <p class="card-text"> <?php echo $totalOrdenes; ?></p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Segundo card -->
-      <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
-        <div class="card">
-          <div class="row no-gutters">
-            <div class="col-md-4">
-            <i class="fa-solid fa-table-list" style="color: #ff8647; font-size: 90px; "></i>
-            </div>
-            <div class="col-md-8">
-              <div class="card-body">
-                <p class="text-black">MESAS</p>
-                <p class="card-text"> <?php echo $totalMesas; ?>
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Tercer card -->
-      <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
-        <div class="card">
-          <div class="row no-gutters">
-            <div class="col-md-4">
-            <i class="fa-solid fa-user" style="color: #63E6BE; font-size: 90px;"></i>
-            </div>
-            <div class="col-md-8">
-              <div class="card-body">
-                <p class="text-black">CLIENTES</p>
-                <p class="card-text"> <?php echo $totalClientes; ?>
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+       <div class="container mt-4">
+            <!-- Título -->
+            <h2 class="text-center mb-4">Vista General</h2>
 
-      <div class="row">
-      <!-- Primer card -->
-      <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
-        <div class="card">
-          <div class="row no-gutters">
-            <div class="col-md-4">
-            <i class="fa-solid fa-list-check" style="color: #232323; font-size: 90px;"></i>
-            </div>
-            <div class="col-md-8">
-              <div class="card-body">
-                <p class="text-black">PRODUCTOS</p>
-                <p class="card-text"> <?php echo $totalproduct; ?></p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Segundo card -->
-      <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
-        <div class="card">
-          <div class="row no-gutters">
-            <div class="col-md-4">
-            <i class="fa-solid fa-clipboard-list" style="color: #7a7a7a; font-size: 90px;"></i>
-            </div>
-            <div class="col-md-8">
-              <div class="card-body">
-                <p class="text-black">CATEGORIASs </p>
-                <p class="card-text"> <?php echo $totalcategory; ?>
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Tercer card -->
-      <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
-        <div class="card">
-          <div class="row no-gutters">
-            <div class="col-md-4">
-            <i class="fa-solid fa-people-arrows" style="color: #e32400;font-size: 70px;"></i>
-            </div>
-            <div class="col-md-8">
-              <div class="card-body">
-                <p class="text-black">EMPLEADOS</p>
-                <p class="card-text"> <?php echo $totalstaff; ?>
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+            <div class="row">
+    <!-- Gráfico de pastel -->
+    <div class="col-md-6">
+        <canvas id="graficoPastel"></canvas>
+    </div>
+
+    <!-- Gráfico de líneas -->
+    <div class="col-md-6">
+        <canvas id="graficoLinea"></canvas>
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const datos = {
+        ordenes: <?php echo $totalOrdenes; ?>,
+        mesas: <?php echo $totalMesas; ?>,
+        clientes: <?php echo $totalClientes; ?>,
+        productos: <?php echo $totalproduct; ?>,
+        categorias: <?php echo $totalcategory; ?>,
+        empleados: <?php echo $totalstaff; ?>
+    };
+
+    // Gráfico de pastel
+    new Chart(document.getElementById("graficoPastel"), {
+        type: "pie",
+        data: {
+            labels: Object.keys(datos),
+            datasets: [{
+                data: Object.values(datos),
+                backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF", "#FF9F40"]
+            }]
+        }
+    });
+
+    // Gráfico de línea
+    new Chart(document.getElementById("graficoLinea"), {
+        type: "line",
+        data: {
+            labels: Object.keys(datos),
+            datasets: [{
+                label: "Cantidad",
+                data: Object.values(datos),
+                borderColor: "#36A2EB",
+                fill: false
+            }]
+        }
+    });
+});
+</script>
+
+    </div
           <!-- Page Content -->
           <h1>Panel de Administración</h1>
           <hr>
