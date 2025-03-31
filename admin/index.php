@@ -1,4 +1,3 @@
-
 <?php 
 ob_start();
 if (!file_exists("../functions.php")) {

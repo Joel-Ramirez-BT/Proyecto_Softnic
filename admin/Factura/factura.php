@@ -53,15 +53,18 @@ $pdf->Cell(60, 2, 'Forma de pago: '.$row_cliente['forma_pago'], 0, 1, '');
 $pdf->Ln(1);
 $pdf->Cell(60, 3, 'Fecha: '.$row_fecha['order_date'], 0, 1, '');
 $pdf->Ln(1);
-$pdf->Multicell(60, 3, utf8_decode('Cliente: '.$row_cliente['nombre']), 0, 1, '');
+$pdf->MultiCell(60, 3, mb_convert_encoding('Cliente: '.$row_cliente['nombre'], 'ISO-8859-1', 'UTF-8'), 0, 'L');
+
 $pdf->Ln(1);
-$pdf->MultiCell(55, 3, utf8_decode('Direccion: '.$row_cliente['direccion']), 0, 1, '');
+$pdf->MultiCell(55, 3, mb_convert_encoding('Dirección: '.$row_cliente['direccion'], 'ISO-8859-1', 'UTF-8'), 0,'L');
+
 
 // COLUMNAS
 $pdf->Ln(3);
 $pdf->SetFillColor(255, 255, 255);
 $pdf->SetFont('Arial', 'B', 8);
-$pdf->Cell(25, 4, utf8_decode('Descripción'), 0, 0, 'C', 1);
+$pdf->Cell(25, 4, mb_convert_encoding('Descripción', 'ISO-8859-1', 'UTF-8'), 0, 0, 'C', 1);
+
 $pdf->Cell(15, 4, 'Cantidad', 0, 0, 'C', 1);
 $pdf->Cell(18, 4, 'Precio x ud', 0, 1, 'C', 1);
 $consulta_total = "SELECT total FROM tbl_order WHERE orderID ='{$_GET["id"]}'";
@@ -83,7 +86,8 @@ for ($i = 0; $i < $totalRows; $i++) {
         $newString = substr($originalString, 0, 19); // Cortamos el texto para que no sea muy largo
 
         // Añadir los datos al PDF
-        $pdf->Cell(26, 4, "*".utf8_decode($newString), 0, 0, 'C', 1);
+        $pdf->Cell(26, 4, "*" . mb_convert_encoding($newString, 'ISO-8859-1', 'UTF-8'), 0, 0, 'C', 1);
+
         $pdf->Cell(15, 4, $row['quantity'], 0, 0, 'C', 1);
 
         // Obtener el precio del producto de la columna 'price' en la consulta

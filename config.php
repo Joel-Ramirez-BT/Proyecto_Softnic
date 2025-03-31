@@ -1,7 +1,7 @@
 <?php
 	
 	//Configuracion de BBDD por defecto
-	$servername = "localhost";
+	$servername = "mariadb";
 	$username = "root";
 	//Gqcr/kQsWAO8
 	$password = "1234";

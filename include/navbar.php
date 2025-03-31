@@ -1,5 +1,11 @@
 <?php
-include_once($_SERVER['DOCUMENT_ROOT'] . '/Restaurante 3.0/dbconnection.php');
+$path = $_SERVER['DOCUMENT_ROOT'] . '/dbconnection.php';
+
+if (file_exists($path)) {
+    include_once($path);
+} else {
+    die("Error: Archivo dbconnection.php no encontrado en " . $path);
+}
 
 
 // Verificar la conexión
@@ -22,7 +28,7 @@ if ($result->num_rows > 0) {
 ?>
 <?php
 // Conexión a la base de datos
-$conexion = new mysqli("localhost", "root", "1234", "fosdb");
+$conexion = $sqlconnection;
 
 // Verifica la conexión
 if ($conexion->connect_error) {

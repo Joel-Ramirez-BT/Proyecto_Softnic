@@ -1,7 +1,7 @@
 <?php
-	// Establecer conexión con la base de datos
+session_start();  // Iniciar sesión
 	require("dbconnection.php");
-	session_start();  // Iniciar sesión
+	
 
 	// Función para obtener el número de filas de una consulta
 	function getNumRowsQuery($query) {

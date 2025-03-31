@@ -51,16 +51,38 @@ include("../../functions.php");
       <ul class="sidebar navbar-nav">
         <li class="nav-item">
           <a class="nav-link" href="../index.php">
-            <i class="fas fa-fw fa-tachometer-alt" style="color: #2dfb31;"></i>
+            <i class="fas fa-fw fa-tachometer-alt" style="color:rgb(230, 127, 11);"></i>
             <span>Panel de Control</span>
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">
-            <i class="fas fa-fw fa-chart-area"style="color: #2dfb31;"></i>
-            <span>Agregar Producto</span></a>
+            <i class="fas fa-fw fa-chart-area"style="color: rgb(238, 92, 7);"></i>
+            <span>Agregar Categoria</span></a>
         </li>
-        
+        <li class="nav-item">
+          <a class="nav-link" href="agregar_producto.php">
+            <i class="fas fa-fw fa-plus"style="color:rgb(238, 120, 10);"></i>
+            <span>Agregar Producto</span></a>
+            
+            <li class="nav-item">
+  <a class="nav-link" href="#">
+    <i class="fas fa-undo-alt" style="color:rgb(247, 140, 18);"></i>
+    <span>Devoluciones</span>
+  </a>
+</li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="#">
+            <i class="fas fa-fw fa-truck"style="color:rgb(243, 144, 16);"></i>
+            <span>Proveedores</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">
+            <i class="fas fa-fw fa-list"style="color:rgb(240, 143, 16);"></i>
+            <span>Ordenes de compras</span></a>
+        </li>
+
         <li class="nav-item">
           <a class="nav-link" href="" data-toggle="modal" data-target="#logoutModal">
             <i class="fas fa-fw fa-power-off"style="color: #FF0000;"></i>
