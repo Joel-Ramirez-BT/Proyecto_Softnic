@@ -1,4 +1,4 @@
-<?php
+ <?php
   include("../functions.php");
 
   // Verificar sesión y nivel de usuario
