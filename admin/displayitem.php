@@ -38,7 +38,7 @@ include("../functions.php");
 			}
 
 			else {
-				echo "<tr><td>No hay item en este menú</td></tr>";
+				echo "<tr><td>No hay item en esta categoría</td></tr>";
 			}
 			
 		}

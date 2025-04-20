@@ -46,7 +46,7 @@
 <li class="nav-item">
           <a class="nav-link" href="tables.php">
             <i class="fas fa-duotone fa-table" style="color: #2dfb31;"></i>
-            <span>Mesas</span>
+            <span>Cajas</span>
           </a>
         </li>
 

@@ -93,7 +93,7 @@ include_once('../include/sidebar.php');
                   <table id="tblCurrentOrder"  class="table table-responsive table-bordered" width="100%" cellspacing="0">
                     <thead class="table table-dark">
                       <th>Número de Orden</th>
-                      <th>Menú</th>
+                      <th>Categoria</th>
                       <th>Nombre de Ítem</th>
                       <th class='text-center'>Cantidad</th>
                       <th class='text-center'>Estado</th>

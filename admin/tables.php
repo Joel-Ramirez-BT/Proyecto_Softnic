@@ -84,19 +84,19 @@ include_once('../include/sidebar.php'); // incluye el menu desplegable
             <li class="breadcrumb-item">
               <a href="index.html">Panel de Control</a>
             </li>
-            <li class="breadcrumb-item active">Mesas</li>
+            <li class="breadcrumb-item active">cajas</li>
           </ol>
 
-          <h1><i class="fas fa-table"></i> Administración de mesas</h1>
+          <h1><i class="fas fa-table"></i> Administración de cajas</h1>
 <hr>
-<p>Gestión de Mesas.</p>
+<p>Gestión de cajas.</p>
 
 <div class="row">
   <div class="col-lg-6">
     <div class="card mb-3">
       <div class="card-header">
       <i class="fas fa-duotone fa-table"></i>
-        Agregar mesa
+        Agregar caja
       </div>
       <div class="card-body">
         <form action="addtables.php" method="POST">
@@ -105,8 +105,8 @@ include_once('../include/sidebar.php'); // incluye el menu desplegable
             <input type="hidden" name="table_id" id="table_id" class="form-control" value="<?php echo $row['id']; ?>" readonly>
           </div>
           <div class="form-group">
-            <label for="nombre_table">Nombre de la mesa</label>
-            <input type="text" name="nombre_table" id="nombre_table" class="form-control" placeholder="Ejemplo: Mesa 1" required>
+            <label for="nombre_table">Nombre de la caja</label>
+            <input type="text" name="nombre_table" id="nombre_table" class="form-control" placeholder="Ejemplo: caja 1" required>
           </div>
           <div class="form-group">
               <label for="capacidad">Capacidad (opcional)</label>
@@ -124,14 +124,14 @@ include_once('../include/sidebar.php'); // incluye el menu desplegable
     <div class="card mb-3">
       <div class="card-header">
       <i class="fas fa-duotone fa-table"></i>
-        Lista de Mesas Actuales
+        Lista de cajas Actuales
       </div>
       <div class="card-body">
         <table id="tblCurrentOrder" class="table table-responsive table-bordered" width="100%" cellspacing="0">
           <thead class="table-success">
             <tr>
               <th>#id</th>
-              <th>N° Mesa</th>
+              <th>N° caja</th>
               <th>Capacidad</th>
               <th>Opciones</th>
             </tr>

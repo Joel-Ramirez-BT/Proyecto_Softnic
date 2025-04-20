@@ -61,18 +61,18 @@ include_once('../include/sidebar.php');
             <li class="breadcrumb-item">
               <a href="index.php">Panel de Control</a>
             </li>
-            <li class="breadcrumb-item active">Menú</li>
+            <li class="breadcrumb-item active">Medicamentos</li>
           </ol>
 
           <!-- Contenido de la pagina -->
-          <h1>Administración del Menú</h1>
+          <h1>Administración de Medicamentos</h1>
           <hr>
-          <p>Acá puedes Administrar los menús de tu restaurante, puedes Agregar, Modificar o Eliminar listas de Menús.</p>
+          <p>Acá puedes Administrar los medicamentos de tu farmacia, puedes Agregar, Modificar o Eliminar listas de Medicamentos.</p>
 
           <div class="card mb-3 border-primary">
             <div class="card-header">
               <i class="fas fa-chart-area"></i>
-              Lista de Menús
+              Lista de Medicamentos
               <button class="btn btn-success btn-sm float-right" data-toggle="modal" data-target="#addMenuModal"><i class='fas fa-regular fa-plus' style=''></i></button>
 
           </div>
@@ -104,7 +104,7 @@ include_once('../include/sidebar.php');
                 			<table  id="dataTable" class="table table-responsive table-bordered" width="100%" cellspacing="0">
 								<tr>
 									<td>#</td>
-									<td>Nombre del platillo</td>
+									<td>Nombre </td>
 									<td>Precio (Córdobas)</td>
 									<td>Opciones</td>
 								</tr>

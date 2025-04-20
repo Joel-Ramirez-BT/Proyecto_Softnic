@@ -42,7 +42,7 @@ $resultado_notificaciones = $conexion->query($sql_notificaciones);
 
 <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
     <a class="navbar-brand mr-1" href="index.php">
-        <?php echo isset($resultado_pymes['nombre_pymes']) ? 'Restaurante | '.$resultado_pymes['nombre_pymes'] : 'Nombre no disponible'; ?>
+        <?php echo isset($resultado_pymes['nombre_pymes']) ? 'Farmacia | '.$resultado_pymes['nombre_pymes'] : 'Nombre no disponible'; ?>
     </a>
     <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
         <i class="fas fa-bars"></i>
