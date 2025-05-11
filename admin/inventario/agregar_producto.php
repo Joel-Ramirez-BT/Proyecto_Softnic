@@ -86,7 +86,7 @@ include('../../dbconnection.php'); // Incluye la conexión a la base de datos
 
       <div class="container d-flex -content-center mt-5">
   <div class="w-100" style="max-width: 500px;">
-    <form action="tu_script.php" method="POST">
+    <form action="agregar_producto_controller.php" method="POST">
       <!-- Categoría -->
       <div class="mb-3">
         <label for="categoria" class="form-label">Categoría</label>
