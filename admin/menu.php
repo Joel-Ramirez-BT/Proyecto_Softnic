@@ -65,7 +65,7 @@ include_once('../include/sidebar.php');
           </ol>
 
           <!-- Contenido de la pagina -->
-          <h1>Administración del Menú</h1>
+          <h1>Administración de las Categorias</h1>
           <hr>
           <p>Acá puedes Administrar los menús de tu restaurante, puedes Agregar, Modificar o Eliminar listas de Menús.</p>
 

@@ -1,29 +1,40 @@
 <?php
-// Incluye la conexión a la base de datos
-require_once '../../dbconnection.php';  // Asegúrate de que la conexión esté correctamente configurada
+include('../../dbconnection.php'); // Conexión a la base de datos
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $categoriaID = $_POST['categoria'];
-    $productoID = $_POST['producto'];
-    $fechaVencimiento = $_POST['fecha_vencimiento'];
-    $cantidad = $_POST['cantidad'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Recibir y sanitizar datos del formulario
+    $categoriaID = isset($_POST['categoria']) ? intval($_POST['categoria']) : 0;
+    $productoID = isset($_POST['producto']) ? intval($_POST['producto']) : 0;
+    $fechaVencimiento = isset($_POST['fecha_vencimiento']) ? $_POST['fecha_vencimiento'] : null;
+    $cantidad = isset($_POST['cantidad']) ? intval($_POST['cantidad']) : 0;
 
-    if (empty($categoriaID) || empty($productoID) || empty($cantidad)) {
-        echo "Todos los campos son obligatorios.";
-        exit;
-    }
+    if ($categoriaID > 0 && $productoID > 0 && $cantidad > 0) {
+        // Preparar la consulta segura (evitando inyección SQL)
+        $query = "UPDATE tbl_menuitem 
+                  SET cantidad_disponible = cantidad_disponible + ?, 
+                      fecha_vencimiento = ? 
+                  WHERE itemID = ?";
 
-    $query = "UPDATE tbl_menuItem 
-              SET cantidad_disponible = cantidad_disponible + $cantidad, 
-                  fecha_vencimiento = '$fechaVencimiento' 
-              WHERE menuItemname = '$productoID'";
+        if ($stmt = $sqlconnection->prepare($query)) {
+            $stmt->bind_param("isi", $cantidad, $fechaVencimiento, $productoID);
 
-    if ($sqlconnection->query($query)) {
-        echo "Datos ingresados correctamente.";
+            if ($stmt->execute()) {
+                // Redirigir con éxito
+                header("Location: agregar_producto.php?success=1");
+                exit();
+            } else {
+                // Error al ejecutar
+                echo "Error al actualizar el producto: " . $stmt->error;
+            }
+
+            $stmt->close();
+        } else {
+            echo "Error en la preparación de la consulta: " . $sqlconnection->error;
+        }
     } else {
-        echo "Error al ingresar los datos: " . $sqlconnection->error;
+        echo "Datos inválidos. Verifica el formulario.";
     }
-
-    $sqlconnection->close();
+} else {
+    echo "Método no permitido.";
 }
 ?>
