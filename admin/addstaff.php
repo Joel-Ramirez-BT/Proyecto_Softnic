@@ -14,7 +14,7 @@
 			$staffRole = $sqlconnection->real_escape_string($_POST['staffrole']);
             
 
-			$addStaffQuery = "INSERT INTO tbl_staff (username,password ,status ,role) VALUES ('{$staffname}' ,'{$staffpwd}' ,'Offline' ,'{$staffRole}') ";
+			$addStaffQuery = "INSERT INTO tbl_staff (username,password ,status ,role) VALUES ('{$staffname}' ,'{$staffpwd}' ,'Offline' ,'1') ";
 
 			if ($sqlconnection->query($addStaffQuery) === TRUE) {
 					echo "se añadio correctamente";
