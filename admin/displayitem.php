@@ -65,9 +65,16 @@ if (isset($_POST['btnMenuItemID']) && isset($_POST['qty'])) {
                         <input type='number' required min='0' max='50' step='0.01' name='itemqty[]' class='form-control' value='{$quantity}' />
                     </td>
                     <td>{$total}</td>
-                    <td><button class='btn btn-danger deleteBtn' type='button'><i class='fas fa-times'></i>Eliminar</button></td>
+                    <td><button class='btn btn-danger deleteBtn' type='button' onclick='deleteRow()'><i class='fas fa-times'></i></button></td>
                 </tr>
                 ";
+
+
+
+
+
+
+
             }
         } else {
             echo "null";

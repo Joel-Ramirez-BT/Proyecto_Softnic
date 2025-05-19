@@ -99,6 +99,7 @@ include_once('../include/navbar.php');
                     Datos de orden
                 </div>
                 <div class="card-body">
+                    <!-- FORMULARIO CORREGIDO: incluye toda la tabla dentro del form -->
                     <form action="insertorder.php" method="POST">
                         <div class="form-group">
                             <input type="text" name="nombrec" placeholder="Ingrese nombre del cliente" id="nombrec" class="form-control" list="clientes" />
@@ -234,53 +235,60 @@ include("../include/logout_modal.php");
         document.getElementById("qty").focus();
     }
 
-    function insertItem() {
-        var quantity = parseInt(document.getElementById("qty").value);
-        if (isNaN(quantity) || quantity < 1) {
-            alert("Ingrese una cantidad válida.");
-            return;
-        }
+ function insertItem() {
+    var quantity = parseInt(document.getElementById("qty").value);
+    if (isNaN(quantity) || quantity < 1) {
+        alert("Ingrese una cantidad válida.");
+        return;
+    }
 
-        // Calcular total
-        var total = currentItemPrice * quantity;
+    var total = currentItemPrice * quantity;
+    var tableBody = document.querySelector("#tblOrderList tbody");
 
-        // Agregar fila a la tabla de orden
-        var table = document.getElementById("tblOrderList");
-        var newRow = table.insertRow(-1);
+    var newRow = document.createElement("tr");
 
-        newRow.innerHTML = `
-            <td>
-                <input type="hidden" name="item_id[]" value="${currentItemID}" />
-<input type="hidden" name="item_name[]" value="${currentItemName}" />
-${currentItemName}
-</td>
-<td>
-<input type="hidden" name="item_price[]" value="${currentItemPrice}" />
-C$ ${currentItemPrice.toFixed(2)}
-</td>
-<td>
-<input type="hidden" name="item_qty[]" value="${quantity}" />
-${quantity}
-</td>
-<td>C$ ${total.toFixed(2)}</td>
-`;
+    newRow.innerHTML = `
+        <td>
+            <input type="hidden" name="item_id[]" value="${currentItemID}" />
+            <input type="hidden" name="item_name[]" value="${currentItemName}" />
+            ${currentItemName}
+        </td>
+        <td>
+            <input type="hidden" name="item_price[]" value="${currentItemPrice}" />
+            C$ ${currentItemPrice.toFixed(2)}
+        </td>
+        <td>
+            <input type="number" required min="0.01" max="50" step="0.01" name="itemqty[]" class="form-control" value="${quantity.toFixed(2)}" />
+        </td>
+        <td>C$ ${total.toFixed(2)}</td>
+        <td>
+            <button class='btn btn-danger deleteBtn' type='button'><i class='fas fa-times'></i></button>
+        </td>
+    `;
 
-    // Ocultar el panel y resetear cantidad
+    tableBody.appendChild(newRow);
+
+    // Añadir evento para borrar fila
+    newRow.querySelector('.deleteBtn').addEventListener('click', function() {
+        this.closest('tr').remove();
+    });
+
     document.getElementById("qtypanel").hidden = true;
     document.getElementById("qty").value = 1;
 }
 
-// Mostrar u ocultar costo de envío según el tipo de servicio seleccionado
-function mostrarCosto() {
-    var servicio = document.getElementById("servicio").value;
-    var costoGroup = document.getElementById("costoGroup");
-    if (servicio === "Delivery") {
-        costoGroup.classList.remove("d-none");
-    } else {
-        costoGroup.classList.add("d-none");
-        document.getElementById("costo").value = '';
-    }
+    // Mostrar u ocultar costo de envío según el tipo de servicio seleccionado
+    function mostrarCosto() {
+        var servicio = document.getElementById("servicio").value;
+        var costoGroup = document.getElementById("costoGroup");
+        if (servicio === "Delivery") {
+            costoGroup.classList.remove("d-none");
+        } else {
+            costoGroup.classList.add("d-none");
+            document.getElementById("costo").value
+= '';
 }
-</script> 
-</body> 
-</html>
+}
+</script>
+
+</body> </html>
