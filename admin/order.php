@@ -51,50 +51,65 @@ if (!isset($_SESSION['uid']) || !isset($_SESSION['username']) || !isset($_SESSIO
 
         <div class="row">
             <!-- Sección de Menús -->
-            <div class="col-lg-6">
-                <div class="card mb-3">
-                    <div class="card-header">
-                        <i class="fas fa-utensils"></i> Tomar Órdenes
-                    </div>
-                    <div class="card-body">
-                        <table class="table table-responsive table-bordered text-center" width="100%" cellspacing="0">
-                            <tr>
-                                <?php
-                                $menuQuery = "SELECT * FROM tbl_menu";
-                                $stmt = $sqlconnection->prepare($menuQuery);
-                                $stmt->execute();
-                                $result = $stmt->get_result();
-                                $counter = 0;
+      <div class="col-lg-6">
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fas fa-utensils"></i> Tomar Órdenes
+        </div>
+        <div class="card-body">
+            
+            <input type="text" id="searchInput" class="form-control mb-3" placeholder="Buscar por ID o nombre..." onkeyup="filterMenuItems()">
 
-                                while ($menuRow = $result->fetch_assoc()) {
-                                    if ($counter % 3 == 0) {
-                                        echo "</tr><tr>";
-                                    }
-                                    echo "<td>
-        <button class='_favorit' style='margin-bottom:4px; white-space: normal; background-color: #ffffff; color: #000;' onclick='displayItem(" . $menuRow['menuID'] . ")'>
-            " . $menuRow['menuName'] . "
-            <img src='../image/" . $menuRow['menu_imagen'] . "' alt='" . $menuRow['menu_imagen'] . "' style='width:100%; height:auto;'>
-        </button>
-      </td>";
+            <div id="menuContainer" class="row">
+                <?php
+                $menuQuery = "SELECT * FROM tbl_menu";
+                $result = $sqlconnection->query($menuQuery);
 
-                                    $counter++;
-                                }
-                                $stmt->close();
-                                ?>
-                            </tr>
-                        </table>
-                        <table id="tblItem" class="table table-responsive table-bordered" width="100%" cellspacing="0"></table>
-
-                        <div id="qtypanel" hidden="">
-                            Cantidad: <input id="qty" required="required" type="number" min="1" max="50" name="qty" value="1" />
-                            <button class="btn btn-info" onclick="insertItem()">Listo</button>
-                            <br><br>
-                        </div>
-                    </div>
-                </div>
+                while ($menuRow = $result->fetch_assoc()) {
+                    $id = htmlspecialchars($menuRow['menuID']);
+                    $name = htmlspecialchars($menuRow['menuName']);
+                    $img = htmlspecialchars($menuRow['menu_imagen']);
+                    echo "
+                    <div class='col-md-4 menu-item' data-id='{$id}' data-name='{$name}'>
+                        <button class='_favorit' style='margin-bottom:10px; background-color:#ffffff; color:#000; white-space: normal;' onclick='displayItem({$id})'>
+                            {$name}
+                            <img src='../image/{$img}' alt='Imagen de {$name}' style='width:100%; height:auto;'>
+                        </button>
+                    </div>";
+                }
+                ?>
             </div>
 
-            <!-- Sección de Órdenes -->
+            <table id="tblItem" class="table table-responsive table-bordered" width="100%" cellspacing="0"></table>
+
+            <div id="qtypanel" hidden>
+                Cantidad:
+                <input id="qty" required type="number" min="1" max="50" name="qty" value="1" />
+                <button class="btn btn-info" onclick="insertItem()">Listo</button>
+                <br><br>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function filterMenuItems() {
+    const input = document.getElementById("searchInput").value.toLowerCase();
+    const items = document.getElementsByClassName("menu-item");
+
+    for (let i = 0; i < items.length; i++) {
+        const name = items[i].getAttribute("data-name").toLowerCase();
+        const id = items[i].getAttribute("data-id").toLowerCase();
+
+        if (name.includes(input) || id.includes(input)) {
+            items[i].style.display = "block";
+        } else {
+            items[i].style.display = "none";
+        }
+    }
+}
+</script>
+      <!-- Sección de Órdenes -->
             <div class="col-lg-6">
                 <div class="card mb-3">
                     <div class="card-header">
