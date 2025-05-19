@@ -250,15 +250,7 @@ include("../include/logout_modal.php");
 
         newRow.innerHTML = `
             <td>
-                <input type="hidden"
-
-
-
-
-
-
-ChatGPT dijo:
-name="item_id[]" value="${currentItemID}" />
+                <input type="hidden" name="item_id[]" value="${currentItemID}" />
 <input type="hidden" name="item_name[]" value="${currentItemName}" />
 ${currentItemName}
 </td>
@@ -273,9 +265,6 @@ ${quantity}
 <td>C$ ${total.toFixed(2)}</td>
 `;
 
-javascript
-Copiar
-Editar
     // Ocultar el panel y resetear cantidad
     document.getElementById("qtypanel").hidden = true;
     document.getElementById("qty").value = 1;
@@ -292,4 +281,6 @@ function mostrarCosto() {
         document.getElementById("costo").value = '';
     }
 }
-</script> </body> </html>
+</script> 
+</body> 
+</html>
