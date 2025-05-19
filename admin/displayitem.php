@@ -1,80 +1,77 @@
-<?php 
+<?php  
 include("../functions.php");
-		
-		if((!isset($_SESSION['uid']) && !isset($_SESSION['username']) && isset($_SESSION['user_level'])) ) 
-		header("Location: login.php");
-	
-		if($_SESSION['user_level'] != "admin")
-		header("Location: login.php");
-	
 
-	if (isset($_POST['btnMenuID'])) {
+if ((!isset($_SESSION['uid']) && !isset($_SESSION['username']) && isset($_SESSION['user_level']))) {
+    header("Location: login.php");
+}
 
-		$menuID = $sqlconnection->real_escape_string($_POST['btnMenuID']);
+if ($_SESSION['user_level'] != "admin") {
+    header("Location: login.php");
+}
 
-		$menuItemQuery = "SELECT itemID,menuItemName FROM tbl_menuitem WHERE menuID = " . $menuID;
+if (isset($_POST['btnMenuID'])) {
+    $menuID = $sqlconnection->real_escape_string($_POST['btnMenuID']);
 
-		if ($menuItemResult = $sqlconnection->query($menuItemQuery)) {
-			if ($menuItemResult->num_rows > 0) {
-				$counter = 0;
-				while($menuItemRow = $menuItemResult->fetch_array(MYSQLI_ASSOC)) {
+    $menuItemQuery = "SELECT itemID,menuItemName FROM tbl_menuitem WHERE menuID = " . $menuID;
 
-					if ($counter >=3) {
-						echo "</tr>";
-						$counter = 0;
-					}
+    if ($menuItemResult = $sqlconnection->query($menuItemQuery)) {
+        if ($menuItemResult->num_rows > 0) {
+            $counter = 0;
+            while ($menuItemRow = $menuItemResult->fetch_array(MYSQLI_ASSOC)) {
+                if ($counter >= 3) {
+                    echo "</tr>";
+                    $counter = 0;
+                }
 
-					if($counter == 0) {
-						echo "<tr>";
-					}
+                if ($counter == 0) {
+                    echo "<tr>";
+                }
 
-					echo "<td>
-					<button style='margin-bottom:4px;white-space: normal;' class='btn btn-success' onclick = 'setQty({$menuItemRow['itemID']})'>{$menuItemRow['menuItemName']}
-					</button>
-					</td>";
+                echo "<td>
+                    <button style='margin-bottom:4px;white-space: normal;' class='btn btn-success' onclick='setQty({$menuItemRow['itemID']})'>{$menuItemRow['menuItemName']}</button>
+                    </td>";
 
-					$counter++;
-				}
-			}
+                $counter++;
+            }
+        } else {
+            echo "<tr><td>No hay item en este menú</td></tr>";
+        }
+    }
+}
 
-			else {
-				echo "<tr><td>No hay item en este menú</td></tr>";
-			}
-			
-		}
-	}
+if (isset($_POST['btnMenuItemID']) && isset($_POST['qty'])) {
+    $menuItemID = $sqlconnection->real_escape_string($_POST['btnMenuItemID']);
+    $quantity = $sqlconnection->real_escape_string($_POST['qty']);
 
-	if (isset($_POST['btnMenuItemID']) && isset($_POST['qty'])) {
-		
-		$menuItemID = $sqlconnection->real_escape_string($_POST['btnMenuItemID']);
-		$quantity = $sqlconnection->real_escape_string($_POST['qty']);
+    $menuItemQuery = "SELECT mi.itemID, mi.menuItemName, mi.price, m.menuName FROM tbl_menuitem mi 
+                      LEFT JOIN tbl_menu m ON mi.menuID = m.menuID 
+                      WHERE mi.itemID = " . $menuItemID;
 
-		$menuItemQuery = "SELECT mi.itemID,mi.menuItemName,mi.price,m.menuName FROM tbl_menuitem mi LEFT JOIN tbl_menu m ON mi.menuID = m.menuID WHERE itemID = " . $menuItemID;
-
-		if ($menuItemResult = $sqlconnection->query($menuItemQuery)) {
-			if ($menuItemResult->num_rows > 0) {
-				if ($menuItemRow = $menuItemResult->fetch_array(MYSQLI_ASSOC)) {
-					echo "
-					<tr>
-						<input type = 'hidden' id='itemID[]' name='itemID[]' value ='".$menuItemRow['itemID']."'/>
-						<td>".$menuItemRow['menuName']." : ".$menuItemRow['menuItemName']."</td>
-						<td>".$menuItemRow['price']."</td>
-						<td><input type = 'number' required='required' min='0' max='50' step='0.01' id='itemqty[]'  name= 'itemqty[]' width='10px' class='form-control' value ='".$quantity."'/></td>
-						<td>" . number_format((float)$menuItemRow['price'] * $quantity, 2, '.', '') . "</td>
-						<td><button class='btn btn-danger deleteBtn' type='button' onclick='deleteRow()'><i class='fas fa-times'></i></button></td>
-					</tr>
-					";
-				}
-			}
-
-			else {
-				//no data retrieve
-				echo "null";
-			}
-			
-		}
-
-	}
-
-	
+    if ($menuItemResult = $sqlconnection->query($menuItemQuery)) {
+        if ($menuItemResult->num_rows > 0) {
+            if ($menuItemRow = $menuItemResult->fetch_array(MYSQLI_ASSOC)) {
+                $total = number_format((float)$menuItemRow['price'] * $quantity, 2, '.', '');
+                echo "
+                <tr>
+                    <td>
+                        <input type='hidden' name='itemID[]' value='{$menuItemRow['itemID']}' />
+                        {$menuItemRow['menuName']} : {$menuItemRow['menuItemName']}
+                    </td>
+                    <td>
+                        <input type='hidden' name='itemPrice[]' value='{$menuItemRow['price']}' />
+                        {$menuItemRow['price']}
+                    </td>
+                    <td>
+                        <input type='number' required min='0' max='50' step='0.01' name='itemqty[]' class='form-control' value='{$quantity}' />
+                    </td>
+                    <td>{$total}</td>
+                    <td><button class='btn btn-danger deleteBtn' type='button'><i class='fas fa-times'></i>Eliminar</button></td>
+                </tr>
+                ";
+            }
+        } else {
+            echo "null";
+        }
+    }
+}
 ?>
