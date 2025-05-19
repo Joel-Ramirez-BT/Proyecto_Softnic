@@ -249,12 +249,12 @@ include("../include/logout_modal.php");
 
     newRow.innerHTML = `
         <td>
-            <input type="hidden" name="item_id[]" value="${currentItemID}" />
-            <input type="hidden" name="item_name[]" value="${currentItemName}" />
+            <input type="hidden" name="itemID[]" value="${currentItemID}" />
+            <input type="hidden" name="itemname[]" value="${currentItemName}" />
             ${currentItemName}
         </td>
         <td>
-            <input type="hidden" name="item_price[]" value="${currentItemPrice}" />
+            <input type="hidden" name="price[]" value="${currentItemPrice}" />
             C$ ${currentItemPrice.toFixed(2)}
         </td>
         <td>
