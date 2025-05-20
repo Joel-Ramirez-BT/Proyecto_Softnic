@@ -1,5 +1,6 @@
 <?php
 include('../config.php');
+
 // Conectar a la base de datos
 $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
@@ -20,9 +21,14 @@ if (isset($_FILES["backup_file"]) && $_FILES["backup_file"]["error"] == 0) {
     $success = true;
     foreach ($queries as $query) {
         $query = trim($query);
+
         if (!empty($query)) {
+            // Reemplazar valores vacíos '' por NULL para enteros y fechas
+            // Esto es muy general. Puedes ajustarlo si deseas solo afectar ciertos campos
+            $query = preg_replace("/''/", "NULL", $query);
+
             if (!$conn->query($query)) {
-                echo "Error en la consulta: " . $conn->error . "<br>";
+                echo "Error en la consulta:<br><code>$query</code><br><strong>" . $conn->error . "</strong><br>";
                 $success = false;
                 break;
             }
@@ -30,12 +36,7 @@ if (isset($_FILES["backup_file"]) && $_FILES["backup_file"]["error"] == 0) {
     }
 
     if ($success) {
-        echo "
-        <center>
-        <br>
-        <h1 style='color:green;'>Backup restaurado con éxito.</h1>
-        </center>
-        ";
+        echo "<center><br><h1 style='color:green;'>Backup restaurado con éxito.</h1></center>";
     } else {
         echo "<h3 style='color:red;'>Hubo un error al restaurar el backup.</h3>";
     }

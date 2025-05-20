@@ -39,6 +39,17 @@ include("../functions.php");
         <!-- Estilos de mac-->
         <link href="../css/stylesmac.css" rel="stylesheet">
 
+    <style>
+      /* Aquí está la modificación para poner las tablas lado a lado */
+      #orderContainer {
+        display: flex;
+        gap: 20px;
+        align-items: flex-start;
+      }
+      .table-wrapper {
+        width: 50%;
+      }
+    </style>
 
   </head>
 
@@ -56,6 +67,7 @@ include("../functions.php");
     <?php
   include_once("./../include/sidebar.php");
 ?>
+
           <!-- Breadcrumbs-->
           <ol class="breadcrumb">
             <li class="breadcrumb-item">
@@ -69,85 +81,83 @@ include("../functions.php");
           <hr>
           <p> órdenes en esta página.</p>
 
-          <div class="row">
-          <div class="col-lg-6">
-                <div class="card mb-3">
-                    <div class="card-header">
-                        <i class="fas fa-utensils"></i> Tomar Órdenes
-                    </div>
-                    <div class="card-body">
-                        <table class="table table-responsive table-bordered text-center" width="100%" cellspacing="0">
-                            <tr>
-                                <?php
-                                $menuQuery = "SELECT * FROM tbl_menu";
-                                $stmt = $sqlconnection->prepare($menuQuery);
-                                $stmt->execute();
-                                $result = $stmt->get_result();
-                                $counter = 0;
+          <!-- Contenedor que envuelve las dos tablas -->
+          <div id="orderContainer">
 
-                                while ($menuRow = $result->fetch_assoc()) {
-                                    if ($counter % 3 == 0) {
-                                        echo "</tr><tr>";
-                                    }
-                                    echo "<td>
-        <button class='_favorit' style='margin-bottom:4px; white-space: normal; background-color: #ffffff; color: #000;' onclick='displayItem(" . $menuRow['menuID'] . ")'>
-            " . $menuRow['menuName'] . "
-            <img src='../image/" . $menuRow['menu_imagen'] . "' alt='" . $menuRow['menu_imagen'] . "' style='width:100%; height:auto;'>
-        </button>
-      </td>";
+            <div class="table-wrapper">
+              <div class="card mb-3">
+                  <div class="card-header">
+                      <i class="fas fa-utensils"></i> Tomar Órdenes
+                  </div>
+                  <div class="card-body">
+                      
+                      <input type="text" id="searchInput" class="form-control mb-3" placeholder="Buscar por ID o nombre..." onkeyup="filterMenuItems()">
 
-                                    $counter++;
-                                }
-                                $stmt->close();
-                                ?>
-                            </tr>
-                        </table>
-                        <table id="tblItem" class="table table-responsive table-bordered" width="100%" cellspacing="0"></table>
+                      <div id="menuContainer" class="row">
+                          <?php
+                          $menuItemQuery = "SELECT ItemID, menuItemName, price FROM tbl_menuitem ORDER BY menuItemName ASC";
+                          $result = $sqlconnection->query($menuItemQuery);
 
-                        <div id="qtypanel" hidden="">
-                            Cantidad: <input id="qty" required="required" type="number" min="1" max="50" name="qty" value="1" />
-                            <button class="btn btn-info" onclick="insertItem()">Listo</button>
-                            <br><br>
-                        </div>
-                    </div>
-                </div>
+                          while ($item = $result->fetch_assoc()) {
+                              $id = htmlspecialchars($item['ItemID']);
+                              $name = htmlspecialchars($item['menuItemName']);
+                              $price = htmlspecialchars($item['price']);
+                              echo "
+                              <div class='col-md-4 menu-item' data-id='{$id}' data-name='{$name}'>
+                                  <button class='_favorit' style='margin-bottom:10px; background-color:#ffffff; color:#000; white-space: normal;' onclick='setQty({$id})'>
+                                      {$name} <br>
+                                      <small>Precio: C$ {$price}</small>
+                                  </button>
+                              </div>";
+                          }
+                          ?>
+                      </div>
+
+                      <table id="tblItem" class="table table-responsive table-bordered" width="100%" cellspacing="0"></table>
+
+                      <div id="qtypanel" hidden>
+                          Cantidad:
+                          <input id="qty" required type="number" min="1" max="50" name="qty" value="1" />
+                          <button class="btn btn-info" onclick="insertItem()">Listo</button>
+                          <br><br>
+                      </div>
+                  </div>
+              </div>
             </div>
 
-
-            <div class="col-lg-6">
+            <div class="table-wrapper">
               <div class="card mb-3">
-                <div class="card-header">
-                  <i class="fas fa-chart-bar"></i>
-                  Lista de elementos a añadir</div>
+                  <div class="card-header">
+                      <i class="fas fa-chart-bar"></i> 
+                    Lista de elementos a añadir</div>
 
-                <div class="card-body">
-                  <?php
-$id= $_GET['id'];
-
-               ?>
-        
-                    <form action="addorder.php" method="POST">
-              <div class="card-body">
-                <div>
-                <label for="id"></label>
-              <input type="hidden" id="id"  name="id" class="form-control" value="<?php echo$id ?>">
-               </div>
-						<table id="tblOrderList" class="table table-responsive table-bordered" width="100%" cellspacing="0">
-         
-            
-            <tr>
-								<th>Nombre</th>
-								<th>Precio</th>
-								<th>Cantidad</th>
-								<th>Total (C$)</th>
-							</tr>
-						</table>
-						<input class="btn btn-success" type="submit" name="sentorder" id="sentorder" value="Añadir">
-					</form>
+                  <div class="card-body">
+                    <?php
+                      $id= $_GET['id'];
+                    ?>
+              
+                      <form action="addorder.php" method="POST">
+                        <div class="card-body">
+                          <div>
+                            <label for="id"></label>
+                            <input type="hidden" id="id"  name="id" class="form-control" value="<?php echo$id ?>">
+                          </div>
+                          <table id="tblOrderList" class="table table-responsive table-bordered" width="100%" cellspacing="0">
+                            <tr>
+                              <th>Nombre</th>
+                              <th>Precio</th>
+                              <th>Cantidad</th>
+                              <th>Total (C$)</th>
+                            </tr>
+                          </table>
+                          <input class="btn btn-success" type="submit" name="sentorder" id="sentorder" value="Añadir">
+                      </form>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+
+          </div> <!-- Fin orderContainer -->
 
         </div>
         <!-- /.container-fluid -->
@@ -202,56 +212,98 @@ $id= $_GET['id'];
     <script src="js/sb-admin.min.js"></script>
 
     <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
-	<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
-	<script>
-		var currentItemID = null;
+<script>
+    var currentItemID = null;
+    var currentItemName = '';
+    var currentItemPrice = 0;
 
-		function displayItem (id) {
-			$.ajax({
-				url : "displayitem.php",
-					type : 'POST',
-					data : { btnMenuID : id },
+    function filterMenuItems() {
+        const input = document.getElementById("searchInput").value.toLowerCase();
+        const items = document.getElementsByClassName("menu-item");
 
-					success : function(output) {
-						$("#tblItem").html(output);
-					}
-				});
-		}
+        for (let i = 0; i < items.length; i++) {
+            const name = items[i].getAttribute("data-name").toLowerCase();
+            const id = items[i].getAttribute("data-id").toLowerCase();
 
-		function insertItem () {
-			var id = currentItemID;
-			var quantity = $("#qty").val();
-			$.ajax({
-				url : "displayitem.php",
-					type : 'POST',
-					data : { 
-						btnMenuItemID : id,
-						qty : quantity 
-					},
+            if (name.includes(input) || id.includes(input)) {
+                items[i].style.display = "block";
+            } else {
+                items[i].style.display = "none";
+            }
+        }
+    }
 
-					success : function(output) {
-						$("#tblOrderList").append(output);
-						$("#qtypanel").prop('hidden',true);
-					}
-				});
+    function setQty(id) {
+        currentItemID = id;
 
-			$("#qty").val(1);
-		}
+        // Obtener el nombre y precio del producto desde el DOM para mostrar en el panel (opcional)
+        var itemDiv = document.querySelector(`.menu-item[data-id='${id}']`);
+        if (itemDiv) {
+            currentItemName = itemDiv.getAttribute('data-name');
+            // Extraemos el precio mostrado en el botón
+            currentItemPrice = itemDiv.querySelector('small') ? parseFloat(itemDiv.querySelector('small').textContent.replace('Precio: C$ ', '')) : 0;
+        }
 
-		function setQty (id) {
-			currentItemID = id;
-			$("#qtypanel").prop('hidden',false);
-		}
+        document.getElementById("qtypanel").hidden = false;
+        document.getElementById("qty").focus();
+    }
 
-		$(document).on('click','.deleteBtn', function(event){
-		        event.preventDefault();
-		        $(this).closest('tr').remove();
-		        return false;
-		    });
+ function insertItem() {
+    var quantity = parseInt(document.getElementById("qty").value);
+    if (isNaN(quantity) || quantity < 1) {
+        alert("Ingrese una cantidad válida.");
+        return;
+    }
 
-	</script>
+    var total = currentItemPrice * quantity;
+    var tableBody = document.querySelector("#tblOrderList tbody");
 
-  </body>
+    var newRow = document.createElement("tr");
 
-</html>
+    newRow.innerHTML = `
+        <td>
+            <input type="hidden" name="itemID[]" value="${currentItemID}" />
+            <input type="hidden" name="itemname[]" value="${currentItemName}" />
+            ${currentItemName}
+        </td>
+        <td>
+            <input type="hidden" name="price[]" value="${currentItemPrice}" />
+            C$ ${currentItemPrice.toFixed(2)}
+        </td>
+        <td>
+            <input type="number" required min="0.01" max="50" step="0.01" name="itemqty[]" class="form-control" value="${quantity.toFixed(2)}" />
+        </td>
+        <td>C$ ${total.toFixed(2)}</td>
+        <td>
+            <button class='btn btn-danger deleteBtn' type='button'><i class='fas fa-times'></i></button>
+        </td>
+    `;
+
+    tableBody.appendChild(newRow);
+
+    // Añadir evento para borrar fila
+    newRow.querySelector('.deleteBtn').addEventListener('click', function() {
+        this.closest('tr').remove();
+    });
+
+    document.getElementById("qtypanel").hidden = true;
+    document.getElementById("qty").value = 1;
+}
+
+    // Mostrar u ocultar costo de envío según el tipo de servicio seleccionado
+    function mostrarCosto() {
+        var servicio = document.getElementById("servicio").value;
+        var costoGroup = document.getElementById("costoGroup");
+        if (servicio === "Delivery") {
+            costoGroup.classList.remove("d-none");
+        } else {
+            costoGroup.classList.add("d-none");
+            document.getElementById("costo").value
+= '';
+}
+}
+</script>
+
+</body> </html>
